@@ -1,5 +1,8 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:maxLines="1"
+    android:orientation="vertical"
+    android:background="@drawable/loginbg"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_vertical"
@@ -7,73 +10,59 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:stretchColumns="0,3"
-    tools:context="com.team.nju.campuswall.Activity.LoginActivity">
+    tools:context="com.team.nju.campuswall.Activity.LoginActivity"
+    android:weightSum="1">
 
-    <TableRow android:id="@+id/tablerow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <TextView />
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:textSize="35px"
-        android:text="用户名："
-         />
-        <EditText
-         android:id="@+id/username"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:maxLines="1"
-         android:hint="请输入用户名或手机"
-         android:textSize="35px"
-         android:minWidth="400px"   />
-        <TextView />
-    </TableRow>
+    <EditText
+        android:layout_marginTop="200px"
+     android:id="@+id/username"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:maxLines="1"
+     android:hint="请输入用户名或手机"
+     android:textSize="35px"
+     android:minWidth="300px"
+        android:layout_gravity="center_horizontal" />
 
-    <TableRow android:id="@+id/tablerow2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-        <TextView />
-        <TextView
-            android:id="@+id/text2"
+    <EditText
+        android:layout_marginTop="30px"
+            android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:hint="请输入密码"
             android:textSize="35px"
-            android:text="密 码："
-            />
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:gravity="center"
-        android:textSize="35px"
-        android:minWidth="300px"
-        android:inputType="textPassword"/>
-    </TableRow>
-    <TableRow>
-        <TextView />
-        <Button
+            android:minWidth="300px"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal" />
+
+    <ImageButton
+
+        android:layout_marginTop="100px"
+        android:src="@drawable/loginButton"
             android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="500px"
+            android:layout_height="80px"
             android:text="登录"
             android:textStyle="bold"
-            android:layout_gravity="center_horizontal" />
-        <Button
+            android:layout_gravity="center_horizontal"
+            android:layout_column="1"
+            android:layout_alignBaseline="@+id/signup"
+            android:layout_alignBottom="@+id/signup"
+            android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:src="@drawable/signupButton"
+            android:layout_marginTop="30px"
+        android:layout_width="500px"
+        android:layout_height="80px"
             android:id="@+id/signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="注册"
             android:textStyle="bold"
-            android:layout_gravity="center_horizontal" />
-        <TextView />
-    </TableRow>
+            android:layout_gravity="center_horizontal"
+            android:layout_column="3"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+             />
 
-</TableLayout>
+</LinearLayout>
