@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:maxLines="1"
     android:orientation="vertical"
-    android:background="@drawable/loginbg"
+    android:background="@drawable/loginbg2"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_vertical"
@@ -14,7 +14,7 @@
     android:weightSum="1">
 
     <EditText
-        android:layout_marginTop="200px"
+        android:layout_marginTop="50px"
      android:id="@+id/username"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
@@ -36,10 +36,10 @@
             android:inputType="textPassword"
             android:layout_gravity="center_horizontal" />
 
-    <ImageButton
+    <ImageView
 
         android:layout_marginTop="100px"
-        android:src="@drawable/loginButton"
+        android:src="@drawable/loginButton2"
             android:id="@+id/login"
             android:layout_width="500px"
             android:layout_height="80px"
@@ -51,8 +51,8 @@
             android:layout_alignBottom="@+id/signup"
             android:layout_centerHorizontal="true" />
 
-    <ImageButton
-        android:src="@drawable/signupButton"
+    <ImageView
+        android:src="@drawable/signupButton2"
             android:layout_marginTop="30px"
         android:layout_width="500px"
         android:layout_height="80px"
