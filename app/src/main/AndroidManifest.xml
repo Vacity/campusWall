@@ -33,7 +33,8 @@
 
         <activity
             android:name=".Activity.signUpActivity"
-            android:label="@string/title_activity_sign_up"></activity>
+            android:label="@string/title_activity_sign_up" />
+        <activity android:name=".Activity.profileActivity"></activity>
     </application>
 
 </manifest>
