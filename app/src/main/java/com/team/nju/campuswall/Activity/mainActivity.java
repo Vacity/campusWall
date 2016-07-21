@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.team.nju.campuswall.R;
+
 public class mainActivity extends Activity {
 
     @Override

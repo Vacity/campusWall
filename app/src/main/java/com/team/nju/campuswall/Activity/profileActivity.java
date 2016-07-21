@@ -6,7 +6,8 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.team.nju.campuswall.myView.photoChange;
+import com.team.nju.campuswall.R;
+//import com.team.nju.campuswall.myView.photoChange;
 
 public class profileActivity extends AppCompatActivity {
 
@@ -15,8 +16,8 @@ public class profileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         TableLayout tableLayout =(TableLayout)findViewById(R.id.profileLayout);
-        final photoChange pc = new photoChange(profileActivity.this);
-        tableLayout.addView(pc);
+//        final photoChange pc = new photoChange(profileActivity.this);
+//        tableLayout.addView(pc);
         ImageView photo = (ImageView)findViewById(R.id.photo);
         TextView username=(TextView)findViewById(R.id.profile_username);
         TextView school=(TextView)findViewById(R.id.profile_school);

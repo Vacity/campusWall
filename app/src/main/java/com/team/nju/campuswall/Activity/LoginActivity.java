@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,8 +50,8 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button login=(Button)findViewById(R.id.login);
-        login.setOnClickListener(new View.onClickListener(){
+        ImageView login=(ImageView)findViewById(R.id.login);
+        login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v){
                 String username=((EditText)findViewById(R.id.username)).getText().toString();

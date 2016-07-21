@@ -39,7 +39,7 @@
     <ImageView
 
         android:layout_marginTop="100px"
-        android:src="@drawable/loginButton2"
+        android:src="@drawable/login_button2"
             android:id="@+id/login"
             android:layout_width="500px"
             android:layout_height="80px"
@@ -52,7 +52,7 @@
             android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:src="@drawable/signupButton2"
+        android:src="@drawable/signup_button2"
             android:layout_marginTop="30px"
         android:layout_width="500px"
         android:layout_height="80px"
