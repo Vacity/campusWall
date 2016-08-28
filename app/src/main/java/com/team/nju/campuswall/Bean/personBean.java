@@ -7,6 +7,15 @@ public class personBean {
     String username;
     String password;
     String school;
+    String cmd;
+
+    public String getCmd() {
+        return cmd;
+    }
+
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
 
     public String getUsername() {
         return username;

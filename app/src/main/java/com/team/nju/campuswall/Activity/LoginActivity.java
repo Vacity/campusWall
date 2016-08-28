@@ -49,8 +49,17 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        ImageView signup=(ImageView)findViewById(R.id.signup);
         ImageView login=(ImageView)findViewById(R.id.login);
+
+        signup.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,signUpActivity.class);
+                startActivity(intent);
+            }
+            });
+
         login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v){

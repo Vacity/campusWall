@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.LoginActivity"
             android:label="@string/title_activity_login" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -34,7 +34,9 @@
         <activity
             android:name=".Activity.signUpActivity"
             android:label="@string/title_activity_sign_up" />
-        <activity android:name=".Activity.profileActivity"></activity>
+
+        <activity android:name=".Activity.profileActivity">
+        </activity>
     </application>
 
 </manifest>
