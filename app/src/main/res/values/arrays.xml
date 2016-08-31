@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="stype">
+        <item>热度</item>
+        <item>时间从近到远</item>
+        <item>时间从远到近</item>
+    </string-array>
+</resources>

@@ -74,8 +74,11 @@ public class LoginActivity extends Activity {
                     ((EditText)findViewById(R.id.username)).setText("");
                     ((EditText)findViewById(R.id.password)).setText("");
                 }else{
-                    if(ps.login(username,password)) {
+//                    if(ps.login(username,password)) {
+                    if(true){
                         // 正确登录
+                        Intent intent = new Intent(LoginActivity.this,showMessagesActivity.class);
+                        startActivity(intent);
                     }
                     else{
                         Toast.makeText(LoginActivity.this, "输入的密码不正确", Toast.LENGTH_LONG).show();
