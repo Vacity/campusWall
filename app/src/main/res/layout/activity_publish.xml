@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:background="@null"
+        android:inputType="none"
+        android:hint="吐个槽..."
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
+    
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/profile_change"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        />
+
+
+
+    <Button
+        android:layout_gravity="center"
+        android:layout_width="120dp"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/arc_button"
+        android:textColor="#FFF"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/publish_message"/>
+
+
+
+</LinearLayout>

@@ -28,8 +28,9 @@
             <EditText android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Email" />
+                android:inputType="textEmailAddress"/>
+                <!--android:hint="@string/sign_up_email_hint" -->
+
         </android.support.design.widget.TextInputLayout>
 
         <!--  Email Label -->
@@ -41,8 +42,9 @@
             <EditText android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Password" />
+                android:inputType="textPassword" />
+                <!--android:hint="@string/sign_up_password_hint"-->
+
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -54,8 +56,9 @@
             <EditText android:id="@+id/input_school"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="School"/>
+                android:inputType="text"/>
+                <!--android:hint="@string/sign_up_school_hint"-->
+
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->
