@@ -15,4 +15,8 @@
         completions."
     </string>
     <string name="title_activity_sign_up">signUpActivity</string>
+    <string name="sign_up_email_hint">Email</string>
+    <string name="sign_up_password_hint">Password</string>
+    <string name="sign_up_school_hint">School</string>
+    <string name="publish_message">Publish</string>
 </resources>
