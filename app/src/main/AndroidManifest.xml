@@ -35,7 +35,8 @@
             android:name=".Activity.signUpActivity"
             android:label="@string/title_activity_sign_up" />
         <activity android:name=".Activity.profileActivity" />
-        <activity android:name=".Activity.showMessagesActivity"></activity>
+        <activity android:name=".Activity.showMessagesActivity" />
+        <activity android:name=".Activity.CommentActivity"></activity>
     </application>
 
 </manifest>
