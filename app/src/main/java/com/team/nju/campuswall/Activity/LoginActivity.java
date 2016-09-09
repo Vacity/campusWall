@@ -65,12 +65,13 @@ public class LoginActivity extends Activity {
             public void onClick(View v){
                 String username=((EditText)findViewById(R.id.username)).getText().toString();
                 String password=((EditText)findViewById(R.id.password)).getText().toString();
-                if(username==null) {
+                if(username=="") {
                     Toast.makeText(LoginActivity.this, "请输入用户名或手机", Toast.LENGTH_LONG).show();
                     ((EditText)findViewById(R.id.username)).setText("");
                     ((EditText)findViewById(R.id.password)).setText("");
-                }else if(password==null){
+                }else if(password==""){
                     Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
+                    System.out.print("NULLLLLLLLLLLLLL");
                     ((EditText)findViewById(R.id.username)).setText("");
                     ((EditText)findViewById(R.id.password)).setText("");
                 }else{

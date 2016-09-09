@@ -1,13 +1,16 @@
 package com.team.nju.campuswall.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.team.nju.campuswall.Activity.signUpActivity;
 import com.team.nju.campuswall.R;
 
 import java.util.List;
@@ -32,9 +35,9 @@ public class messageListAdapter extends BaseAdapter {
         public TextView title;
         public TextView content;
         public TextView remarkNum;
-        public Button remark;
+        public ImageView remark;
         public TextView starNum;
-        public Button star;
+        public ImageView star;
     }
     @Override
     public int getCount() {
@@ -61,9 +64,16 @@ public class messageListAdapter extends BaseAdapter {
             zujian.content=(TextView)view.findViewById(R.id.content);
             zujian.remarkNum=(TextView)view.findViewById(R.id.remarkNum);
             zujian.starNum=(TextView)view.findViewById(R.id.starNum);
-            zujian.remark=(Button)view.findViewById(R.id.remark);
-            zujian.star=(Button)view.findViewById(R.id.star);
+            zujian.remark=(ImageView)view.findViewById(R.id.remark);
+            zujian.star=(ImageView)view.findViewById(R.id.star);
             view.setTag(zujian);
+            zujian.star.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                }
+            });
         }else{
             zujian=(Zujian)view.getTag();
         }
