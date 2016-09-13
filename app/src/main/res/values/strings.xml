@@ -25,6 +25,6 @@
     <string name="sign_up_email_hint">手机号码</string>
     <string name="sign_up_password_hint">密码</string>
     <string name="sign_up_school_hint">学校</string>
-    <string name="publish_message">Publish</string>
+    <string name="publish_message">发表</string>
 
 </resources>
