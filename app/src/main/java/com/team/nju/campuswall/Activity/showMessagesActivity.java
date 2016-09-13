@@ -31,6 +31,7 @@ import com.team.nju.campuswall.R;
 
 public class showMessagesActivity extends FragmentActivity implements
         SearchView.OnQueryTextListener {
+    private ListView list;
     private SearchView sv;
     private ListView lv;
     // 自动完成的列表
@@ -97,6 +98,13 @@ public class showMessagesActivity extends FragmentActivity implements
         });
         ImageView issue =(ImageView)findViewById(R.id.issue);
         ImageView profile =(ImageView) findViewById(R.id.profile);
+        issue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(showMessagesActivity.this,CommentActivity.class);
+               startActivity(intent);
+            }
+        });
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +139,7 @@ public class showMessagesActivity extends FragmentActivity implements
             @Override
             public Fragment getItem(int index)//直接创建fragment对象并返回
             {
+
                 switch (index) {
                     case 0:
                         return new tab1();

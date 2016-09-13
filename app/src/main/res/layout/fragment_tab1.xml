@@ -13,4 +13,9 @@
         android:id="@+id/sort1"
         android:textSize="35px"
         android:entries="@array/stype"></Spinner>
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
 </FrameLayout>
