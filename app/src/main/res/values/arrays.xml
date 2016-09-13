@@ -6,4 +6,8 @@
         <item>时间从近到远</item>
         <item>时间从远到近</item>
     </string-array>
+
+    <string-array name="school">
+        <item>南京大学</item>
+    </string-array>
 </resources>

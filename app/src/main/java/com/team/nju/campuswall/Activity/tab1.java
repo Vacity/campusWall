@@ -75,7 +75,7 @@ public class tab1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab1,null);//注意不要指定父视图
-        listView=(ListView)view.findViewById(R.id.list);
+        listView=(ListView)view.findViewById(R.id.list1);
         List<Map<String,Object>> list = getData();
         listView.setAdapter(new messageListAdapter(this.getActivity(),list));
         return view;
@@ -83,9 +83,9 @@ public class tab1 extends Fragment {
 
     private List<Map<String,Object>> getData() {
         List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<20;i++){
             Map<String,Object> map = new HashMap<String,Object>();
-            map.put("title","这是一个标题"+i);
+            map.put("title","校园轶事标题"+i);
             map.put("content","这是表白墙的内容：啪啪啪啪啪啪啪啪....................................................................啪");
             map.put("remarkNum","评论数："+i);
             map.put("starNum","点赞量："+i);

@@ -22,32 +22,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
+            android:layout_marginLeft="15px"
             android:id="@+id/remarkNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6"
+            android:text="25"
             android:layout_gravity="center"
             android:textColor="#666872"/>
-        <Button
+        <ImageView
+            android:layout_marginLeft="15px"
             android:id="@+id/remark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="remark!"
+            android:src="@drawable/comment"
             />
     <TextView
+        android:layout_marginLeft="45px"
         android:id="@+id/starNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="99"
         android:layout_gravity="center"
         android:textColor="#666872"/>
-    <Button
+    <ImageView
+        android:layout_marginLeft="15px"
         android:id="@+id/star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Star!"
+        android:src="@drawable/star"
         />
     </LinearLayout>
 </LinearLayout>

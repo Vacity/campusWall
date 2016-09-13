@@ -7,8 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.team.nju.campuswall.Adapter.messageListAdapter;
 import com.team.nju.campuswall.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +36,7 @@ public class tab3 extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    private ListView listView=null;
     public tab3() {
         // Required empty public constructor
     }
@@ -66,7 +73,24 @@ public class tab3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab3,null);//注意不要指定父视图
+        listView=(ListView)view.findViewById(R.id.list3);
+        List<Map<String,Object>> list = getData();
+        listView.setAdapter(new messageListAdapter(this.getActivity(),list));
         return view;
+    }
+
+    private List<Map<String,Object>> getData() {
+        List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
+        for(int i=0;i<30;i++){
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("title","这是交易标题"+i);
+            map.put("content","这是表白墙的内容：啪啪啪啪啪啪啪啪....................................................................啪");
+            map.put("remarkNum","评论数："+i);
+            map.put("starNum","点赞量："+i);
+            //     map.put("image",R.drawable.XXXX);  可以加头像
+            list.add(map);
+        }
+        return list;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -25,14 +25,15 @@
             android:id="@+id/issue"
            android:text="+发布"
             android:textStyle="bold"
-            android:src="@drawable/issue"
+            android:src="@drawable/publish"
             android:layout_marginRight="15px"
             />
         <ImageView
+            android:layout_marginLeft="15px"
             android:id="@+id/profile"
             android:text="个人中心"
             android:textStyle="bold"
-            android:src="@drawable/profile"
+            android:src="@drawable/user"
             />
 </TableRow>
 
