@@ -97,24 +97,24 @@ public class CommonUtils {
         mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
     }
 
-    //加载网络图片
-    public void displayNetworkImage(String url, ImageView view) {
-        if (view == null) {
-            return;
-        }
-		/*DisplayImageOptions options = new DisplayImageOptions.Builder()
-				.cacheInMemory(true)
-				.cacheOnDisk(true).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.showImageOnLoading(R.drawable.image_show_default)
-				.build();
-		mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);*/
-        Glide.with(APP.context)
-                .load(url).centerCrop()
-                .placeholder(R.drawable.holder)
-                .error(R.drawable.loading_error)
-                .into(view);
-    }
+//    //加载网络图片
+//    public void displayNetworkImage(String url, ImageView view) {
+//        if (view == null) {
+//            return;
+//        }
+//		/*DisplayImageOptions options = new DisplayImageOptions.Builder()
+//				.cacheInMemory(true)
+//				.cacheOnDisk(true).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+//				.bitmapConfig(Bitmap.Config.RGB_565)
+//				.showImageOnLoading(R.drawable.image_show_default)
+//				.build();
+//		mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);*/
+//        Glide.with(APP.context)
+//                .load(url).centerCrop()
+//                .placeholder(R.drawable.holder)
+//                .error(R.drawable.loading_error)
+//                .into(view);
+//    }
 
     public void displayCircleImage(String url, ImageView view, String str) {
         if (view == null) {
@@ -169,21 +169,21 @@ public class CommonUtils {
 
 
 
-    public int getViewHeight(Context context, String str) {
-
-        int height = 0;
-
-        if (str.equals("videoView")) {
-            height = APP.screenWidth * 9 / 16;
-        }
-        if (str.equals("gameCollectPoster")) {
-            height = APP.screenWidth * 3 / 8;
-        }
-        if (str.equals("homePoster")) {
-            height = APP.screenWidth * 132 / 355;
-        }
-        return height;
-    }
+//    public int getViewHeight(Context context, String str) {
+//
+//        int height = 0;
+//
+//        if (str.equals("videoView")) {
+//            height = APP.screenWidth * 9 / 16;
+//        }
+//        if (str.equals("gameCollectPoster")) {
+//            height = APP.screenWidth * 3 / 8;
+//        }
+//        if (str.equals("homePoster")) {
+//            height = APP.screenWidth * 132 / 355;
+//        }
+//        return height;
+//    }
 
     public void getViewHeight(View view, View view2) {
         int w = View.MeasureSpec.makeMeasureSpec(0,
