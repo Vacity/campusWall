@@ -23,12 +23,14 @@ public class messageListAdapter extends BaseAdapter {
 
     private List<Map<String,Object>> data;
     private LayoutInflater layoutInflater;
+    private ListItemClickHelp callback;
     private Context context;
 
-    public  messageListAdapter(Context context,List<Map<String,Object>> data){
+    public  messageListAdapter(Context context,List<Map<String,Object>> data,ListItemClickHelp callback){
         this.context=context;
         this.data=data;
         this.layoutInflater=LayoutInflater.from(context);
+        this.callback=callback;
     }
 
     public final class Zujian{
@@ -55,7 +57,7 @@ public class messageListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, final ViewGroup viewGroup) {
         Zujian zujian = null;
         if(view==null){
             zujian = new Zujian();
@@ -81,6 +83,22 @@ public class messageListAdapter extends BaseAdapter {
         zujian.content.setText((String)data.get(i).get("content"));
         zujian.remarkNum.setText((String)data.get(i).get("remarkNum"));
         zujian.starNum.setText((String)data.get(i).get("starNum"));
+        final int p = i;
+        final int one=zujian.star.getId();
+        final int two = zujian.remark.getId();
+        final View convertView = view;
+        zujian.star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onClick(convertView, viewGroup, p, one);
+            }
+        });
+        zujian.remark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onClick(convertView, viewGroup, p, two);
+            }
+        });
         return view;
     }
 }
