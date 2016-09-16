@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -16,6 +17,7 @@ import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -31,17 +33,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
+import com.team.nju.campuswall.Network.NetworkCallbackInterface;
+import com.team.nju.campuswall.Network.StatusCode;
+import com.team.nju.campuswall.Network.netRequest;
 import com.team.nju.campuswall.R;
+import com.team.nju.campuswall.Util.CommonUrl;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements NetworkCallbackInterface.NetRequestIterface{
+
+    private netRequest requestFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,30 +76,57 @@ public class LoginActivity extends Activity {
             public void onClick(View v){
                 String username=((EditText)findViewById(R.id.username)).getText().toString();
                 String password=((EditText)findViewById(R.id.password)).getText().toString();
-                if(username=="") {
+                if(username.equals("")) {
                     Toast.makeText(LoginActivity.this, "请输入用户名或手机", Toast.LENGTH_LONG).show();
                     ((EditText)findViewById(R.id.username)).setText("");
                     ((EditText)findViewById(R.id.password)).setText("");
-                }else if(password==""){
+                }else if(password.equals("")){
                     Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
                     System.out.print("NULLLLLLLLLLLLLL");
                     ((EditText)findViewById(R.id.username)).setText("");
                     ((EditText)findViewById(R.id.password)).setText("");
                 }else{
-//                    if(ps.login(username,password)) {
-                    if(true){
-                        // 正确登录
-                        Intent intent = new Intent(LoginActivity.this,showMessagesActivity.class);
-                        startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(LoginActivity.this, "输入的密码不正确", Toast.LENGTH_LONG).show();
-                        ((EditText)findViewById(R.id.username)).setText("");
-                        ((EditText)findViewById(R.id.password)).setText("");
-                    }
+                 Map map = new HashMap();
+                    map.put("phone", username);
+                    map.put("password", password);
+
+//                    loginProgressDlg = ProgressDialog.show(LoginActivity.this, "shacus", "处理中", true, false);
+                    requestFragment.httpRequest(map, CommonUrl.loginAccount);
                 }
             }
         });
     }
-}
+
+    Override
+    public void requestFinish(String result, String requestUrl) throws JSONException {
+
+        if (requestUrl.equals(CommonUrl.loginAccount)){//返回登录请求
+            JSONObject object = new JSONObject(result);
+            int code = Integer.valueOf(object.getString("code"));
+
+            if (code== StatusCode.REQUEST_LOGIN_SUCCESS){
+//                Gson gson=new Gson();
+//                LoginDataModel loginModel=gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(),LoginDataModel.class);
+//                ACache cache=ACache.get(LoginActivity.this);
+//                cache.put("loginModel",loginModel,ACache.TIME_WEEK*2);
+            }else {
+//                //Looper.prepare();CommonUtils.getUtilInstance().showToast(APP.context, "登录失败");Looper.loop();
+//                //loginProgressDlg.cancel();//进度条取消
+//                Message msg=mHandler.obtainMessage();
+//                msg.what= StatusCode.REQUEST_FAILURE;
+//                msg.obj=object.getString("contents");
+//                mHandler.sendMessage(msg);
+                return;
+            }
+
+//            loginProgressDlg.cancel();//进度条取消
+        //    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            intent.putExtra("result", "登录成功");
+//            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//            startActivity(intent);
+            finish();
+            return;
+        }
+
+    }
 
