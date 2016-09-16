@@ -1,6 +1,7 @@
 package com.team.nju.campuswall.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.team.nju.campuswall.Adapter.ListItemClickHelp;
 import com.team.nju.campuswall.Adapter.messageListAdapter;
 import com.team.nju.campuswall.R;
 
@@ -25,7 +27,7 @@ import java.util.Map;
  * Use the {@link tab3#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class tab3 extends Fragment {
+public class tab3 extends Fragment implements ListItemClickHelp {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -75,7 +77,7 @@ public class tab3 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tab3,null);//注意不要指定父视图
         listView=(ListView)view.findViewById(R.id.list3);
         List<Map<String,Object>> list = getData();
-        listView.setAdapter(new messageListAdapter(this.getActivity(),list));
+        listView.setAdapter(new messageListAdapter(this.getActivity(),list,this));
         return view;
     }
 
@@ -120,5 +122,20 @@ public class tab3 extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onClick(View item, View widget, int position, int which) {
+        switch (which) {
+            case R.id.star:
+
+                break;
+            case R.id.remark:
+                Intent intent = new Intent(getActivity(),CommentActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

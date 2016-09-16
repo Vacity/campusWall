@@ -101,7 +101,7 @@ public class showMessagesActivity extends FragmentActivity implements
         issue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(showMessagesActivity.this,CommentActivity.class);
+                Intent intent = new Intent(showMessagesActivity.this,publishActivity.class);
                startActivity(intent);
             }
         });
