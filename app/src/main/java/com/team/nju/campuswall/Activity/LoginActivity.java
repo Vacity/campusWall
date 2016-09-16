@@ -33,8 +33,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.team.nju.campuswall.BL.personBLImpl;
-import com.team.nju.campuswall.BLService.personBLService;
+
 import com.team.nju.campuswall.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -44,7 +43,6 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends Activity {
 
-    personBLService ps = new personBLImpl();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
