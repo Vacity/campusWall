@@ -37,11 +37,19 @@ public class netRequest {
      * 网络请求用的是OKHttp，这个开源项目的好处是1.Android 6.0后不支持HttpClient请求，而它使用HttpUrlConnection 2.默认支持https
      */
     public void httpRequest(Map<String, Object> map, final String requestUrl) {
+<<<<<<< HEAD
 //        if (!CommonUtils.getUtilInstance().isConnectingToInternet(context)) {
 //           // Toast.makeText(context, context.getString(R.string.internet_fail_connect),Toast.LENGTH_LONG).show();
 //            netRequestIterface.exception(null, requestUrl);
 //            return;
 //        }
+=======
+       // if (!CommonUtils.getUtilInstance().isConnectingToInternet(context)) {
+           // Toast.makeText(context, context.getString(R.string.internet_fail_connect),Toast.LENGTH_LONG).show();
+         //   netRequestIterface.exception(null, requestUrl);
+          //  return;
+      //  }
+>>>>>>> a3aaa53673b0fb89b4193a30859876a48d0eda1a
 
         //CommonUtils.getUtilInstance().showToast(APP.context,map.toString());
 
