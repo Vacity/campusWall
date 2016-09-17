@@ -32,12 +32,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
 
 
+import com.team.nju.campuswall.Model.LoginDataModel;
 import com.team.nju.campuswall.Network.NetworkCallbackInterface;
 import com.team.nju.campuswall.Network.StatusCode;
 import com.team.nju.campuswall.Network.netRequest;
@@ -46,47 +49,48 @@ import com.team.nju.campuswall.Util.CommonUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.google.gson.Gson;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements NetworkCallbackInterface.NetRequestIterface{
+public class LoginActivity extends Activity implements NetworkCallbackInterface.NetRequestIterface {
 
     private netRequest requestFragment;
-
+    private Handler mHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ImageView signup=(ImageView)findViewById(R.id.signup);
-        ImageView login=(ImageView)findViewById(R.id.login);
+        ImageView signup = (ImageView) findViewById(R.id.signup);
+        ImageView login = (ImageView) findViewById(R.id.login);
 
         signup.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,signUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, signUpActivity.class);
                 startActivity(intent);
             }
-            });
+        });
 
         login.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v){
-                String username=((EditText)findViewById(R.id.username)).getText().toString();
-                String password=((EditText)findViewById(R.id.password)).getText().toString();
-                if(username.equals("")) {
+            public void onClick(View v) {
+                String username = ((EditText) findViewById(R.id.username)).getText().toString();
+                String password = ((EditText) findViewById(R.id.password)).getText().toString();
+                if (username.equals("")) {
                     Toast.makeText(LoginActivity.this, "请输入用户名或手机", Toast.LENGTH_LONG).show();
-                    ((EditText)findViewById(R.id.username)).setText("");
-                    ((EditText)findViewById(R.id.password)).setText("");
-                }else if(password.equals("")){
+                    ((EditText) findViewById(R.id.username)).setText("");
+                    ((EditText) findViewById(R.id.password)).setText("");
+                } else if (password.equals("")) {
                     Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
                     System.out.print("NULLLLLLLLLLLLLL");
-                    ((EditText)findViewById(R.id.username)).setText("");
-                    ((EditText)findViewById(R.id.password)).setText("");
-                }else{
-                 Map map = new HashMap();
+                    ((EditText) findViewById(R.id.username)).setText("");
+                    ((EditText) findViewById(R.id.password)).setText("");
+                } else {
+                    Map map = new HashMap();
                     map.put("phone", username);
                     map.put("password", password);
 
@@ -98,29 +102,30 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
     }
 
     Override
+
     public void requestFinish(String result, String requestUrl) throws JSONException {
 
-        if (requestUrl.equals(CommonUrl.loginAccount)){//返回登录请求
+        if (requestUrl.equals(CommonUrl.loginAccount)) {//返回登录请求
             JSONObject object = new JSONObject(result);
             int code = Integer.valueOf(object.getString("code"));
 
-            if (code== StatusCode.REQUEST_LOGIN_SUCCESS){
-//                Gson gson=new Gson();
-//                LoginDataModel loginModel=gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(),LoginDataModel.class);
-//                ACache cache=ACache.get(LoginActivity.this);
-//                cache.put("loginModel",loginModel,ACache.TIME_WEEK*2);
-            }else {
-//                //Looper.prepare();CommonUtils.getUtilInstance().showToast(APP.context, "登录失败");Looper.loop();
-//                //loginProgressDlg.cancel();//进度条取消
-//                Message msg=mHandler.obtainMessage();
-//                msg.what= StatusCode.REQUEST_FAILURE;
-//                msg.obj=object.getString("contents");
-//                mHandler.sendMessage(msg);
+            if (code == StatusCode.REQUEST_LOGIN_SUCCESS) {
+                Gson gson=new Gson();
+                LoginDataModel loginModel=gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(),LoginDataModel.class);
+                ACache cache=ACache.get(LoginActivity.this);
+                cache.put("loginModel",loginModel,ACache.TIME_WEEK*2);
+            } else {
+                //Looper.prepare();CommonUtils.getUtilInstance().showToast(APP.context, "登录失败");Looper.loop();
+                //loginProgressDlg.cancel();//进度条取消
+                Message msg=mHandler.obtainMessage();
+                msg.what= StatusCode.REQUEST_FAILURE;
+                msg.obj=object.getString("contents");
+                mHandler.sendMessage(msg);
                 return;
             }
 
 //            loginProgressDlg.cancel();//进度条取消
-        //    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            //    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //            intent.putExtra("result", "登录成功");
 //            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //            startActivity(intent);
@@ -130,3 +135,11 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
 
     }
 
+    @Override
+    public void exception(IOException e, String requestUrl){
+        Message msg=new Message();
+        msg.what=StatusCode.REQUEST_FAILURE;
+        msg.obj="网络请求失败";
+        mHandler.sendMessage(msg);
+    }
+}
