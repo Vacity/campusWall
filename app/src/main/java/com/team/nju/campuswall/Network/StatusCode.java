@@ -13,12 +13,12 @@ public interface StatusCode {
     //请求验证验证码
     int REQUEST_REGISTER_VERIFYB=10002;
     //请求注册
-    int REQUEST_REGISTER=10003;
-    //注册请求类别的成功返回码
-    int RECIEVE_REGISTER_SUCCESS=10004;
-    //自动登录的请求码
+    int REQUEST_REGISTER=10002;
+    //注册请求的成功返回码
+    int RECIEVE_REGISTER_SUCCESS=10003;
+    //登录的请求码
     int REQUEST_AUTO_LOGIN=10105;
-    //手动登录的请求码
+    //登录的请求码
     int REQUEST_LOGIN=10106;
     //登录请求类别成功的返回码
     int REQUEST_LOGIN_SUCCESS =10111 ;

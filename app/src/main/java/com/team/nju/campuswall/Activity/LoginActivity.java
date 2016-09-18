@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.logging.Handler;
 
 
+import com.team.nju.campuswall.Model.ACache;
 import com.team.nju.campuswall.Model.LoginDataModel;
 import com.team.nju.campuswall.Network.NetworkCallbackInterface;
 import com.team.nju.campuswall.Network.StatusCode;
@@ -57,7 +58,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends Activity implements NetworkCallbackInterface.NetRequestIterface {
-
+    private ProgressDialog loginProgessDlg;
     private netRequest requestFragment;
     private Handler mHandler;
     @Override
@@ -93,46 +94,41 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
                     Map map = new HashMap();
                     map.put("phone", username);
                     map.put("password", password);
-
-//                    loginProgressDlg = ProgressDialog.show(LoginActivity.this, "shacus", "处理中", true, false);
+                    map.put("type", StatusCode.REQUEST_LOGIN);
                     requestFragment.httpRequest(map, CommonUrl.loginAccount);
+                    loginProgessDlg= ProgressDialog.show(LoginActivity.this, "shacus", "处理中", true, false);
                 }
             }
         });
     }
 
-    Override
-
+    @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
-
         if (requestUrl.equals(CommonUrl.loginAccount)) {//返回登录请求
             JSONObject object = new JSONObject(result);
             int code = Integer.valueOf(object.getString("code"));
 
             if (code == StatusCode.REQUEST_LOGIN_SUCCESS) {
-                Gson gson=new Gson();
-                LoginDataModel loginModel=gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(),LoginDataModel.class);
-                ACache cache=ACache.get(LoginActivity.this);
-                cache.put("loginModel",loginModel,ACache.TIME_WEEK*2);
+                Gson gson = new Gson();
+                LoginDataModel loginModel = gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(), LoginDataModel.class);
+                ACache cache = ACache.get(LoginActivity.this);
+                loginProgessDlg.cancel();//进度条取消
+                Intent intent = new Intent(getApplicationContext(), showMessagesActivity.class);
+                intent.putExtra("result", "注册成功");
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+                return;
             } else {
                 //Looper.prepare();CommonUtils.getUtilInstance().showToast(APP.context, "登录失败");Looper.loop();
-                //loginProgressDlg.cancel();//进度条取消
-                Message msg=mHandler.obtainMessage();
-                msg.what= StatusCode.REQUEST_FAILURE;
-                msg.obj=object.getString("contents");
-                mHandler.sendMessage(msg);
+
+//                Message msg=mHandler.obtainMessage();
+//                msg.what= StatusCode.REQUEST_FAILURE;
+//                msg.obj=object.getString("contents");
+//                mHandler.sendMessage(msg);
                 return;
             }
-
-//            loginProgressDlg.cancel();//进度条取消
-            //    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            intent.putExtra("result", "登录成功");
-//            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//            startActivity(intent);
-            finish();
-            return;
         }
-
     }
 
     @Override
@@ -140,6 +136,6 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
         Message msg=new Message();
         msg.what=StatusCode.REQUEST_FAILURE;
         msg.obj="网络请求失败";
-        mHandler.sendMessage(msg);
+       // mHandler.sendMessage(msg);
     }
 }
