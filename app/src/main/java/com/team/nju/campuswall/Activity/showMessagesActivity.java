@@ -27,13 +27,26 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.team.nju.campuswall.Network.NetworkCallbackInterface;
+import com.team.nju.campuswall.Network.StatusCode;
+import com.team.nju.campuswall.Network.netRequest;
 import com.team.nju.campuswall.R;
+import com.team.nju.campuswall.Util.CommonUrl;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class showMessagesActivity extends FragmentActivity implements
-        SearchView.OnQueryTextListener {
+        SearchView.OnQueryTextListener,NetworkCallbackInterface.NetRequestIterface {
     private ListView list;
     private SearchView sv;
     private ListView lv;
+    private netRequest requestFragment;
+    private int flag = 0;
     // 自动完成的列表
     private final String[] mStrings = {"aaaaa", "bbbbbb", "cccccc", "ddddddd"};
 
@@ -75,6 +88,13 @@ public class showMessagesActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_messages);
 
+        //服务器请求
+        requestFragment=new netRequest(this,this);
+        Map map = new HashMap();
+        map.put("category","校园轶事" );
+        map.put("type", StatusCode.REQUEST_MESSAGE);
+        requestFragment.httpRequest(map, CommonUrl.getInfo);
+
         TextView t1=(TextView)findViewById(R.id.text1) ;
         TextView t2=(TextView)findViewById(R.id.text2) ;
         TextView t3=(TextView)findViewById(R.id.text3) ;
@@ -82,18 +102,21 @@ public class showMessagesActivity extends FragmentActivity implements
             @Override
             public void onClick(View v) {
                 vPager.setCurrentItem(0);
+                flag=0;
             }
         });
         t2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 vPager.setCurrentItem(1);
+                flag=1;
             }
         });
         t3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 vPager.setCurrentItem(2);
+                flag=2;
             }
         });
         ImageView issue =(ImageView)findViewById(R.id.issue);
@@ -217,4 +240,31 @@ public class showMessagesActivity extends FragmentActivity implements
 //        //设置初始位置
 //        cursor.setImageMatrix(matrix);
 //    }
+
+    @Override
+    public void requestFinish(String result, String requestUrl) throws JSONException {
+        if (requestUrl.equals(CommonUrl.registerAccount)) {
+            try {
+                JSONObject object = new JSONObject(result);
+                int code = Integer.valueOf(object.getString("code"));
+
+                if (code== StatusCode.RECIEVE_REGISTER_SUCCESS) {
+
+                    Intent intent = new Intent(getApplicationContext(), showMessagesActivity.class);
+                    intent.putExtra("result", "注册成功");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void exception(IOException e, String requestUrl) {
+
+    }
 }

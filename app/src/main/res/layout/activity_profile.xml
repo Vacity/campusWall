@@ -40,8 +40,19 @@
 
 
     <!-- school -->
-    <TableRow>
-        <TextView />
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="1"
+            android:src="@drawable/profile_change2"
+            android:id="@+id/changeProfile"
+            android:layout_column="0" />
         <TextView
             android:layout_width="400px"
             android:layout_height="60px"
@@ -50,7 +61,22 @@
             android:text="Nju"
             android:textColor="@color/profile"
             android:gravity="center"
-            />
+            android:layout_column="1" />
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="2"
+            android:src="@drawable/photo_change2"
+            android:id="@+id/changePhoto"
+            android:layout_column="0" />
+    </TableRow>
+
+
+    <TableRow>
+        <TextView />
+
         <TextView />
     </TableRow>
 

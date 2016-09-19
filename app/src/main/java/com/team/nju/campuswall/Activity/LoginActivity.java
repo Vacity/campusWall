@@ -87,7 +87,6 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
                     ((EditText) findViewById(R.id.password)).setText("");
                 } else if (password.equals("")) {
                     Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_LONG).show();
-                    System.out.print("NULLLLLLLLLLLLLL");
                     ((EditText) findViewById(R.id.username)).setText("");
                     ((EditText) findViewById(R.id.password)).setText("");
                 } else {
@@ -114,14 +113,14 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
                 ACache cache = ACache.get(LoginActivity.this);
                 loginProgessDlg.cancel();//进度条取消
                 Intent intent = new Intent(getApplicationContext(), showMessagesActivity.class);
-                intent.putExtra("result", "注册成功");
+                intent.putExtra("result", "登录成功");
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 finish();
                 return;
             } else {
-                //Looper.prepare();CommonUtils.getUtilInstance().showToast(APP.context, "登录失败");Looper.loop();
-
+                loginProgessDlg.cancel();//进度条取消
+                Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_LONG).show();
 //                Message msg=mHandler.obtainMessage();
 //                msg.what= StatusCode.REQUEST_FAILURE;
 //                msg.obj=object.getString("contents");

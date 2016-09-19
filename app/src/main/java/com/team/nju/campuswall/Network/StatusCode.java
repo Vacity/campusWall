@@ -16,25 +16,27 @@ public interface StatusCode {
     int REQUEST_REGISTER=10002;
     //注册请求的成功返回码
     int RECIEVE_REGISTER_SUCCESS=10003;
+
     //登录的请求码
-    int REQUEST_AUTO_LOGIN=10105;
-    //登录的请求码
-    int REQUEST_LOGIN=10106;
+    int REQUEST_LOGIN=10010;
     //登录请求类别成功的返回码
-    int REQUEST_LOGIN_SUCCESS =10111 ;
+    int REQUEST_LOGIN_SUCCESS =10011;
 
     //请求访问他人个人主页请求码
     int RECIEVE_VISIT_REJECT=10600;
     //获取访问他人个人主页的权限
     int RECIEVE_VISIT_SUCCESS=10601;
 
-    int REQUEST_YUEPAI_SUCCESS=10200;
-    int REQUEST_CREATE_YUEPAIA=10201;
-    int REQUEST_CREATE_YUEPAIB=10202;
-    int REQUEST_CREATE_HUODONG=10301;
-    int REQUEST_SEND_YUEPAI=10205;
+    //查看信息
+    int REQUEST_MESSAGE=10200;
+    int REQUEST_MESSAGE_EMOTION=10201;
+    int REQUEST_MESSAGE_STUFF=10202;
+
+    int REQUEST_CREATE_MESSAGE=10301;
 
 
+    int REQUEST_PROFILE =0;         //查看个人主页
+    int REQUEST_PROFILE_SUCCESS =0;         //查看个人主页
     int REQUEST_FOLLOW_ERROR = 10419; //服务器错误
     //请求我关注的用户（我的关注）
     int REQUEST_INFO_FOLLOWING = 10403;
