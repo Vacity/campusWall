@@ -132,9 +132,6 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
 
     @Override
     public void exception(IOException e, String requestUrl){
-        Message msg=new Message();
-        msg.what=StatusCode.REQUEST_FAILURE;
-        msg.obj="网络请求失败";
-       // mHandler.sendMessage(msg);
+
     }
 }

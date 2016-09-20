@@ -99,9 +99,9 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
 
     @Override
     public void exception(IOException e, String requestUrl){
-        Message msg=new Message();
-        msg.what=StatusCode.REQUEST_FAILURE;
-        msg.obj="网络请求失败";
-        // mHandler.sendMessage(msg);
+//        Message msg=new Message();
+//        msg.what=StatusCode.REQUEST_FAILURE;
+//        msg.obj="网络请求失败";
+//        // mHandler.sendMessage(msg);
     }
 }
