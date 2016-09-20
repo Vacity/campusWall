@@ -67,7 +67,7 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
         setContentView(R.layout.activity_login);
         ImageView signup = (ImageView) findViewById(R.id.signup);
         ImageView login = (ImageView) findViewById(R.id.login);
-
+        requestFragment=new netRequest(this,this);
         signup.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,9 +108,9 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
             int code = Integer.valueOf(object.getString("code"));
 
             if (code == StatusCode.REQUEST_LOGIN_SUCCESS) {
-                Gson gson = new Gson();
-                LoginDataModel loginModel = gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(), LoginDataModel.class);
-                ACache cache = ACache.get(LoginActivity.this);
+              //  Gson gson = new Gson();
+              //  LoginDataModel loginModel = gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(), LoginDataModel.class);
+               // ACache cache = ACache.get(LoginActivity.this);
                 loginProgessDlg.cancel();//进度条取消
                 Intent intent = new Intent(getApplicationContext(), showMessagesActivity.class);
                 intent.putExtra("result", "登录成功");
@@ -120,7 +120,7 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
                 return;
             } else {
                 loginProgessDlg.cancel();//进度条取消
-                Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_LONG).show();
+//                Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_LONG).show();
 //                Message msg=mHandler.obtainMessage();
 //                msg.what= StatusCode.REQUEST_FAILURE;
 //                msg.obj=object.getString("contents");
