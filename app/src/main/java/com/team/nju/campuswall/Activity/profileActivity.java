@@ -68,7 +68,8 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
         changeprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(profileActivity.this,EditProfile.class);
+                startActivity(intent);
             }
         });
         changephoto.setOnClickListener(new View.OnClickListener() {
