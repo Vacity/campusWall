@@ -40,6 +40,7 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
     TextView product;
     TextView join;
     TextView star;
+    TextView signature;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,7 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
         product=(TextView)findViewById(R.id.profile_product);
         join=(TextView)findViewById(R.id.profile_join);
         star=(TextView)findViewById(R.id.profile_star);
+        signature=(TextView)findViewById(R.id.profile_signature);
 
         changeprofile.setOnClickListener(new View.OnClickListener() {
             @Override
