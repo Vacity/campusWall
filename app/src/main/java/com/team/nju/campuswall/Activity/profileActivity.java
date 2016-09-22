@@ -41,18 +41,28 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
     TextView join;
     TextView star;
     TextView signature;
+
+    String phone;
+    String nickname;
+    String password;
+    String sex;
+    String sign;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Bundle data = getIntent().getExtras();
+        phone= data.getString("phone");
+
         requestFragment= new netRequest(this,this);
         Map map = new HashMap();
-        map.put("nickname","111" );
+        map.put("phone",phone );
         map.put("type", StatusCode.REQUEST_PROFILE);
-        requestFragment.httpRequest(map, CommonUrl.getProfile);
+        requestFragment.httpRequest(map,CommonUrl.getProfile);
+      //  requestFragment.httpRequest(map, CommonUrl.getProfile);
 
-        TableLayout tableLayout =(TableLayout)findViewById(R.id.profileLayout);
 //        final photoChange pc = new photoChange(profileActivity.this);
 //        tableLayout.addView(pc);
         changeprofile=(ImageView)findViewById(R.id.changeProfile) ;
@@ -64,12 +74,25 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
         join=(TextView)findViewById(R.id.profile_join);
         star=(TextView)findViewById(R.id.profile_star);
         signature=(TextView)findViewById(R.id.profile_signature);
-
+        username.setText(nickname);
+        if(!signature.equals(""))
+            signature.setText(sign);
+        else
+            signature.setText("未填写");
         changeprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(profileActivity.this,EditProfile.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                data.putString("nickname",nickname);
+                data.putString("sex",sex);
+                data.putString("password",password);
+                data.putString("signature",sign);
+                //...
+                intent.putExtras(data);
                 startActivity(intent);
+                finish();
             }
         });
         changephoto.setOnClickListener(new View.OnClickListener() {
@@ -83,14 +106,19 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
 
     @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
-        if (requestUrl.equals(CommonUrl.loginAccount)) {//返回登录请求
+        if (requestUrl.equals(CommonUrl.getProfile)) {
             JSONObject object = new JSONObject(result);
             int code = Integer.valueOf(object.getString("code"));
 
             if (code == StatusCode.REQUEST_PROFILE_SUCCESS) {
                 Gson gson = new Gson();
                UserModel userModel = gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(), UserModel.class);
-               username.setText(userModel.getNickname());
+
+               nickname=userModel.getUalais();
+                password=userModel.getUpassword();
+                sign=userModel.getUsign();
+                sex=userModel.getUsex();
+
                 //......
                 return;
             } else {

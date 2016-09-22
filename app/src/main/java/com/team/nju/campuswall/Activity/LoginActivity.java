@@ -32,7 +32,6 @@ import org.json.JSONObject;
 public class LoginActivity extends Activity implements NetworkCallbackInterface.NetRequestIterface {
     private ProgressDialog loginProgessDlg;
     private netRequest requestFragment;
-    private Handler mHandler;
     private String phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,7 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
                     map.put("password", password);
                     map.put("type", StatusCode.REQUEST_LOGIN);
                     requestFragment.httpRequest(map, CommonUrl.loginAccount);
-                    loginProgessDlg= ProgressDialog.show(LoginActivity.this, "shacus", "处理中", true, false);
+                    loginProgessDlg= ProgressDialog.show(LoginActivity.this, "campusWall", "处理中", true, false);
                 }
             }
         });

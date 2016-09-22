@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:maxLines="1"
     android:orientation="vertical"
-    android:background="@drawable/loginbg2"
+    android:background="@drawable/loginbg3"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_vertical"
@@ -14,36 +14,35 @@
     android:weightSum="1">
 
     <EditText
-        android:layout_marginTop="50px"
+        android:layout_marginTop="220px"
      android:id="@+id/username"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:maxLines="1"
-     android:hint="请输入用户名或手机"
+     android:hint=""
      android:textSize="35px"
-     android:minWidth="300px"
+     android:minWidth="370px"
         android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:layout_marginTop="30px"
+        android:layout_marginTop="0px"
             android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:hint="请输入密码"
+            android:hint=""
             android:textSize="35px"
-            android:minWidth="300px"
+            android:minWidth="370px"
             android:inputType="textPassword"
             android:layout_gravity="center_horizontal" />
 
     <ImageView
 
-        android:layout_marginTop="100px"
-        android:src="@drawable/login_button2"
+        android:layout_marginTop="80px"
+        android:src="@drawable/login_button3"
             android:id="@+id/login"
             android:layout_width="500px"
             android:layout_height="80px"
-            android:text="登录"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:layout_column="1"
@@ -51,15 +50,16 @@
             android:layout_alignBottom="@+id/signup"
             android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:src="@drawable/signup_button2"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
             android:layout_marginTop="30px"
-        android:layout_width="500px"
-        android:layout_height="80px"
             android:id="@+id/signup"
-            android:text="注册"
+            android:text="注册一个账号"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
+            android:textSize="28px"
+            android:layout_gravity="end|bottom"
             android:layout_column="3"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"

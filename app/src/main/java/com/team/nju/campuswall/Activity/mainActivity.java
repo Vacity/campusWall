@@ -85,15 +85,16 @@ public class mainActivity extends FragmentActivity implements
         map.put("category","校园轶事" );
         map.put("sortBy","time");
         map.put("type", StatusCode.REQUEST_MESSAGE);
-        requestFragment.httpRequest(map, CommonUrl.getInfo);
+        //requestFragment.httpRequest(map, CommonUrl);
 
         ImageView issue =(ImageView)findViewById(R.id.issue);
         ImageView profile =(ImageView) findViewById(R.id.profile);
         isLog =(TextView)findViewById(R.id.log_state);
 
         Bundle data = getIntent().getExtras();
-        phone= data.getString("name");
-        if(phone.equals("")) {
+        if(data!=null)
+        phone= data.getString("phone");
+        if(phone==null) {
             isLog.setText("点击登录");
             isLog.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,7 +118,7 @@ public class mainActivity extends FragmentActivity implements
             });
         }
         else {
-            isLog.setText(phone);
+            isLog.setVisibility(View.INVISIBLE);
             issue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
