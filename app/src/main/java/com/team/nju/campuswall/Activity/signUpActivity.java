@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,9 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.team.nju.campuswall.Model.ACache;
-import com.team.nju.campuswall.Model.LoginDataModel;
 import com.team.nju.campuswall.Network.NetworkCallbackInterface;
 import com.team.nju.campuswall.Network.StatusCode;
 import com.team.nju.campuswall.Network.netRequest;
@@ -32,7 +27,7 @@ import java.util.Map;
 public class signUpActivity extends Activity implements NetworkCallbackInterface.NetRequestIterface{
     private netRequest requestFragment;
     private ProgressDialog signupProgessDlg;
-
+    private String phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +48,7 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
             @Override
             public void onClick(View v) {
                 Map map = new HashMap();
-                Spinner spinner = (Spinner) findViewById(R.id.input_school);
-                spinner.getSelectedItem();
-                String phone = ((EditText) findViewById(R.id.input_phone)).getText().toString();
+                phone = ((EditText) findViewById(R.id.input_phone)).getText().toString();
                 String username = ((EditText) findViewById(R.id.input_account)).getText().toString();
                 String password = ((EditText) findViewById(R.id.input_password)).getText().toString();
 
@@ -87,11 +80,17 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
 
                 if (code== StatusCode.RECIEVE_REGISTER_SUCCESS) {
                     signupProgessDlg.cancel();//进度条取消
-                    Intent intent = new Intent(getApplicationContext(), showMessagesActivity.class);
-                    intent.putExtra("result", "注册成功");
+                    Intent intent = new Intent(getApplicationContext(), mainActivity.class);
+                    Bundle data = new Bundle();
+                    data.putString("phone", phone);
+                    intent.putExtras(data);
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     finish();
+                    return;
+                }else{
+                   signupProgessDlg.cancel();//进度条取消
+                    Toast.makeText(signUpActivity.this, "该手机号码已注册过", Toast.LENGTH_LONG).show();
                     return;
                 }
             } catch (JSONException e) {
