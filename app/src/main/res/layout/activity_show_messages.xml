@@ -25,7 +25,7 @@
             android:id="@+id/issue"
            android:text="+发布"
             android:textStyle="bold"
-            android:src="@drawable/publish"
+            android:src="@drawable/bg_button"
             android:layout_marginRight="15px"
             />
         <ImageView
