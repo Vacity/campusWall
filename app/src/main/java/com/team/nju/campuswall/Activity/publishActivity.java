@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -39,9 +40,9 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
         setContentView(R.layout.activity_publish);
         requestFragment = new netRequest(this, this);
 
-        final Button emotion = (Button) findViewById(R.id.emotionTitleBtn);
-        final Button event = (Button) findViewById(R.id.eventTitleBtn);
-        final Button thing = (Button) findViewById(R.id.thingTitleBtn);
+        final ImageButton emotion = (ImageButton) findViewById(R.id.emotionTitleBtn);
+        final ImageButton event = (ImageButton) findViewById(R.id.eventTitleBtn);
+        final ImageButton thing = (ImageButton) findViewById(R.id.thingTitleBtn);
         final ImageView add = (ImageView) findViewById(R.id.addIcon);
         final Button publish = (Button) findViewById(R.id.publishBtn);
 
@@ -51,6 +52,7 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
             @Override
             public void onClick(View v) {
                 emotionClicked = !emotionClicked;
+                //change background
             }
         });
 
@@ -82,15 +84,15 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
                 String titleText = ((EditText) findViewById(R.id.publishTitle)).getText().toString();//1.标题
                 ArrayList<String> tags = new ArrayList<String>();//2.类别
                 if (eventClicked) {
-                    tags.add(emotion.getText().toString());
+                    tags.add("情感话题");
                 }
 
                 if (eventClicked) {
-                    tags.add(event.getText().toString());
+                    tags.add("校园轶事");
                 }
 
                 if (thingClicked) {
-                    tags.add(thing.getText().toString());
+                    tags.add("物品相关");
                 }
 
                 if ((!titleText.equals("")) && (tags.size() > 0)) {

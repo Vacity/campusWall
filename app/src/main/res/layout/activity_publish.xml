@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <Button
+    <ImageButton
         android:id="@+id/emotionTitleBtn"
         android:layout_width="90dp"
         android:layout_margin="10dp"
@@ -28,8 +28,8 @@
         android:textColor="#FFF"
         android:textSize="30px"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="情感话题"/>
-    <Button
+        android:src="@drawable/emotionTwo"/>
+    <ImageButton
         android:id="@+id/eventTitleBtn"
         android:layout_width="90dp"
         android:layout_margin="10dp"
@@ -38,9 +38,9 @@
         android:background="@drawable/bg_button"
         android:textColor="#FFF"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="校园轶事"/>
+        android:src="@drawable/eventOne"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/thingTitleBtn"
             android:layout_width="90dp"
             android:layout_margin="10dp"
@@ -49,7 +49,7 @@
             android:textColor="#FFF"
             android:textSize="30px"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="物品相关" />
+            android:src="@drawable/thingOne" />
     </LinearLayout>
 
 
@@ -62,14 +62,14 @@
         android:inputType="none"
         android:hint="吐个槽..."
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_weight="0.07" />
+        android:layout_weight="0.47" />
 
     <ImageView
         android:id="@+id/addIcon"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="24dp"
-        android:src="@drawable/profile_change"/>
+        android:src="@drawable/addIcon"/>
 
     <View
         android:layout_width="match_parent"
