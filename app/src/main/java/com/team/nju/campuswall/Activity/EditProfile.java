@@ -81,7 +81,10 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
 
                 Map map = new HashMap();
                 map.put("phone",phone);
-                map.put("password" ,newpassword);
+                if(newpassword.length()==0)
+                map.put("password" ,oldpassword);
+                else
+                map.put("password",newpassword);
                 map.put("nickname",newnickname);
                 map.put("school","nju");
                 map.put("signature",newsignature);

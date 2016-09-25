@@ -76,7 +76,7 @@ public class netRequest {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String result = response.body().string();
-                    Log.d("shacus", "onResponse----------------------" + result);
+                    Log.d("campullWall", "onResponse----------------------" + result);
                     //Toast.makeText(context, result,Toast.LENGTH_LONG).show();
                     //CommonUtils.getUtilInstance().showToast(APP.context,result);
                     try {

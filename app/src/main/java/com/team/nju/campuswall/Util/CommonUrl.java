@@ -15,8 +15,9 @@ public class CommonUrl {
     public static final String editProfile =url+"user/editprofile";
 
 
-    public static final String publish = url + "publish";//获取关注和粉丝
-    public static final String getFavorInfo = url + "user/favorite"; //获取收藏
+    public static final String publish = url + "activity/publish";//发布动态
+    public static final String getMessage = url + "activity/ask"; //获取消息
 
+    public static final String star = url + "activity/operation01";//点赞或者取消点赞
 
 }

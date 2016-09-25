@@ -17,6 +17,8 @@
     <ListView
         android:id="@+id/list1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingRight="1px"
+        android:background="@drawable/list_bg">
     </ListView>
 </LinearLayout>
