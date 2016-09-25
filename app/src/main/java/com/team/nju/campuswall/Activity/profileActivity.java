@@ -1,19 +1,17 @@
 package com.team.nju.campuswall.Activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.formats.NativeAd;
 import com.google.gson.Gson;
-import com.team.nju.campuswall.Model.ACache;
-import com.team.nju.campuswall.Model.LoginDataModel;
+import com.team.nju.campuswall.Adapter.messageListAdapter;
 import com.team.nju.campuswall.Model.UserModel;
 import com.team.nju.campuswall.Network.NetworkCallbackInterface;
 import com.team.nju.campuswall.Network.StatusCode;
@@ -26,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 //import com.team.nju.campuswall.myView.photoChange;
 
@@ -48,6 +47,7 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
     String sex;
     String sign;
 
+    UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +57,7 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
         phone= data.getString("phone");
 
         requestFragment= new netRequest(this,this);
-        Map map = new HashMap();
-        map.put("phone",phone );
-        map.put("type", StatusCode.REQUEST_PROFILE);
-        requestFragment.httpRequest(map,CommonUrl.getProfile);
-      //  requestFragment.httpRequest(map, CommonUrl.getProfile);
 
-//        final photoChange pc = new photoChange(profileActivity.this);
-//        tableLayout.addView(pc);
         changeprofile=(ImageView)findViewById(R.id.changeProfile) ;
         changephoto =(ImageView)findViewById(R.id.changePhoto);
         photo = (ImageView)findViewById(R.id.photo);
@@ -74,11 +67,19 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
         join=(TextView)findViewById(R.id.profile_join);
         star=(TextView)findViewById(R.id.profile_star);
         signature=(TextView)findViewById(R.id.profile_signature);
-        username.setText(nickname);
-        if(!signature.equals(""))
-            signature.setText(sign);
-        else
-            signature.setText("未填写");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initInfo();
+    }
+
+    private void initInfo() {
+        Map map = new HashMap();
+        map.put("phone",phone );
+        map.put("type", StatusCode.REQUEST_PROFILE);
+        requestFragment.httpRequest(map,CommonUrl.getProfile);
         changeprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +90,7 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
                 data.putString("sex",sex);
                 data.putString("password",password);
                 data.putString("signature",sign);
-                //...
+
                 intent.putExtras(data);
                 startActivity(intent);
                 finish();
@@ -101,25 +102,19 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
 
             }
         });
-
     }
 
     @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
+        Message message = new Message();
         if (requestUrl.equals(CommonUrl.getProfile)) {
             JSONObject object = new JSONObject(result);
             int code = Integer.valueOf(object.getString("code"));
-
             if (code == StatusCode.REQUEST_PROFILE_SUCCESS) {
                 Gson gson = new Gson();
-               UserModel userModel = gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(), UserModel.class);
-
-               nickname=userModel.getUalais();
-                password=userModel.getUpassword();
-                sign=userModel.getUsign();
-                sex=userModel.getUsex();
-
-                //......
+               userModel = gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(), UserModel.class);
+                message.what = StatusCode.REQUEST_PROFILE_SUCCESS;
+                handler.sendMessage(message);
                 return;
             } else {
                 Toast.makeText(profileActivity.this, "未知错误", Toast.LENGTH_LONG).show();
@@ -135,4 +130,30 @@ public class profileActivity extends AppCompatActivity implements NetworkCallbac
 //        msg.obj="网络请求失败";
 //        // mHandler.sendMessage(msg);
     }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case StatusCode.REQUEST_PROFILE_SUCCESS://成功返回所有动态
+                {
+                    nickname=userModel.getUalais();
+                    password=userModel.getUpassword();
+                    sign=userModel.getUsign();
+                    sex=userModel.getUsex();
+                    username.setText(nickname);
+                    if(!signature.equals(""))
+                        signature.setText(sign);
+                    else
+                        signature.setText("未填写");
+                    break;
+                }
+                default: //用户身份认证失败
+                {
+
+                    break;
+                }
+            }
+        }
+    };
 }

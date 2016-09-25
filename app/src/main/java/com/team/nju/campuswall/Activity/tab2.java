@@ -4,16 +4,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.team.nju.campuswall.Adapter.ListItemClickHelp;
 import com.team.nju.campuswall.Adapter.messageListAdapter;
+import com.team.nju.campuswall.Model.MessageModel;
+import com.team.nju.campuswall.Network.NetworkCallbackInterface;
+import com.team.nju.campuswall.Network.StatusCode;
+import com.team.nju.campuswall.Network.netRequest;
 import com.team.nju.campuswall.R;
+import com.team.nju.campuswall.Util.CommonUrl;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,12 +41,14 @@ import java.util.Map;
  * Use the {@link tab2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class tab2 extends Fragment implements ListItemClickHelp {
+public class tab2 extends Fragment implements ListItemClickHelp,NetworkCallbackInterface.NetRequestIterface {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private netRequest requestFragment;
+    private List<MessageModel> messageModel = new ArrayList<MessageModel>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -68,6 +84,8 @@ public class tab2 extends Fragment implements ListItemClickHelp {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        //服务器请求
+        requestFragment=new netRequest(this,this.getContext());
     }
 
     @Override
@@ -76,19 +94,34 @@ public class tab2 extends Fragment implements ListItemClickHelp {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab2,null);//注意不要指定父视图
         listView=(ListView)view.findViewById(R.id.list2);
-        List<Map<String,Object>> list = getData();
-        listView.setAdapter(new messageListAdapter(this.getActivity(),list,this));
         return view;
+    }
+
+    private void initInfo() {
+        messageModel= new ArrayList<MessageModel>();
+        Map map = new HashMap();
+        map.put("sortBy","time");     //tiome,like,comment
+        map.put("type", StatusCode.REQUEST_MESSAGE_EMOTION);
+        requestFragment.httpRequest(map, CommonUrl.getMessage);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initInfo();
     }
 
     private List<Map<String,Object>> getData() {
         List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<messageModel.size();i++){
             Map<String,Object> map = new HashMap<String,Object>();
-            map.put("title","这是情感标题"+i);
-            map.put("content","这是表白墙的内容：啪啪啪啪啪啪啪啪....................................................................啪");
-            map.put("remarkNum","评论数："+i);
-            map.put("starNum","点赞量："+i);
+            map.put("id",messageModel.get(i).getAcid());
+            map.put("title",messageModel.get(i).getActitle());
+            map.put("content",messageModel.get(i).getAccontent());
+            map.put("remarkNum",messageModel.get(i).getAccommentN());
+            map.put("starNum",messageModel.get(i).getAclikeN());
+            map.put("author",messageModel.get(i).getAcsponsorid());
+            map.put("time",messageModel.get(i).getAcsponsT());
             //     map.put("image",R.drawable.XXXX);  可以加头像
             list.add(map);
         }
@@ -109,6 +142,31 @@ public class tab2 extends Fragment implements ListItemClickHelp {
         mListener = null;
     }
 
+    @Override
+    public void requestFinish(String result, String requestUrl) throws JSONException {
+        Message message = new Message();
+        if (requestUrl.equals(CommonUrl.getMessage)) {
+            JSONObject object = new JSONObject(result);
+            int code = Integer.valueOf(object.getString("code"));
+
+            if (code == StatusCode.REQUEST_MESSAGE_EMOTION_SUCCESS) {
+                Gson gson = new Gson();
+                messageModel= gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(), new TypeToken<List<MessageModel>>(){}.getType());
+                message.what = StatusCode.REQUEST_MESSAGE_EMOTION_SUCCESS;
+                handler.sendMessage(message);
+                return;
+            } else {
+//                Toast.makeText(this.getActivity(), "未知错误", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void exception(IOException e, String requestUrl) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -125,10 +183,14 @@ public class tab2 extends Fragment implements ListItemClickHelp {
     }
 
     @Override
-    public void onClick(View item, View widget, int position, int which) {
+    public void onClick(View item, View widget, int position, int which,int id) {
         switch (which) {
             case R.id.star:
-
+                Map map = new HashMap();
+                map.put("type",StatusCode.REQUEST_STAR);
+                map.put("acid",id);
+                map.put("phone",mainActivity.phone);
+                requestFragment.httpRequest(map,CommonUrl.star);
                 break;
             case R.id.remark:
                 Intent intent = new Intent(getActivity(),CommentActivity.class);
@@ -138,4 +200,23 @@ public class tab2 extends Fragment implements ListItemClickHelp {
                 break;
         }
     }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case StatusCode.REQUEST_MESSAGE_EMOTION_SUCCESS://成功返回所有动态
+                {
+                    List<Map<String,Object>> list = getData();
+                    listView.setAdapter(new messageListAdapter(tab2.this.getActivity(),list,tab2.this));
+                    break;
+                }
+                default: //用户身份认证失败
+                {
+
+                    break;
+                }
+            }
+        }
+    };
 }

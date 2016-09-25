@@ -18,6 +18,7 @@ import com.team.nju.campuswall.R;
 import com.team.nju.campuswall.Util.CommonUrl;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -33,11 +34,13 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
     private boolean emotionClicked = false;
     private boolean eventClicked = false;
     private boolean thingClicked = false;
-
+    private String phone;  //author
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
+        Bundle data = getIntent().getExtras();
+        phone= data.getString("phone");
         requestFragment = new netRequest(this, this);
 
         final ImageButton emotion = (ImageButton) findViewById(R.id.emotionTitleBtn);
@@ -94,20 +97,22 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
                 if (thingClicked) {
                     tags.add("物品相关");
                 }
-
-                if ((!titleText.equals("")) && (tags.size() > 0)) {
+                String contentText = ((EditText) findViewById(R.id.publishContent)).getText().toString();//5.内容
+                if ((!titleText.equals("")) && (!contentText.equals("")) ){
                     //正确发出动态
+                    map.put("author",phone);
                     map.put("title", titleText);
-                    map.put("contentTypes", tags);
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");//设置日期格式
-                    String date = df.format(new Date());//4.日期
-                    String contentText = ((EditText) findViewById(R.id.publishContent)).getText().toString();//5.内容
-                    map.put("date", date);
+                    map.put("category",1);   //1，2，3分别对应
+                  //  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");//设置日期格式
+//                    String date = df.format(new Date());//4.日期
+
+//                    map.put("date", date);
                     map.put("content", contentText);
-//                    map.put("type", StatusCode.)//请求码
+                    map.put("type", StatusCode.REQUEST_CREATE_MESSAGE);  //请求码
+
+                    requestFragment.httpRequest(map, CommonUrl.publish);
                 } else {
                     Toast.makeText(publishActivity.this, "请完善动态内容", Toast.LENGTH_LONG).show();
-
                 }
             }
         });
@@ -115,7 +120,25 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
 
     @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
-//        if (requestUrl.equals(CommonUrl.))
+        if (requestUrl.equals(CommonUrl.publish)){
+            JSONObject object = new JSONObject(result);
+            int code = Integer.valueOf(object.getString("code"));
+
+            if (code == StatusCode.REQUEST_CREATE_SUCCESS) {
+               // progessDlg.cancel();
+                Intent intent = new Intent(getApplicationContext(), mainActivity.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                intent.putExtras(data);
+                startActivity(intent);
+                finish();
+                return;
+            } else {
+                //  progessDlg.cancel();//进度条取消
+                Toast.makeText(publishActivity.this, "发表失败", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
     }
 
     @Override

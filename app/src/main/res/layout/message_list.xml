@@ -2,21 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="这是作者"
+        android:layout_gravity="left"/>
+        <TextView
+            android:id="@+id/time"
+            android:layout_marginLeft="50px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这是时间"
+            android:layout_gravity="left"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:text="这是一个标题"
         android:layout_gravity="center"
-        android:textColor="#666872"/>
+        android:ellipsize="marquee"
+        android:textColor="#666872"
+        android:layout_weight="0.00" />
+
     <TextView
         android:id="@+id/content"
-        android:layout_width="wrap_content"
+        android:layout_width="338dp"
         android:layout_height="wrap_content"
         android:text="内容......................................................
-        .................................................
+        .............................
         ...............................内容"
+        android:layout_gravity="center"
         android:textColor="#666872"/>
     <LinearLayout
         android:layout_width="wrap_content"

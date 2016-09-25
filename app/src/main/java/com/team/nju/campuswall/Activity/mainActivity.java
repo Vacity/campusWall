@@ -37,7 +37,7 @@ public class mainActivity extends FragmentActivity implements
     private netRequest requestFragment;
     private TextView isLog;
     private int flag = 0;
-    private String phone;
+    public static String phone;
     // 自动完成的列表
     private final String[] mStrings = {"aaaaa", "bbbbbb", "cccccc", "ddddddd"};
 
@@ -78,14 +78,6 @@ public class mainActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_messages);
-
-        //服务器请求
-        requestFragment=new netRequest(this,this);
-        Map map = new HashMap();
-        map.put("category","校园轶事" );
-        map.put("sortBy","time");
-        map.put("type", StatusCode.REQUEST_MESSAGE);
-        //requestFragment.httpRequest(map, CommonUrl);
 
         ImageView issue =(ImageView)findViewById(R.id.issue);
         ImageView profile =(ImageView) findViewById(R.id.profile);
