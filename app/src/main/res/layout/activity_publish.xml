@@ -28,7 +28,11 @@
         android:textColor="#FFF"
         android:textSize="30px"
         android:textAppearance="?android:attr/textAppearanceLarge"
+<<<<<<< HEAD
         android:src="@drawable/emotiontwo"/>
+=======
+        android:src="@drawable/emotion_two"/>
+>>>>>>> origin/master
     <ImageButton
         android:id="@+id/eventTitleBtn"
         android:layout_width="90dp"
@@ -38,7 +42,11 @@
         android:background="@drawable/bg_button"
         android:textColor="#FFF"
         android:textAppearance="?android:attr/textAppearanceLarge"
+<<<<<<< HEAD
         android:src="@drawable/eventone"/>
+=======
+        android:src="@drawable/event_one"/>
+>>>>>>> origin/master
 
         <ImageButton
             android:id="@+id/thingTitleBtn"
@@ -49,7 +57,11 @@
             android:textColor="#FFF"
             android:textSize="30px"
             android:textAppearance="?android:attr/textAppearanceLarge"
+<<<<<<< HEAD
             android:src="@drawable/thingone" />
+=======
+            android:src="@drawable/thing_one" />
+>>>>>>> origin/master
     </LinearLayout>
 
 
@@ -69,7 +81,11 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="24dp"
+<<<<<<< HEAD
         android:src="@drawable/addicon"/>
+=======
+        android:src="@drawable/add_icon"/>
+>>>>>>> origin/master
 
     <View
         android:layout_width="match_parent"
