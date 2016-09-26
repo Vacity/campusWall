@@ -6,4 +6,7 @@
     <color name="white">#fcfcfc</color>
     <color name="profile">#77b4a3</color>
     <color name="grey">#616161</color>
+    <color name="author">#8cd3ff</color>
+    <color name="title">#000000</color>
+    <color name="lightgrey">#cecece</color>
 </resources>

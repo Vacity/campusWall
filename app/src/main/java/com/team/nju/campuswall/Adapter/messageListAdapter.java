@@ -2,6 +2,8 @@ package com.team.nju.campuswall.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +91,9 @@ public class messageListAdapter extends BaseAdapter {
         zujian.content.setText((String)data.get(i).get("content"));
         zujian.remarkNum.setText(Integer.toString((int)data.get(i).get("remarkNum")));
         zujian.starNum.setText(Integer.toString((int)data.get(i).get("starNum")));
+        if(((int)data.get(i).get("isLike"))==1)
+            zujian.remark.setBackgroundResource(R.drawable.star2);
+        final int id=(int)data.get(i).get("id");
         final int p = i;
         final int one=zujian.star.getId();
         final int two = zujian.remark.getId();
@@ -96,13 +101,13 @@ public class messageListAdapter extends BaseAdapter {
         zujian.star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onClick(convertView, viewGroup, p, one,(int)data.get(p).get("id"));
+                callback.onClick(convertView, viewGroup, p, one,id);
             }
         });
         zujian.remark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onClick(convertView, viewGroup, p, two,(int)data.get(p).get("id"));
+                callback.onClick(convertView, viewGroup, p, two,id);
             }
         });
         return view;

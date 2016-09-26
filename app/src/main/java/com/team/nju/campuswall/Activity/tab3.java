@@ -56,6 +56,8 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
 
     private OnFragmentInteractionListener mListener;
     private ListView listView=null;
+    private String phone = mainActivity.phone;
+    int tempAcid;
     public tab3() {
         // Required empty public constructor
     }
@@ -101,6 +103,10 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
     private void initInfo() {
         messageModel= new ArrayList<MessageModel>();
         Map map = new HashMap();
+        if(phone==null)
+            map.put("phone","null");
+        else
+            map.put("phone",phone);
         map.put("sortBy","time");     //tiome,like,comment
         map.put("type", StatusCode.REQUEST_MESSAGE_THING);
         requestFragment.httpRequest(map, CommonUrl.getMessage);
@@ -157,7 +163,32 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                 handler.sendMessage(message);
                 return;
             } else {
-                Toast.makeText(this.getActivity(), "未知错误", Toast.LENGTH_LONG).show();
+                message.what = StatusCode.STATUS_ERROR;
+                handler.sendMessage(message);
+                return;
+            }
+        }
+        //点赞请求的回复
+        if (requestUrl.equals(CommonUrl.star)) {
+            JSONObject object = new JSONObject(result);
+            int code = Integer.valueOf(object.getString("code"));
+            if (code == StatusCode.REQUEST_ISSTAR) {                   //查询：赞过
+                message.what = StatusCode.REQUEST_ISSTAR;
+                handler.sendMessage(message);
+                return;
+            } else if (code == StatusCode.REQUEST_NOTSTAR) {             //查询：没赞过
+                message.what = StatusCode.REQUEST_NOTSTAR;
+                handler.sendMessage(message);
+                return;
+            } else if (code == StatusCode.REQUEST_STAR_SUCCESS) {       //进行点赞
+                this.onResume();
+                return;
+            } else if (code == StatusCode.REQUEST_UNSTAR_SUCCESS) {    //取消点赞
+                this.onResume();
+                return;
+            } else {
+                message.what = StatusCode.STATUS_ERROR;
+                handler.sendMessage(message);
                 return;
             }
         }
@@ -187,15 +218,24 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
     public void onClick(View item, View widget, int position, int which,int id) {
         switch (which) {
             case R.id.star:
-                Map map = new HashMap();
-                map.put("type",StatusCode.REQUEST_STAR);
-                map.put("acid",id);
-                map.put("phone",mainActivity.phone);
-                requestFragment.httpRequest(map,CommonUrl.star);
+                if(!(phone==null)) {
+                    Map map = new HashMap();
+                    map.put("type", StatusCode.REQUEST_ASK_ISSTAR);
+                    map.put("acid", id);
+                    map.put("phone", mainActivity.phone);
+                    requestFragment.httpRequest(map, CommonUrl.star);
+                }else
+                    Toast.makeText(this.getActivity(), "登陆后进行更多操作", Toast.LENGTH_LONG).show();
                 break;
             case R.id.remark:
-                Intent intent = new Intent(getActivity(),CommentActivity.class);
-                startActivity(intent);
+                if(!(phone==null)) {
+                    Intent intent = new Intent(getActivity(), CommentActivity.class);
+                    Bundle data = new Bundle();
+                    data.putString("phone", phone);
+                    data.putInt("id",id);
+                    startActivity(intent);
+                }else
+                    Toast.makeText(this.getActivity(), "登陆后进行更多操作", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;
@@ -211,9 +251,25 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     listView.setAdapter(new messageListAdapter(tab3.this.getActivity(),list,tab3.this));
                     break;
                 }
+                case StatusCode.REQUEST_ISSTAR:    //已经点赞，进行消赞的操作
+                {
+                    Map map = new HashMap();
+                    map.put("type", StatusCode.REQUEST_UNSTAR);
+                    map.put("acid", tempAcid);
+                    map.put("phone", mainActivity.phone);
+                    requestFragment.httpRequest(map, CommonUrl.star);
+                }
+                case StatusCode.REQUEST_NOTSTAR:  //没有赞过，进行点赞的操作
+                {
+                    Map map = new HashMap();
+                    map.put("type", StatusCode.REQUEST_STAR);
+                    map.put("acid", tempAcid);
+                    map.put("phone", mainActivity.phone);
+                    requestFragment.httpRequest(map, CommonUrl.star);
+                }
                 default: //用户身份认证失败
                 {
-
+                    Toast.makeText(tab3.this.getActivity(), "网络错误", Toast.LENGTH_LONG).show();
                     break;
                 }
             }

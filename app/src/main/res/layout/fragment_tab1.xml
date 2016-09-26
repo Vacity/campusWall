@@ -9,7 +9,7 @@
 
 
     <Spinner
-        android:layout_width="200px"
+        android:layout_width="164dp"
         android:layout_height="wrap_content"
         android:id="@+id/sort1"
         android:textSize="35px"
@@ -19,6 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingRight="1px"
-        android:background="@drawable/list_bg">
+        android:dividerHeight="18dp">
     </ListView>
 </LinearLayout>
