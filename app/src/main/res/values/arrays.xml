@@ -2,9 +2,9 @@
 
 <resources>
     <string-array name="stype">
-        <item>热度</item>
-        <item>时间从近到远</item>
-        <item>时间从远到近</item>
+        <item>按时间排序</item>
+        <item>按评论量排序</item>
+        <item>按点赞量排序</item>
     </string-array>
 
     <string-array name="school">

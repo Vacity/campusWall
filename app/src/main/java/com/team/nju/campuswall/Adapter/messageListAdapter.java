@@ -92,7 +92,7 @@ public class messageListAdapter extends BaseAdapter {
         zujian.remarkNum.setText(Integer.toString((int)data.get(i).get("remarkNum")));
         zujian.starNum.setText(Integer.toString((int)data.get(i).get("starNum")));
         if(((int)data.get(i).get("isLike"))==1)
-            zujian.remark.setBackgroundResource(R.drawable.star2);
+            zujian.remark.setBackgroundResource(R.drawable.heart);
         final int id=(int)data.get(i).get("id");
         final int p = i;
         final int one=zujian.star.getId();

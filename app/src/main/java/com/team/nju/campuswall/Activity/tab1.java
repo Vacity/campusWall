@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -98,20 +99,61 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tab1,null);//注意不要指定父视图
-        listView=(ListView)view.findViewById(R.id.list1);
-        spinner=(Spinner)view.findViewById(R.id.sort1);
+        View view = inflater.inflate(R.layout.fragment_tab1, null);//注意不要指定父视图
+        listView = (ListView) view.findViewById(R.id.list1);
+        spinner = (Spinner) view.findViewById(R.id.sort1);
+        messageModel= new ArrayList<MessageModel>();
+        spinner.setSelected(true);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {               //pos 0,1,2 分别代表时间，评论，点赞
+                switch(pos){
+                    case 0:{
+                        Map map = new HashMap();
+                        map.put("phone",phone);
+                        map.put("sortBy","time");     //tiome,like,comment
+                        map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
+                        requestFragment.httpRequest(map, CommonUrl.getMessage);
+                    }
+                    case 1:{
+                        Map map = new HashMap();
+                        if(phone==null)
+                            map.put("phone","123");
+                        else
+                            map.put("phone",phone);
+                        map.put("sortBy","comment");     //tiome,like,comment
+                        map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
+                        requestFragment.httpRequest(map, CommonUrl.getMessage);
+                    }
+                    case 2:{
+                        Map map = new HashMap();
+                        if(phone==null)
+                            map.put("phone","123");
+                        else
+                            map.put("phone",phone);
+                        map.put("sortBy","like");     //tiome,like,comment
+                        map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
+                        requestFragment.httpRequest(map, CommonUrl.getMessage);
+                    }
+                }
+                String[] languages = getResources().getStringArray(R.array.stype);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+        });
         return view;
     }
     private void initInfo() {
-        messageModel= new ArrayList<MessageModel>();
-
         Map map = new HashMap();
         if(phone==null)
         map.put("phone","123");
         else
         map.put("phone",phone);
-        map.put("sortBy","time");     //tiome,like,comment
+        map.put("sortBy","time");     //tiome,like,comment 默认时间
         map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
         requestFragment.httpRequest(map, CommonUrl.getMessage);
     }

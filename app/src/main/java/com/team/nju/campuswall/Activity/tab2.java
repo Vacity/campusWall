@@ -102,10 +102,7 @@ public class tab2 extends Fragment implements ListItemClickHelp,NetworkCallbackI
     private void initInfo() {
         messageModel= new ArrayList<MessageModel>();
         Map map = new HashMap();
-        if(phone==null)
-            map.put("phone","null");
-        else
-            map.put("phone",phone);
+        map.put("phone",phone);
         map.put("sortBy","time");     //tiome,like,comment
         map.put("type", StatusCode.REQUEST_MESSAGE_EMOTION);
         requestFragment.httpRequest(map, CommonUrl.getMessage);
