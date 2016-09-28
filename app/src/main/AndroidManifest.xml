@@ -40,7 +40,11 @@
         <activity android:name=".Activity.profileActivity" />
         <activity android:name=".Activity.showMessagesActivity" />
         <activity android:name=".Activity.CommentActivity" />
-        <activity android:name=".Activity.publishActivity"></activity>
+        <activity android:name=".Activity.publishActivity" />
+        <activity
+            android:name=".Activity.CommentDetailActivity"
+            android:label="@string/title_activity_comment_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

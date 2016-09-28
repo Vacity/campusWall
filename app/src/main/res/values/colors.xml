@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryRed">#f44336</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#fcfcfc</color>
     <color name="profile">#77b4a3</color>
     <color name="grey">#616161</color>
+    <color name="darkGrey">#a2a9af</color>
+    <color name="riceWhite">#ebedec</color>
 </resources>
