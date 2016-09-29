@@ -149,9 +149,6 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
     }
     private void initInfo() {
         Map map = new HashMap();
-        if(phone==null)
-        map.put("phone","123");
-        else
         map.put("phone",phone);
         map.put("sortBy","time");     //tiome,like,comment 默认时间
         map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
