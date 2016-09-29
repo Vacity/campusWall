@@ -50,10 +50,14 @@ public interface StatusCode {
     int REQUEST_ISSTAR=10081;
     int REQUEST_NOTSTAR=10082;
     int REQUEST_ISSTAR_ERROR=10083;
-
-
-
-
+    //评论
+    int REQUEST_COMMENT = 10090;
+    int REQUEST_COMMENT_SUCCESS = 10091;
+    int REQUEST_COMMENT_ERROR = 10092;
+    //查看所有评论
+    int REQUEST_ASK_COMMENT = 10093;
+    int REQUEST_ASK_COMMENT_SUCCESS = 10094;
+    int REQUEST_ASK_COMMENT_ERROR = 10095;
 
 
     //请求我关注的用户（我的关注）

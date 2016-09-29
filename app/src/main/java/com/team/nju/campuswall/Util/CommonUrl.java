@@ -20,4 +20,6 @@ public class CommonUrl {
 
     public static final String star = url + "activity/operation01";//点赞或者取消点赞
 
+    public static final String comment = url + "activity/comment";//评论
+
 }

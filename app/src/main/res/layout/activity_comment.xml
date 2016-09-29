@@ -3,12 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout xmlns:rfal="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/fab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        rfal:rfal_frame_alpha="0.95"
-        rfal:rfal_frame_color="#ffffff">
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="评论"
+        android:id="@+id/tv_comment"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/button"
+        android:layout_marginEnd="1dp"
+        android:padding="4dp"
+        android:layout_gravity="right"
+        android:gravity="center"/>
 
     <ListView
     android:id="@+id/commentList"
@@ -16,23 +23,6 @@
     android:layout_height="match_parent"></ListView>
 
 
-    <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton xmlns:rfab="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/fab_button_group"
-        android:layout_width="273dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="15dp"
-        rfab:rfab_color_normal="@color/colorPrimary"
-        rfab:rfab_color_pressed="#263238"
-        rfab:rfab_drawable="@drawable/ic_send_white_24dp"
-        rfab:rfab_shadow_color="#999999"
-        rfab:rfab_shadow_dx="0dp"
-        rfab:rfab_shadow_dy="2dp"
-        rfab:rfab_shadow_radius="5dp"
-        rfab:rfab_size="normal" />
 
-    </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
 
 </LinearLayout>
