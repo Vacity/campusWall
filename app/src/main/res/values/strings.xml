@@ -26,5 +26,6 @@
     <string name="sign_up_password_hint">密码</string>
     <string name="sign_up_school_hint">学校</string>
     <string name="publish_message">发表</string>
+    <string name="title_activity_comment_detail">CommentDetailActivity</string>
 
 </resources>

@@ -41,7 +41,14 @@
         <activity android:name=".Activity.showMessagesActivity" />
         <activity android:name=".Activity.CommentActivity" />
         <activity android:name=".Activity.publishActivity" />
+<<<<<<< HEAD
         <activity android:name=".Activity.showSearchActivity"></activity>
+=======
+        <activity
+            android:name=".Activity.CommentDetailActivity"
+            android:label="@string/title_activity_comment_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> origin/master
     </application>
 
 </manifest>

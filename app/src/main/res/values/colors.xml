@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryRed">#f44336</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#fcfcfc</color>
     <color name="profile">#77b4a3</color>
     <color name="grey">#616161</color>
+<<<<<<< HEAD
+    <color name="darkGrey">#a2a9af</color>
+    <color name="riceWhite">#ebedec</color>
+=======
     <color name="author">#8cd3ff</color>
     <color name="title">#000000</color>
     <color name="lightgrey">#cecece</color>
+>>>>>>> 66e1ad7f0bcb59e646cbf576b91b9f83712d0561
 </resources>

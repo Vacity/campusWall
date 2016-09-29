@@ -34,4 +34,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:9.2.1'
     compile 'com.google.android.gms:play-services-auth:9.2.1'
     compile 'com.google.android.gms:play-services-gcm:9.2.1'
+    compile 'com.github.wangjiegulu:RapidFloatingActionButton:1.0.3'
+    compile 'com.github.wangjiegulu:AndroidBucket:1.0.4'
+
 }
