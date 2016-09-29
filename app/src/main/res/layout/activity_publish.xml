@@ -29,6 +29,7 @@
         android:textSize="30px"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:src="@drawable/emotion_two"/>
+
     <ImageButton
         android:id="@+id/eventTitleBtn"
         android:layout_width="90dp"
@@ -39,6 +40,7 @@
         android:textColor="#FFF"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:src="@drawable/event_one"/>
+
 
         <ImageButton
             android:id="@+id/thingTitleBtn"

@@ -11,9 +11,18 @@ public class MessageModel {
     String AcsponsT;
     String Accontent;
     String Actitle;
+    int Acisliked;
     String Acsponsorname;
     int AccommentN;
     int AclikeN;
+
+    public int isliked() {
+        return Acisliked;
+    }
+
+    public void setIsliked(int isliked) {
+        Acisliked = isliked;
+    }
 
     public String getAcsponsorname() {
         return Acsponsorname;
