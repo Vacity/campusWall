@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/search"
+        android:title="menu_notifications"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_publish"
+        android:icon="@drawable/write"
+        android:title="item_01"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/profile"
+        android:title="menu_notifications"
+        app:showAsAction="ifRoom" />
+
+
+
+    <item
+        android:id="@+id/action_item2"
+        android:title="item_02"
+        app:showAsAction="never" />
+</menu>

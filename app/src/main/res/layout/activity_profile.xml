@@ -86,10 +86,12 @@
 
     <!-- number -->
 
-    <TableRow>
+    <TableRow
+        android:layout_marginTop="20dp">
         <TextView
             android:id="@+id/profile_product"
             android:text="123"
+            android:textSize="25dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -98,6 +100,7 @@
         <TextView
             android:id="@+id/profile_join"
             android:text="1"
+            android:textSize="25dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -106,6 +109,7 @@
         <TextView
             android:id="@+id/profile_star"
             android:text="234"
+            android:textSize="25dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -117,6 +121,7 @@
         <TextView />
         <TextView
             android:layout_marginTop="40dp"
+            android:textSize="20dp"
             android:id="@+id/profile_signature"
             android:text="QQ:879950363  wechat:......."/>
         <TextView />

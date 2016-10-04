@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -30,17 +32,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class mainActivity extends FragmentActivity implements
-        SearchView.OnQueryTextListener,NetworkCallbackInterface.NetRequestIterface {
-    private ListView list;
+public class mainActivity extends FragmentActivity {
+
+    private Toolbar toolbar;
     private SearchView sv;
     private ListView lv;
-    private netRequest requestFragment;
     private TextView isLog;
     private int flag = 0;
     public static String phone;
-    // 自动完成的列表
-    private final String[] mStrings = {"aaaaa", "bbbbbb", "cccccc", "ddddddd"};
+
 
     private ViewPager vPager = null;
     /**
@@ -80,6 +80,44 @@ public class mainActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_messages);
 
+        toolbar=(Toolbar)findViewById(R.id.maintoolbar);
+        toolbar.inflateMenu(R.menu.main_toolbar);
+        //toolbar.setLogo();
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int menuItemId = item.getItemId();
+                switch (menuItemId) {
+                    case R.id.menu_search: {
+
+                    }
+                    case R.id.menu_profile: {
+                        if (phone == null)
+                            Toast.makeText(mainActivity.this, "登陆后再查看吧", Toast.LENGTH_LONG).show();
+                        else {
+                            Intent intent = new Intent(mainActivity.this, profileActivity.class);
+                            Bundle data = new Bundle();
+                            data.putString("phone", phone);
+                            intent.putExtras(data);
+                            startActivity(intent);
+                        }
+                    }
+                    case R.id.menu_publish: {
+                        if (phone == null)
+                            Toast.makeText(mainActivity.this, "登陆后才可以发布噢", Toast.LENGTH_LONG).show();
+                        else {
+                            Intent intent = new Intent(mainActivity.this, publishActivity.class);
+                            Bundle data = new Bundle();
+                            data.putString("phone", phone);
+                            intent.putExtras(data);
+                            startActivity(intent);
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+
         ImageView issue =(ImageView)findViewById(R.id.issue);
         ImageView profile =(ImageView) findViewById(R.id.profile);
         isLog =(TextView)findViewById(R.id.log_state);
@@ -97,41 +135,41 @@ public class mainActivity extends FragmentActivity implements
 
                 }
             });
-            issue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mainActivity.this, "登陆后才可以发布噢", Toast.LENGTH_LONG).show();
-                }
-            });
-            profile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mainActivity.this, "登陆后再查看吧", Toast.LENGTH_LONG).show();
-                }
-            });
+//            issue.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(mainActivity.this, "登陆后才可以发布噢", Toast.LENGTH_LONG).show();
+//                }
+//            });
+//            profile.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(mainActivity.this, "登陆后再查看吧", Toast.LENGTH_LONG).show();
+//                }
+//            });
         }
         else {
             isLog.setVisibility(View.INVISIBLE);
-            issue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mainActivity.this,publishActivity.class);
-                    Bundle data = new Bundle();
-                    data.putString("phone", phone);
-                    intent.putExtras(data);
-                    startActivity(intent);
-                }
-            });
-            profile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mainActivity.this,profileActivity.class);
-                    Bundle data = new Bundle();
-                    data.putString("phone", phone);
-                    intent.putExtras(data);
-                    startActivity(intent);
-                }
-            });
+//            issue.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(mainActivity.this,publishActivity.class);
+//                    Bundle data = new Bundle();
+//                    data.putString("phone", phone);
+//                    intent.putExtras(data);
+//                    startActivity(intent);
+//                }
+//            });
+//            profile.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(mainActivity.this,profileActivity.class);
+//                    Bundle data = new Bundle();
+//                    data.putString("phone", phone);
+//                    intent.putExtras(data);
+//                    startActivity(intent);
+//                }
+//            });
         }
         TextView t1=(TextView)findViewById(R.id.text1) ;
         TextView t2=(TextView)findViewById(R.id.text2) ;
@@ -159,12 +197,12 @@ public class mainActivity extends FragmentActivity implements
         });
 
 
-        lv = (ListView) findViewById(R.id.searchtip);
-        lv.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1, mStrings));
-        lv.setTextFilterEnabled(true);//设置lv可以被过虑
-
-        sv = (SearchView) findViewById(R.id.sv);
-        sv.setOnQueryTextListener(this); // 为该SearchView组件设置事件监听器
+//        lv = (ListView) findViewById(R.id.searchtip);
+//        lv.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1, mStrings));
+//        lv.setTextFilterEnabled(true);//设置lv可以被过虑
+//
+//        sv = (SearchView) findViewById(R.id.sv);
+//        sv.setOnQueryTextListener(this); // 为该SearchView组件设置事件监听器
 
         text1 = (TextView) findViewById(R.id.text1);
         text2 = (TextView) findViewById(R.id.text2);
@@ -220,30 +258,30 @@ public class mainActivity extends FragmentActivity implements
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-     //用户输入字符时激发该方法
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        if (TextUtils.isEmpty(newText)) {
-            // 清除ListView的过滤
-            lv.clearTextFilter();
-        } else {
-            // 使用用户输入的内容对ListView的列表项进行过滤
-            lv.setFilterText(newText);
-        }
-        return true;
-    }
-
-    // 单击搜索按钮时激发该方法
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        Intent intent = new Intent(mainActivity.this,showSearchActivity.class);
-        Bundle data = new Bundle();
-        data.putString("phone", phone);
-        data.putString("query",query);
-        intent.putExtras(data);
-        startActivity(intent);
-        return false;
-    }
+//     //用户输入字符时激发该方法
+//    @Override
+//    public boolean onQueryTextChange(String newText) {
+//        if (TextUtils.isEmpty(newText)) {
+//            // 清除ListView的过滤
+//            lv.clearTextFilter();
+//        } else {
+//            // 使用用户输入的内容对ListView的列表项进行过滤
+//            lv.setFilterText(newText);
+//        }
+//        return true;
+//    }
+//
+//    // 单击搜索按钮时激发该方法
+//    @Override
+//    public boolean onQueryTextSubmit(String query) {
+//        Intent intent = new Intent(mainActivity.this,showSearchActivity.class);
+//        Bundle data = new Bundle();
+//        data.putString("phone", phone);
+//        data.putString("query",query);
+//        intent.putExtras(data);
+//        startActivity(intent);
+//        return false;
+//    }
 
 //    private void initImageView()
 //    {
@@ -260,31 +298,4 @@ public class mainActivity extends FragmentActivity implements
 //        //设置初始位置
 //        cursor.setImageMatrix(matrix);
 //    }
-
-    @Override
-    public void requestFinish(String result, String requestUrl) throws JSONException {
-        if (requestUrl.equals(CommonUrl.registerAccount)) {
-            try {
-                JSONObject object = new JSONObject(result);
-                int code = Integer.valueOf(object.getString("code"));
-
-                if (code== StatusCode.RECIEVE_REGISTER_SUCCESS) {
-
-                    Intent intent = new Intent(getApplicationContext(), mainActivity.class);
-                    intent.putExtra("result", "注册成功");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-                    finish();
-                    return;
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void exception(IOException e, String requestUrl) {
-
-    }
 }
