@@ -28,8 +28,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="热搜词：................................................................................"
-        android:textSize="25dp"/>
+        android:text="热搜词：选课   微积分   体育老师   计算机考试  女朋友   旧书..."
+        android:textSize="20dp"/>
     <ListView
         android:id="@+id/searchresult"
         android:layout_width="match_parent"

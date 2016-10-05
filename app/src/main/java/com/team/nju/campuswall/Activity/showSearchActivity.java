@@ -4,8 +4,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.team.nju.campuswall.Adapter.ListItemClickHelp;
@@ -27,39 +30,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class showSearchActivity extends AppCompatActivity implements ListItemClickHelp,NetworkCallbackInterface.NetRequestIterface {
+public class showSearchActivity extends AppCompatActivity implements ListItemClickHelp,NetworkCallbackInterface.NetRequestIterface,SearchView.OnQueryTextListener {
 
     private List<MessageModel> messageModel ;
     private netRequest requestFragment;
-    private ListView resultList;
-    private String phone;
+    private SearchView sv;
+    private ListView lv;
+    private String phone=mainActivity.phone;
     private String query;
+    private String[] hot;
     private int tempAcid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_search);
-        Bundle data = getIntent().getExtras();
-        phone= data.getString("phone");
-        query=data.getString("query");
-        resultList=(ListView) findViewById(R.id.searchresult);
+
+        sv=(SearchView)findViewById(R.id.search);
+        lv=(ListView) findViewById(R.id.searchresult);
+        hot = loadData();
+        lv.setAdapter(new ArrayAdapter<Object>(getApplicationContext(),
+                android.R.layout.simple_expandable_list_item_1, hot));
+        sv.setOnQueryTextListener(this);
         requestFragment=new  netRequest(this,this);
-        initInfo();
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        initInfo();
+
+    private String[] loadData() {
+        String[] hot ={"a","b","c"};
+        return hot;
     }
 
-    private void initInfo() {
-        Map map = new HashMap();
-        map.put("phone",phone);
-        map.put("sortBy","time");     //tiome,like,comment 默认时间
-        map.put("query",query);
-       // requestFragment.httpRequest(map, CommonUrl.getMessage);
-    }
 
     @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
@@ -112,7 +113,7 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
                 case StatusCode.REQUEST_MESSAGE_SCHOOL_SUCCESS: //成功返回所有动态
                 {
                     List<Map<String,Object>> list = getData();
-                    resultList.setAdapter(new messageListAdapter(showSearchActivity.this,list,showSearchActivity.this));
+                    lv.setAdapter(new messageListAdapter(showSearchActivity.this,list,showSearchActivity.this));
                     break;
                 }
                 case StatusCode.REQUEST_ISSTAR:    //已经点赞，进行消赞的操作
@@ -156,5 +157,26 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
             list.add(map);
         }
         return list;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+//        Map map = new HashMap();
+//        map.put("type", StatusCode.);
+//        map.put(");
+//        requestFragment.httpRequest(map, CommonUrl.);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        if (TextUtils.isEmpty(s)) {
+            // Clear the text filter.
+            lv.clearTextFilter();
+        } else {
+            // Sets the initial value for the text filter.
+            lv.setFilterText(s.toString());
+        }
+        return false;
     }
 }

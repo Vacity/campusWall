@@ -31,9 +31,10 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
 
     private netRequest requestFragment;
     private ProgressDialog publishProgressDlg;
-    private boolean emotionClicked = false;
-    private boolean eventClicked = false;
-    private boolean thingClicked = false;
+//    private boolean emotionClicked = false;
+//    private boolean eventClicked = false;
+//    private boolean thingClicked = false;
+    private int type=1;
     private String phone;  //author
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +55,42 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
         emotion.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                emotionClicked = !emotionClicked;
-                //change background
+            if(type==2)
+                return;
+                else{
+                type=2;
+                emotion.setBackgroundResource(R.drawable.emotion_two);
+                event.setBackgroundResource(R.drawable.event_one);
+                thing.setBackgroundResource(R.drawable.thing_one);
+            }
             }
         });
 
         event.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                eventClicked = !eventClicked;
+                if(type==1)
+                    return;
+                else{
+                    type=1;
+                    emotion.setBackgroundResource(R.drawable.emotion_one);
+                    event.setBackgroundResource(R.drawable.event_two);
+                    thing.setBackgroundResource(R.drawable.thing_one);
+                }
             }
         });
 
         thing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                thingClicked = !thingClicked;
+                if(type==3)
+                    return;
+                else{
+                    type=3;
+                    emotion.setBackgroundResource(R.drawable.emotion_one);
+                    event.setBackgroundResource(R.drawable.event_one);
+                    thing.setBackgroundResource(R.drawable.thing_two);
+                }
             }
         });
 
@@ -85,24 +106,12 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
             public void onClick(View v) {
                 Map map = new HashMap();
                 String titleText = ((EditText) findViewById(R.id.publishTitle)).getText().toString();//1.标题
-                ArrayList<String> tags = new ArrayList<String>();//2.类别
-                if (eventClicked) {
-                    tags.add("情感话题");
-                }
-
-                if (eventClicked) {
-                    tags.add("校园轶事");
-                }
-
-                if (thingClicked) {
-                    tags.add("物品相关");
-                }
                 String contentText = ((EditText) findViewById(R.id.publishContent)).getText().toString();//5.内容
                 if ((!titleText.equals("")) && (!contentText.equals("")) ){
                     //正确发出动态
                     map.put("author",phone);
                     map.put("title", titleText);
-                    map.put("category",1);   //1，2，3分别对应
+                    map.put("category",type);   //1，2，3分别对应
                   //  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");//设置日期格式
 //                    String date = df.format(new Date());//4.日期
 
