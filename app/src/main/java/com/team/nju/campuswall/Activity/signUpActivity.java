@@ -28,13 +28,17 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
     private netRequest requestFragment;
     private ProgressDialog signupProgessDlg;
     private String phone;
+    private TextView login;
+    private Button signup;
+    private Button exit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         requestFragment=new netRequest(this,this);
-        TextView login = (TextView) findViewById(R.id.link_login);
-        Button signup = (Button) findViewById(R.id.btn_signup);
+        login = (TextView) findViewById(R.id.link_login);
+        signup = (Button) findViewById(R.id.btn_signup);
+        exit = (Button)findViewById(R.id.bt_exit);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +70,12 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
                         Toast.makeText(signUpActivity.this, "请完善注册信息", Toast.LENGTH_LONG).show();
                     }
               //  }
+            }
+        });
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

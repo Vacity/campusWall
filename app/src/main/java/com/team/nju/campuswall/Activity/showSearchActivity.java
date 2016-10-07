@@ -1,6 +1,7 @@
 package com.team.nju.campuswall.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.team.nju.campuswall.Adapter.ListItemClickHelp;
@@ -41,6 +44,7 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
     private String query;
     private String[] hot;
     private int tempAcid;
+    private TextView cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +53,20 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
 
         sv=(SearchView)findViewById(R.id.search);
         lv=(ListView) findViewById(R.id.searchresult);
+        cancel = (TextView) findViewById(R.id.tv_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         hot = loadData();
         lv.setAdapter(new ArrayAdapter<Object>(getApplicationContext(),
                 android.R.layout.simple_expandable_list_item_1, hot));
         sv.setOnQueryTextListener(this);
+        int id = sv.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = (TextView) sv.findViewById(id);
+        textView.setTextColor(Color.WHITE);
         requestFragment=new  netRequest(this,this);
     }
 

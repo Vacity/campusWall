@@ -4,6 +4,50 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <RelativeLayout
+        android:background="#1fc4c6"
+        android:id="@+id/layout_titlebar"
+        android:layout_height="52dp"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            android:ellipsize="marquee"
+            android:id="@+id/text_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="发布"
+            android:textColor="#ffffffff"
+            android:textSize="20dp"/>
+
+        <Button
+            android:background="@android:color/transparent"
+            android:id="@+id/bt_exit"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/bt_exit"
+            android:drawablePadding="-10dp"
+            android:text="返回"
+            android:textColor="#ffffff"
+            android:textSize="20dp"/>
+
+        <Button
+            android:background="@android:color/transparent"
+            android:id="@+id/bt_save"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="完成"
+            android:textColor="#ffffff"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+
     <EditText
         android:id="@+id/publishTitle"
         android:layout_width="wrap_content"
@@ -83,20 +127,5 @@
         android:layout_height="1dp"
         android:background="#E0E0E0"
         />
-
-
-
-    <Button
-        android:id="@+id/publishBtn"
-        android:layout_gravity="center"
-        android:layout_width="80dp"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/arc_button"
-        android:textColor="#FFF"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/publish_message"/>
-
-
 
 </LinearLayout>
