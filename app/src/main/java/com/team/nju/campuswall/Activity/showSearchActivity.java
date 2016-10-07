@@ -64,10 +64,10 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
         lv.setAdapter(new ArrayAdapter<Object>(getApplicationContext(),
                 android.R.layout.simple_expandable_list_item_1, hot));
         sv.setOnQueryTextListener(this);
-        int id = sv.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        TextView textView = (TextView) sv.findViewById(id);
-        textView.setTextColor(Color.WHITE);
         requestFragment=new  netRequest(this,this);
+        int id = sv.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = (TextView)sv.findViewById(id);
+        textView.setHintTextColor(Color.WHITE);
     }
 
 
