@@ -36,6 +36,7 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
     private TextView password;
     private TextView signature;
     private Button save;
+    private Button exit;
 
     private String phone;
     private String oldnickname;
@@ -71,6 +72,7 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
             }
         });
         save=(Button)findViewById(R.id.save_profile);
+        exit = (Button)findViewById(R.id.bt_exit);
         nickname =(TextView)findViewById(R.id.tv_nickname);
         password =(TextView)findViewById(R.id.tv_password);
         signature=(TextView)findViewById(R.id.tv_signature);
@@ -97,6 +99,13 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
                 map.put("type", StatusCode.REQUEST_PROFILE_EDIT);
                 requestFragment.httpRequest(map, CommonUrl.editProfile);
            //     progessDlg= ProgressDialog.show(EditProfile.this, "campusWall", "处理中", true, false);
+            }
+        });
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

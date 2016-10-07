@@ -48,9 +48,8 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
         final ImageButton event = (ImageButton) findViewById(R.id.eventTitleBtn);
         final ImageButton thing = (ImageButton) findViewById(R.id.thingTitleBtn);
         final ImageView add = (ImageView) findViewById(R.id.addIcon);
-        final Button publish = (Button) findViewById(R.id.publishBtn);
-
-
+        final Button exit = (Button)findViewById(R.id.bt_exit);
+        final Button save = (Button) findViewById(R.id.bt_save);
 
         emotion.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -101,7 +100,14 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
             }
         });
 
-        publish.setOnClickListener(new View.OnClickListener() {
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Map map = new HashMap();
