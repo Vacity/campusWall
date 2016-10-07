@@ -22,4 +22,5 @@ public class CommonUrl {
 
     public static final String comment = url + "activity/comment";//评论
 
+    public static final String search = url + "activity/search";//搜索
 }

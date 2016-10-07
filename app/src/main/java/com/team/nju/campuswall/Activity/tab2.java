@@ -24,6 +24,7 @@ import com.team.nju.campuswall.Network.netRequest;
 import com.team.nju.campuswall.R;
 import com.team.nju.campuswall.Util.CommonUrl;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -103,7 +104,7 @@ public class tab2 extends Fragment implements ListItemClickHelp,NetworkCallbackI
         messageModel= new ArrayList<MessageModel>();
         Map map = new HashMap();
         map.put("phone",phone);
-        map.put("sortBy","time");     //tiome,like,comment
+        map.put("sortby","time");     //tiome,like,comment
         map.put("type", StatusCode.REQUEST_MESSAGE_EMOTION);
         requestFragment.httpRequest(map, CommonUrl.getMessage);
     }
@@ -118,12 +119,13 @@ public class tab2 extends Fragment implements ListItemClickHelp,NetworkCallbackI
         List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
         for(int i=0;i<messageModel.size();i++){
             Map<String,Object> map = new HashMap<String,Object>();
+            map.put("isLike",messageModel.get(i).isliked());
             map.put("id",messageModel.get(i).getAcid());
             map.put("title",messageModel.get(i).getActitle());
             map.put("content",messageModel.get(i).getAccontent());
             map.put("remarkNum",messageModel.get(i).getAccommentN());
             map.put("starNum",messageModel.get(i).getAclikeN());
-            map.put("author",messageModel.get(i).getAcsponsorid());
+            map.put("author",messageModel.get(i).getAcsponsorname());
             map.put("time",messageModel.get(i).getAcsponsT());
             //     map.put("image",R.drawable.XXXX);  可以加头像
             list.add(map);
@@ -152,9 +154,21 @@ public class tab2 extends Fragment implements ListItemClickHelp,NetworkCallbackI
             JSONObject object = new JSONObject(result);
             int code = Integer.valueOf(object.getString("code"));
             if (code == StatusCode.REQUEST_MESSAGE_EMOTION_SUCCESS) {
-                Gson gson = new Gson();
-                messageModel = gson.fromJson(object.getJSONArray("contents").getJSONObject(0).toString(), new TypeToken<List<MessageModel>>() {
-                }.getType());
+                JSONArray jsonArray = object.getJSONArray("contents");
+                for(int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject dongTai = jsonArray.getJSONObject(i);
+                    MessageModel itemModel = new MessageModel();
+                    itemModel.setAccommentN((int) dongTai.get("AccommentN"));
+                    itemModel.setAccontent((String) dongTai.get("Accontent"));
+                    itemModel.setAcid((int) dongTai.get("Acid"));
+                    itemModel.setAclikeN((int) dongTai.get("AclikeN"));
+                    itemModel.setAcsponsorid((int) dongTai.get("Acsponsorid"));
+                    itemModel.setAcsponsorname((String) dongTai.get("Acsponsorname"));
+                    itemModel.setAcsponsT((String) dongTai.get("AcsponsT"));
+                    itemModel.setActitle((String) dongTai.get("Actitle"));
+                    itemModel.setIsliked((int) dongTai.get("Acisliked"));
+                    messageModel.add(itemModel);
+                }
                 message.what = StatusCode.REQUEST_MESSAGE_EMOTION_SUCCESS;
                 handler.sendMessage(message);
                 return;
@@ -242,11 +256,9 @@ public class tab2 extends Fragment implements ListItemClickHelp,NetworkCallbackI
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case StatusCode.REQUEST_MESSAGE_EMOTION_SUCCESS://成功返回所有动态
-                {
                     List<Map<String,Object>> list = getData();
                     listView.setAdapter(new messageListAdapter(tab2.this.getActivity(),list,tab2.this));
                     break;
-                }
                 case StatusCode.REQUEST_ISSTAR:    //已经点赞，进行消赞的操作
                 {
                     Map map = new HashMap();
@@ -254,7 +266,7 @@ public class tab2 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     map.put("acid", tempAcid);
                     map.put("phone", mainActivity.phone);
                     requestFragment.httpRequest(map, CommonUrl.star);
-                }
+                }break;
                 case StatusCode.REQUEST_NOTSTAR:  //没有赞过，进行点赞的操作
                 {
                     Map map = new HashMap();
@@ -262,7 +274,7 @@ public class tab2 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     map.put("acid", tempAcid);
                     map.put("phone", mainActivity.phone);
                     requestFragment.httpRequest(map, CommonUrl.star);
-                }
+                }break;
                 default: //用户身份认证失败
                 {
                     Toast.makeText(tab2.this.getActivity(), "网络错误", Toast.LENGTH_LONG).show();

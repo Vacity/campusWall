@@ -83,7 +83,8 @@ public class mainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_messages);
-
+        cursor = (ImageView) findViewById(R.id.cursor);
+        initImageView();
         toolbar=(Toolbar)findViewById(R.id.maintoolbar);
         toolbar.inflateMenu(R.menu.main_toolbar);
         //toolbar.setLogo();
@@ -95,7 +96,7 @@ public class mainActivity extends FragmentActivity {
                     case R.id.menu_search: {
                         Intent intent = new Intent(mainActivity.this,showSearchActivity.class);
                         startActivity(intent);
-                    }
+                    }break;
                     case R.id.menu_profile: {
                         if (phone == null)
                             Toast.makeText(mainActivity.this, "登陆后再查看吧", Toast.LENGTH_LONG).show();
@@ -105,7 +106,7 @@ public class mainActivity extends FragmentActivity {
                             data.putString("phone", phone);
                             intent.putExtras(data);
                             startActivity(intent);
-                        }
+                        }break;
                     }
                     case R.id.menu_publish: {
                         if (phone == null)
@@ -116,7 +117,7 @@ public class mainActivity extends FragmentActivity {
                             data.putString("phone", phone);
                             intent.putExtras(data);
                             startActivity(intent);
-                        }
+                        }break;
                     }
                 }
                 return true;
@@ -223,7 +224,7 @@ public class mainActivity extends FragmentActivity {
 
     private void initImageView()
     {
-        cursor = (ImageView) findViewById(R.id.cursor);
+
         //获取图片宽度
         lineWidth = BitmapFactory.decodeResource(getResources(),R.drawable.line).getWidth();
         DisplayMetrics dm = new DisplayMetrics();

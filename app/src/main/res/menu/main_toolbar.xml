@@ -4,25 +4,20 @@
     <item
         android:id="@+id/menu_search"
         android:icon="@drawable/search"
-        android:title="menu_notifications"
+        android:title="search"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_publish"
         android:icon="@drawable/write"
-        android:title="item_01"
+        android:title="publish"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_profile"
         android:icon="@drawable/profile"
-        android:title="menu_notifications"
+        android:title="profile"
         app:showAsAction="ifRoom" />
 
 
-
-    <item
-        android:id="@+id/action_item2"
-        android:title="item_02"
-        app:showAsAction="never" />
 </menu>

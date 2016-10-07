@@ -1,5 +1,6 @@
 package com.team.nju.campuswall.Activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -57,7 +58,7 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
 
 
     private String[] loadData() {
-        String[] hot ={"a","b","c"};
+        String[] hot ={"aa","ab","bc","d"};
         return hot;
     }
 
@@ -65,11 +66,12 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
     @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
         Message message = new Message();
+        messageModel= new ArrayList<MessageModel>();
         //查询消息的返回
-        if (requestUrl.equals(CommonUrl.getMessage)) {
+        if (requestUrl.equals(CommonUrl.search)) {
             JSONObject object = new JSONObject(result);
             int code = Integer.valueOf(object.getString("code"));
-            if (code == StatusCode.REQUEST_MESSAGE_SCHOOL_SUCCESS) {
+            if (code == StatusCode.REQUEST_SEARCH_SUCCESS) {
                 JSONArray jsonArray = object.getJSONArray("contents");
                 for(int i = 0; i < jsonArray.length(); i++) {
                     JSONObject dongTai = jsonArray.getJSONObject(i);
@@ -85,7 +87,7 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
                     itemModel.setIsliked((int) dongTai.get("Acisliked"));
                     messageModel.add(itemModel);
                 }
-                message.what = StatusCode.REQUEST_MESSAGE_SCHOOL_SUCCESS;
+                message.what = StatusCode.REQUEST_SEARCH_SUCCESS;
                 handler.sendMessage(message);
                 return;
             } else {
@@ -103,14 +105,40 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
 
     @Override
     public void onClick(View item, View widget, int position, int which, int id) {
-
+        tempAcid=id;
+        switch (which) {
+            case R.id.star:                 //点赞或者取消
+                if(!(phone==null)) {
+                    Map map = new HashMap();
+                    map.put("type", StatusCode.REQUEST_ASK_ISSTAR);
+                    map.put("acid", id);
+                    map.put("phone", mainActivity.phone);
+                    requestFragment.httpRequest(map, CommonUrl.star);
+                }else
+                    Toast.makeText(this, "登陆后进行更多操作", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.remark:              //跳转评论界面
+                if(!(phone==null)) {
+                    Intent intent = new Intent(this, CommentActivity.class);
+                    Bundle data = new Bundle();
+                    data.putString("phone", phone);
+                    data.putInt("id",id);
+                    intent.putExtras(data);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(this, "登陆后进行更多操作", Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
-                case StatusCode.REQUEST_MESSAGE_SCHOOL_SUCCESS: //成功返回所有动态
+                case StatusCode.REQUEST_SEARCH_SUCCESS: //成功返回所有动态
                 {
                     List<Map<String,Object>> list = getData();
                     lv.setAdapter(new messageListAdapter(showSearchActivity.this,list,showSearchActivity.this));
@@ -161,11 +189,12 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
 
     @Override
     public boolean onQueryTextSubmit(String s) {
-//        Map map = new HashMap();
-//        map.put("type", StatusCode.);
-//        map.put(");
-//        requestFragment.httpRequest(map, CommonUrl.);
-        return false;
+         Map map = new HashMap();
+        map.put("type", StatusCode.REQUEST_ASK_SEARCH);
+        map.put("searchurl","s");
+        map.put("phone","phone");
+        requestFragment.httpRequest(map, CommonUrl.search);
+        return true;
     }
 
     @Override
@@ -177,6 +206,6 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
             // Sets the initial value for the text filter.
             lv.setFilterText(s.toString());
         }
-        return false;
+        return true;
     }
 }

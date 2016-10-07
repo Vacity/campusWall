@@ -80,7 +80,7 @@ public class CommentListAdapter extends BaseAdapter{
             widget = (Widget) convertView.getTag();
         }
         //绑定数据
-//        widget.photo.setBackgroundResource((Integer)data.get(position).get("photo"));
+//        widget.photoshape.setBackgroundResource((Integer)data.get(position).get("photoshape"));
         widget.name.setText((String)data.get(position).get("name"));
 //        widget.starNum.setText((String)data.get(position).get("starNum"));
         widget.info.setText((String)data.get(position).get("info"));

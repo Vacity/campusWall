@@ -60,7 +60,7 @@
     <TableRow>
         <ImageView
             android:id="@+id/cursor"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="matrix"
             android:src="@drawable/line" />

@@ -59,9 +59,9 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
                 return;
                 else{
                 type=2;
-                emotion.setBackgroundResource(R.drawable.emotion_two);
-                event.setBackgroundResource(R.drawable.event_one);
-                thing.setBackgroundResource(R.drawable.thing_one);
+                emotion.setImageResource(R.drawable.emotion_two);
+                event.setImageResource(R.drawable.event_one);
+                thing.setImageResource(R.drawable.thing_one);
             }
             }
         });
@@ -73,9 +73,9 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
                     return;
                 else{
                     type=1;
-                    emotion.setBackgroundResource(R.drawable.emotion_one);
-                    event.setBackgroundResource(R.drawable.event_two);
-                    thing.setBackgroundResource(R.drawable.thing_one);
+                    emotion.setImageResource(R.drawable.emotion_one);
+                    event.setImageResource(R.drawable.event_two);
+                    thing.setImageResource(R.drawable.thing_one);
                 }
             }
         });
@@ -87,9 +87,9 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
                     return;
                 else{
                     type=3;
-                    emotion.setBackgroundResource(R.drawable.emotion_one);
-                    event.setBackgroundResource(R.drawable.event_one);
-                    thing.setBackgroundResource(R.drawable.thing_two);
+                    emotion.setImageResource(R.drawable.emotion_one);
+                    event.setImageResource(R.drawable.event_one);
+                    thing.setImageResource(R.drawable.thing_two);
                 }
             }
         });
@@ -112,10 +112,6 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
                     map.put("author",phone);
                     map.put("title", titleText);
                     map.put("category",type);   //1，2，3分别对应
-                  //  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");//设置日期格式
-//                    String date = df.format(new Date());//4.日期
-
-//                    map.put("date", date);
                     map.put("content", contentText);
                     map.put("type", StatusCode.REQUEST_CREATE_MESSAGE);  //请求码
 

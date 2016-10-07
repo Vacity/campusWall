@@ -15,4 +15,5 @@
     <color name="title">#000000</color>
     <color name="lightgrey">#cecece</color>
 
+    <color name="edit_photo_bg_color">#f1f4f2</color>
 </resources>

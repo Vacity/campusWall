@@ -56,7 +56,7 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private List<MessageModel> messageModel ;
+    private List<MessageModel> messageModel= new ArrayList<MessageModel>();
     private OnFragmentInteractionListener mListener;
     private ListView listView=null;
     private String phone = mainActivity.phone;              //正在登录的用户，可能未登录为null
@@ -102,42 +102,38 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
         View view = inflater.inflate(R.layout.fragment_tab1, null);//注意不要指定父视图
         listView = (ListView) view.findViewById(R.id.list1);
         spinner = (Spinner) view.findViewById(R.id.sort1);
-        messageModel= new ArrayList<MessageModel>();
+
         spinner.setSelected(true);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {               //pos 0,1,2 分别代表时间，评论，点赞
-                switch(pos){
-                    case 0:{
+                switch(pos) {
+                    case 0: {
                         Map map = new HashMap();
-                        map.put("phone",phone);
-                        map.put("sortBy","time");     //tiome,like,comment
+                        map.put("phone", phone);
+                        map.put("sortby", "time");     //tiome,like,comment
                         map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
                         requestFragment.httpRequest(map, CommonUrl.getMessage);
                     }
-                    case 1:{
+                    break;
+                    case 1: {
                         Map map = new HashMap();
-                        if(phone==null)
-                            map.put("phone","123");
-                        else
-                            map.put("phone",phone);
-                        map.put("sortBy","comment");     //tiome,like,comment
+                        map.put("phone", phone);
+                        map.put("sortby", "comment");     //tiome,like,comment
                         map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
                         requestFragment.httpRequest(map, CommonUrl.getMessage);
                     }
-                    case 2:{
+                    break;
+                    case 2: {
                         Map map = new HashMap();
-                        if(phone==null)
-                            map.put("phone","123");
-                        else
-                            map.put("phone",phone);
-                        map.put("sortBy","like");     //tiome,like,comment
+                        map.put("phone", phone);
+                        map.put("sortby", "like");     //tiome,like,comment
                         map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
                         requestFragment.httpRequest(map, CommonUrl.getMessage);
                     }
+                    break;
                 }
-                String[] languages = getResources().getStringArray(R.array.stype);
             }
 
             @Override
@@ -148,9 +144,10 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
         return view;
     }
     private void initInfo() {
+        messageModel= new ArrayList<MessageModel>();
         Map map = new HashMap();
         map.put("phone",phone);
-        map.put("sortBy","time");     //tiome,like,comment 默认时间
+        map.put("sortby","time");     //tiome,like,comment 默认时间
         map.put("type", StatusCode.REQUEST_MESSAGE_SCHOOL);
         requestFragment.httpRequest(map, CommonUrl.getMessage);
     }
@@ -198,6 +195,7 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
         Message message = new Message();
         //查询消息的返回
         if (requestUrl.equals(CommonUrl.getMessage)) {
+            messageModel= new ArrayList<MessageModel>();
             JSONObject object = new JSONObject(result);
             int code = Integer.valueOf(object.getString("code"));
             if (code == StatusCode.REQUEST_MESSAGE_SCHOOL_SUCCESS) {
@@ -311,11 +309,9 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case StatusCode.REQUEST_MESSAGE_SCHOOL_SUCCESS: //成功返回所有动态
-                {
                     List<Map<String,Object>> list = getData();
                     listView.setAdapter(new messageListAdapter(tab1.this.getActivity(),list,tab1.this));
                     break;
-                }
                 case StatusCode.REQUEST_ISSTAR:    //已经点赞，进行消赞的操作
                 {
                     Map map = new HashMap();
@@ -324,6 +320,7 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     map.put("phone", mainActivity.phone);
                     requestFragment.httpRequest(map, CommonUrl.star);
                 }
+                    break;
                 case StatusCode.REQUEST_NOTSTAR:  //没有赞过，进行点赞的操作
                 {
                     Map map = new HashMap();
@@ -332,11 +329,10 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     map.put("phone", mainActivity.phone);
                     requestFragment.httpRequest(map, CommonUrl.star);
                 }
+                   break;
                 default: //用户身份认证失败
-                {
                     Toast.makeText(tab1.this.getActivity(), "网络错误", Toast.LENGTH_LONG).show();
                     break;
-                }
             }
         }
     };

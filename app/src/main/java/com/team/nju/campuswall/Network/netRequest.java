@@ -66,7 +66,7 @@ public class netRequest {
                 .build();
         try {
             //mOkHttpClient.setConnectTimeout(5000, TimeUnit.MILLISECONDS);
-
+            Log.d("url:",request.toString());
             mOkHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {

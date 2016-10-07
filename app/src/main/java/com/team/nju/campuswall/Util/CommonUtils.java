@@ -1,126 +1,106 @@
 package com.team.nju.campuswall.Util;
 
-//import android.content.Context;
-//import android.content.Intent;
-//import android.content.pm.ApplicationInfo;
-//import android.content.pm.PackageManager;
-//import android.content.pm.PackageManager.NameNotFoundException;
-//import android.content.pm.ResolveInfo;
-//import android.graphics.Bitmap;
-//import android.net.ConnectivityManager;
-//import android.net.NetworkInfo;
-//import android.util.DisplayMetrics;
-//import android.util.Log;
-//import android.view.View;
-//import android.view.WindowManager;
-//import android.view.inputmethod.InputMethodManager;
-//import android.widget.ImageView;
-//import android.widget.RelativeLayout;
-//
-//import com.bumptech.glide.Glide;
-//import com.team.nju.campuswall.R;
-//import com.nostra13.universalimageloader.core.DisplayImageOptions;
-//import com.nostra13.universalimageloader.core.ImageLoader;
-//import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-//import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-//
-//import java.io.File;
-//import java.text.SimpleDateFormat;
-//import java.util.ArrayList;
-//import java.util.Calendar;
-//import java.util.List;
-//import java.util.Locale;
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
-//
-//public class CommonUtils {
-//    public static ImageLoader mImageLoader = ImageLoader.getInstance();
-//    public static CommonUtils util;
-//    public static InputMethodManager imm;
-//
-//    public CommonUtils(Context context) {
-//        imm = (InputMethodManager) context
-//                .getSystemService(Context.INPUT_METHOD_SERVICE);
-//    }
-//
-//    public CommonUtils() {
-//    }
-//
-//    public static CommonUtils getUtilInstance() {
-//        if (util == null) {
-//
-//            util = new CommonUtils();
-//        }
-//        return util;
-//    }
-//
-//    public void displayRoundCorner10Image(String url, ImageView view) {
-//        if (view == null) {
-//            return;
-//        }
-//        DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                .cacheInMemory(true)
-//                .cacheOnDisk(true).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-//                .bitmapConfig(Bitmap.Config.ARGB_4444)
-//
-//                .displayer(new RoundedBitmapDisplayer(10))
-//                .build();
-//        mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
-//    }
-//
-//    public void displayRoundCornerImage(String url, ImageView view, int angle) {
-//        if (view == null) {
-//            return;
-//        }
-//        DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                .cacheInMemory(true)
-//                .cacheOnDisk(true).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-//                .bitmapConfig(Bitmap.Config.RGB_565)
-//                .showImageOnLoading(R.drawable.image_show_default)
-//                .displayer(new RoundedBitmapDisplayer(angle))
-//                .build();
-//        mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
-//        Log.d("gaolei", "displayRoundCorner20Image---------------");
-//    }
-//
-//    //加载原图
-//    public void displayOriginalImage(String url, ImageView view) {
-//        if (view == null) {
-//            return;
-//        }
-//        DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                .cacheInMemory(true)
-//                .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY)
-//                .bitmapConfig(Bitmap.Config.ARGB_8888)
-//                .showImageOnLoading(R.drawable.image_show_default)
-//                .build();
-//        mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
-//    }
-//
-////    //加载网络图片
-////    public void displayNetworkImage(String url, ImageView view) {
-////        if (view == null) {
-////            return;
-////        }
-////		/*DisplayImageOptions options = new DisplayImageOptions.Builder()
-////				.cacheInMemory(true)
-////				.cacheOnDisk(true).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-////				.bitmapConfig(Bitmap.Config.RGB_565)
-////				.showImageOnLoading(R.drawable.image_show_default)
-////				.build();
-////		mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);*/
-////        Glide.with(APP.context)
-////                .load(url).centerCrop()
-////                .placeholder(R.drawable.holder)
-////                .error(R.drawable.loading_error)
-////                .into(view);
-////    }
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.team.nju.campuswall.App;
+import com.team.nju.campuswall.R;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+
+public class CommonUtils {
+    public static ImageLoader mImageLoader = ImageLoader.getInstance();
+    public static CommonUtils util;
+    public static InputMethodManager imm;
+
+    public CommonUtils(Context context) {
+        imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+    }
+
+    public CommonUtils() {
+    }
+
+    public static CommonUtils getUtilInstance() {
+        if (util == null) {
+
+            util = new CommonUtils();
+        }
+        return util;
+    }
+
+    public void displayRoundCorner10Image(String url, ImageView view) {
+        if (view == null) {
+            return;
+        }
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .bitmapConfig(Bitmap.Config.ARGB_4444)
+
+                .displayer(new RoundedBitmapDisplayer(10))
+                .build();
+        mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
+    }
+
+    public void displayRoundCornerImage(String url, ImageView view, int angle) {
+        if (view == null) {
+            return;
+        }
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .showImageOnLoading(R.drawable.image_show_default)
+                .displayer(new RoundedBitmapDisplayer(angle))
+                .build();
+        mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
+        Log.d("gaolei", "displayRoundCorner20Image---------------");
+    }
+
+    //加载原图
+    public void displayOriginalImage(String url, ImageView view) {
+        if (view == null) {
+            return;
+        }
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.ARGB_8888)
+                .showImageOnLoading(R.drawable.image_show_default)
+                .build();
+        mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
+    }
+
+    //加载网络图片
+    public void displayNetworkImage(String url, ImageView view) {
+        if (view == null) {
+            return;
+        }
+		/*DisplayImageOptions options = new DisplayImageOptions.Builder()
+				.cacheInMemory(true)
+				.cacheOnDisk(true).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+				.bitmapConfig(Bitmap.Config.RGB_565)
+				.showImageOnLoading(R.drawable.image_show_default)
+				.build();
+		mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);*/
+        Glide.with(App.getContextObject())
+                .load(url).centerCrop()
+                .into(view);
+    }
 //
 //    public void displayCircleImage(String url, ImageView view, String str) {
 //        if (view == null) {
 //            return;
 //        }
-//        if (str.equals("photo")) {
+//        if (str.equals("photoshape")) {
 //            DisplayImageOptions options = new DisplayImageOptions.Builder()
 //                    .cacheInMemory(true)
 //                    .cacheOnDisk(true)
@@ -141,34 +121,33 @@ package com.team.nju.campuswall.Util;
 //        }
 //    }
 //
-//    public void displayCircleImageWithoutDefault(String url, ImageView view,
-//                                                 String str) {
-//        if (view == null) {
-//            return;
-//        }
-//        if (str.equals("photo")) {
-//            DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                    .cacheInMemory(true)
-//                    .cacheOnDisk(true)
-//                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-//                    .bitmapConfig(Bitmap.Config.RGB_565)
-//                    .showImageOnLoading(R.mipmap.personal_default_big_photo)
-//                    .build();
-//            mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
-//        } else {
-//            DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                    .cacheInMemory(true)
-//                    .cacheOnDisk(true)
-//                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-//                    .bitmapConfig(Bitmap.Config.RGB_565)
-//                    .displayer(new RoundedBitmapDisplayer(100)).build();
-//            mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
-//            Log.d("gaolei", " url---------------" + CommonUrl.imageUrl + url);
-//        }
-//    }
-//
-//
-//
+    public void displayCircleImageWithoutDefault(String url, ImageView view,
+                                                 String str) {
+        if (view == null) {
+            return;
+        }
+        if (str.equals("photoshape")) {
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .build();
+            mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
+        } else {
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .displayer(new RoundedBitmapDisplayer(100)).build();
+            mImageLoader.displayImage(CommonUrl.imageUrl + url, view, options);
+            Log.d("gaolei", " url---------------" + CommonUrl.imageUrl + url);
+        }
+    }
+
+
+
 ////    public int getViewHeight(Context context, String str) {
 ////
 ////        int height = 0;
@@ -338,15 +317,15 @@ package com.team.nju.campuswall.Util;
 //    }
 //
 //
-//    public int dp2px(Context context, int dp) {
-//        float scale = context.getResources().getDisplayMetrics().density;
-//        return (int) (dp * scale + 0.5f);
-//    }
-//
-//    public int px2dp(Context context, int px) {
-//        float scale = context.getResources().getDisplayMetrics().density;
-//        return (int) (px / scale + 0.5f);
-//    }
+    public int dp2px(Context context, int dp) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
+
+    public int px2dp(Context context, int px) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (px / scale + 0.5f);
+    }
 //
 //    public boolean isMobileNum(String mobiles) {
 //        Pattern p = Pattern
@@ -388,4 +367,4 @@ package com.team.nju.campuswall.Util;
 //        CToast toast = CToast.makeText(context, string, CToast.LENGTH_LONG);
 //        toast.show();
 //    }
-//}
+}
