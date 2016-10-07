@@ -25,6 +25,7 @@ public class App extends MultiDexApplication {
         //获取Context
         super.onCreate();
         context = getApplicationContext();
+        initImageLoader(context);
     }
 
     //返回
@@ -37,13 +38,13 @@ public class App extends MultiDexApplication {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             File sdcardDir = Environment.getExternalStorageDirectory();
-            cache_image_path = sdcardDir.getPath() + "/shacus/cache/images/";
+            cache_image_path = sdcardDir.getPath() + "/campusWall/cache/images/";
             cacheImageDir = new File(cache_image_path);
-            photo_path = sdcardDir.getPath() + "/shacus/cache/photoes/";
+            photo_path = sdcardDir.getPath() + "/campusWall/cache/photoes/";
             photoDir = new File(photo_path);
         } else {
-            photo_path= "/storage/emulated/0"+"/shacus/cache/photoes/";
-            cacheImageDir = new File("/storage/emulated/0"+"/shacus/cache/images");
+            photo_path= "/storage/emulated/0"+"/campusWall/cache/photoes/";
+            cacheImageDir = new File("/storage/emulated/0"+"/campusWall/cache/images");
             photoDir = new File(photo_path);
         }
         if (!cacheImageDir.exists()) {

@@ -191,7 +191,7 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
     public boolean onQueryTextSubmit(String s) {
          Map map = new HashMap();
         map.put("type", StatusCode.REQUEST_ASK_SEARCH);
-        map.put("searchurl","s");
+        map.put("searchurl",s);
         map.put("phone","phone");
         requestFragment.httpRequest(map, CommonUrl.search);
         return true;

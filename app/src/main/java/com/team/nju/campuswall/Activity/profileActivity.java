@@ -281,6 +281,7 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                 }
                 case TAKE_PICTURE:
                     //在这里处理，获取拍到的图
+                    Log.d("PicUrl:",takePictureUrl);
                     Bitmap bitmap= UploadPhotoUtil.getInstance()
                             .trasformToZoomPhotoAndLessMemory(takePictureUrl);
                     BitmapDrawable bd=new BitmapDrawable(getResources(),bitmap);
