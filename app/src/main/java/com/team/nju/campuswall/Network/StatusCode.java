@@ -59,9 +59,15 @@ public interface StatusCode {
     int REQUEST_ASK_COMMENT_SUCCESS = 10094;
     int REQUEST_ASK_COMMENT_ERROR = 10095;
 
-    //
+    //搜索
     int REQUEST_ASK_SEARCH = 10100;
     int REQUEST_SEARCH_SUCCESS = 10101;
+
+    //图片相关
+    int REQUEST_ASK_TOKEN=10110;
+    int REQUEST_TOKEN_SUCCESS=10111;
+    int REQUEST_CHANGE_PHOTO=10120;
+    int REQUEST_CHANGE_PHOTO_SUCCESS=66666;
     //请求我关注的用户（我的关注）
     int REQUEST_INFO_FOLLOWING = 10403;
     int REQUEST_FOLLOWING_SUCCESS = 10430; //请求我的关注成功

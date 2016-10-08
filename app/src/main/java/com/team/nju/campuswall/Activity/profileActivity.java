@@ -2,8 +2,10 @@ package com.team.nju.campuswall.Activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -22,12 +24,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -44,23 +48,28 @@ import com.team.nju.campuswall.Util.CommonUtils;
 import com.team.nju.campuswall.Util.UploadPhotoUtil;
 import com.team.nju.campuswall.View.CircleImageView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-//import com.team.nju.campuswall.myView.photoChange;
+
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UpProgressHandler;
+import com.qiniu.android.storage.UploadManager;
+import com.qiniu.android.storage.UploadOptions;
 
 public class profileActivity extends Activity implements NetworkCallbackInterface.NetRequestIterface {
 
     private netRequest requestFragment;
     ImageView photo;
-    ImageView changeprofile;
-    ImageView changephoto;
     TextView username;
     TextView school;
     TextView product;
@@ -68,14 +77,15 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
     TextView star;
     TextView signature;
 
-    TextView back;
+    Button back;
+    Button changeprofile;
 
     String phone;
     String nickname;
     String password;
     String sex;
     String sign;
-
+    String userurl;
     TextView take_picture;
     TextView select_local_picture;
     FrameLayout edit_photo_fullscreen_layout;
@@ -85,8 +95,8 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
     Intent intent;
     private final int NONE=0,TAKE_PICTURE=1,LOCAL_PICTURE=2,UPLOAD_TAKE_PICTURE=4,SAVE_THEME_IMAGE=5;
     private int addTakePicCount=1;
-    private String takePictureUrl,upToken,imageFileName;
-
+    private String takePictureUrl,upToken, imageFileName;
+    private ProgressDialog progressDlg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,15 +107,14 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
 
         requestFragment = new netRequest(this, this);
 
-        changeprofile = (ImageView) findViewById(R.id.changeProfile);
-        changephoto = (ImageView) findViewById(R.id.changePhoto);
+        changeprofile = (Button) findViewById(R.id.bt_edit);
         username = (TextView) findViewById(R.id.profile_username);
         school = (TextView) findViewById(R.id.profile_school);
         product = (TextView) findViewById(R.id.profile_product);
         join = (TextView) findViewById(R.id.profile_join);
         star = (TextView) findViewById(R.id.profile_star);
         signature = (TextView) findViewById(R.id.profile_signature);
-        back=(TextView)findViewById(R.id.profile_back);
+        back=(Button)findViewById(R.id.bt_exit);
         photo = (CircleImageView) findViewById(R.id.photo);
         take_picture = (TextView) findViewById(R.id.take_picture);
         select_local_picture = (TextView) findViewById(R.id.select_local_picture);
@@ -232,26 +241,26 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                 handler.sendMessage(message);
                 return;
             } else {
-                Toast.makeText(profileActivity.this, "未知错误", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(profileActivity.this, "未知错误", Toast.LENGTH_LONG).show();
                 return;
             }
         }
-        //获取头像
-//        if(requestUrl.equals((CommonUrl.getphoto)){
-//             JSONObject object = new JSONObject(result);
-//        int code = Integer.valueOf(object.getString("code"));
-//        if (code == StatusCode.REQUEST_PHOTO_SUCCESS) {
-
-        // }
-//        }
-        //更改头像
-        //        if(requestUrl.equals((CommonUrl.changephoto)){
-//             JSONObject object = new JSONObject(result);
-//        int code = Integer.valueOf(object.getString("code"));
-//        if (code == StatusCode.REQUEST_PHOTO_SUCCESS) {
-
-        // }
-//        }
+        //获取token
+         if(requestUrl.equals((CommonUrl.editProfile))){
+            JSONObject jsonObject=new JSONObject(result);
+        int code = Integer.valueOf(jsonObject.getString("code"));
+        if (code == StatusCode.REQUEST_TOKEN_SUCCESS) {
+            JSONArray token = jsonObject.getJSONArray("contents");
+            upToken = token.getString(0);//成功获取口令
+            handler.sendEmptyMessage(UPLOAD_TAKE_PICTURE);
+            return;
+         }
+        else if (code == StatusCode.REQUEST_CHANGE_PHOTO_SUCCESS) {
+            progressDlg.dismiss();
+//            Toast.makeText(profileActivity.this, "修改成功", Toast.LENGTH_LONG).show();
+            return;
+        }
+       }
     }
 
     @Override
@@ -272,7 +281,16 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                     password = userModel.getUpassword();
                     sign = userModel.getUsign();
                     sex = userModel.getUsex();
+                    userurl=userModel.getUserurl();
+
+                    if(userurl!=null) {
+                        Log.d("url",userurl);
+                        Glide.with(getApplicationContext())
+                                .load(userurl).centerCrop()
+                                .into(photo);
+                    }
                     username.setText(nickname);
+
                     if (!signature.equals(""))
                         signature.setText(sign);
                     else
@@ -288,14 +306,16 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                     Drawable addPicture = bd;
                     photo.setImageDrawable(addPicture);
                 {
+                    //获取token
                     HashMap map = new HashMap();
-                    map.put("phone", phone);
-                    map.put("type", "");
+                    map.put("type", StatusCode.REQUEST_ASK_TOKEN);
                     String[] ext = takePictureUrl.split("\\.");
-                    String imageFileName = phone + "/" + takePictureUrl.hashCode() + new Random(System.nanoTime()).toString() + ext[ext.length - 1];
-                    map.put("imagename", imageFileName);
+                    imageFileName = phone + "/" + takePictureUrl.hashCode() + new Random(System.nanoTime()).toString() + ext[ext.length - 1];
+                    ArrayList<String>temp=new ArrayList<>();
+                    temp.add("\""+imageFileName+"\"");
+                    map.put("image", temp);
                     Log.d("选择了拍照后", "正在请求服务器端");
-                    //  netRequest.httpRequest(map,CommonUrl.settingChangeNetUrl);
+                    requestFragment.httpRequest(map,CommonUrl.editProfile);
                 }
                     break;
                 case LOCAL_PICTURE:
@@ -313,16 +333,71 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                     photo.setImageDrawable(addPicture);
                 {
                     HashMap map = new HashMap();
-                    map.put("phone", phone);
-                    map.put("type", "");
+                    map.put("type", StatusCode.REQUEST_ASK_TOKEN);
                     String[] ext = takePictureUrl.split("\\.");
-                    String imageFileName = phone + "/" + takePictureUrl.hashCode() + new Random(System.nanoTime()).toString() + ext[ext.length - 1];
-                    map.put("imagename", imageFileName);
-                    Log.d("选择了本地照片", "正在请求服务器端");
-                    //  netRequest.httpRequest(map,CommonUrl.settingChangeNetUrl);
+                    imageFileName = phone + "/" + takePictureUrl.hashCode() + new Random(System.nanoTime()).toString() + ext[ext.length - 1];
+                    ArrayList<String>temp=new ArrayList<>();
+                    temp.add("\""+imageFileName+"\"");
+                    map.put("image", temp);
+                    Log.d("选择了本地照片", "正在请求服务器端获取token");
+                    requestFragment.httpRequest(map,CommonUrl.editProfile);
                 }
                     break;
-
+                case UPLOAD_TAKE_PICTURE:  //获取token之后
+                {
+                    UploadManager uploadmgr = new UploadManager();
+                    File data = new File(takePictureUrl);
+                    String key = imageFileName;
+                    String token = upToken;
+                    progressDlg = ProgressDialog.show(profileActivity.this, "上传头像", "正在上传图片", true, true, new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialogInterface) {
+                            //取消了上传
+                        }
+                    });
+                    progressDlg.setMax(101);
+                    uploadmgr.put(data, key, token, new UpCompletionHandler() {
+                        @Override
+                        public void complete(String key, ResponseInfo info, JSONObject response) {
+                            //完成，发信息给业务服务器
+                            Log.d("to第三方结果",response.toString());
+                            new Thread() {
+                                public void run() {
+                                    Map<String, Object> map = new HashMap<>();
+                                    Message msg = handler.obtainMessage();
+                                    msg.obj = map;
+                                    msg.what = SAVE_THEME_IMAGE;
+                                    handler.sendMessage(msg);//要上传的图片包装在msg后变成了消息发到handler
+                                }
+                            }.start();
+                        }
+                    }, new UploadOptions(null, null, false,
+                            new UpProgressHandler() {
+                                public void progress(String key, double percent) {
+                                    //mProgress.setProgress((int)percent*100);
+                                    progressDlg.setProgress((int) percent * 100);
+                                }
+                            }, null));
+                }
+                    break;
+                case SAVE_THEME_IMAGE: //传到第三方之后告知服务器
+                    progressDlg.dismiss();
+                {
+                    HashMap map = new HashMap();
+                    map.put("type", StatusCode.REQUEST_CHANGE_PHOTO);
+                    map.put("utel", phone);
+                    ArrayList<String> temp = new ArrayList<>();
+                    temp.add("\"" + imageFileName + "\"");
+                    map.put("image", temp);
+                    requestFragment.httpRequest(map, CommonUrl.editProfile);
+                }
+                    progressDlg=ProgressDialog.show(profileActivity.this, "上传头像", "正在保存头像", true, true, new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialogInterface) {
+                            //上传完图片后取消了保存
+                        }
+                    });
+                    break;
                 default: //用户身份认证失败
                 {
 

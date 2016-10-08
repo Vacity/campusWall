@@ -128,4 +128,76 @@
         android:background="#E0E0E0"
         />
 
+    <FrameLayout
+        android:id="@+id/edit_photo_fullscreen_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#55000000"
+        android:clickable="true"
+        android:layout_gravity="bottom"
+        android:focusable="true"
+        android:visibility="gone" >
+
+        <RelativeLayout
+            android:id="@+id/edit_photo_outer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:layout_gravity="bottom"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/edit_photo_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/take_picture_layout_round_corner_bg"
+                android:orientation="vertical" >
+                <View style="@style/horizontal_divider" >
+                </View>
+                <TextView
+                    android:id="@+id/take_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="拍照"
+                    android:textColor="@color/darkGrey"
+                    android:textSize="20sp" />
+
+                <View style="@style/horizontal_divider" >
+                </View>
+
+                <TextView
+                    android:id="@+id/select_local_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="选择本地图片"
+                    android:textColor="@color/darkGrey"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_photo_layout"
+                android:layout_margin="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/cancel_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/video_order_layout_round_corner_bg"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/cancle"
+                    android:textColor="@color/darkGrey"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
 </LinearLayout>

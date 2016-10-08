@@ -38,5 +38,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:9.2.1'
     compile 'com.github.wangjiegulu:RapidFloatingActionButton:1.0.3'
     compile 'com.github.wangjiegulu:AndroidBucket:1.0.4'
-
+    compile 'com.qiniu:qiniu-android-sdk:7.2.3'
 }

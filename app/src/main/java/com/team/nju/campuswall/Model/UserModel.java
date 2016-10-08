@@ -16,6 +16,15 @@ public class UserModel {
     String Usex;
     String Uschool;
     String Uid;
+    String Userurl;
+
+    public String getUserurl() {
+        return Userurl;
+    }
+
+    public void setUserurl(String userurl) {
+        this.Userurl = userurl;
+    }
 
     public String getUalais() {
         return Ualais;

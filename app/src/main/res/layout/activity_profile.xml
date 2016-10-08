@@ -1,33 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/profileLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile3"
-    android:stretchColumns="0,2"
     tools:context="com.team.nju.campuswall.Activity.profileActivity">
-
-    <android.support.v7.widget.Toolbar
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
-        <TextView
-            android:id="@+id/profile_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="18dp"
-            android:text="返回"
-            android:layout_gravity="left"/>
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="match_parent"
+        android:stretchColumns="0,2">
+        <RelativeLayout
+            android:background="#1fc4c6"
+            android:id="@+id/layout_titlebar"
+            android:layout_height="52dp"
+            android:layout_width="match_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <TextView
+                android:ellipsize="marquee"
+                android:id="@+id/text_title"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="个人中心"
+                android:textColor="#ffffffff"
+                android:textSize="20dp"/>
+
+            <Button
+                android:background="@android:color/transparent"
+                android:id="@+id/bt_exit"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/bt_exit"
+                android:drawablePadding="-10dp"
+                android:text="返回"
+                android:textColor="#ffffff"
+                android:textSize="20dp"/>
+
+            <Button
+                android:background="@android:color/transparent"
+                android:id="@+id/bt_edit"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="编辑"
+                android:textColor="#ffffff"
+                android:textSize="20dp"/>
+        </RelativeLayout>
 
     <!-- name -->
-    <TableRow android:layout_width="wrap_content">
+    <TableRow android:layout_width="wrap_content"
+        android:background="@color/colorPrimary">
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:layout_marginTop="50px"
+            android:layout_marginTop="20px"
             android:textSize="45px"
             android:layout_width="400px"
             android:layout_height="wrap_content"
@@ -41,16 +74,20 @@
     </TableRow>
 
     <!-- photoshape  不会做啊！-->
-    <TableRow android:layout_height="wrap_content">
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary">
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.team.nju.campuswall.View.CircleImageView
             android:id="@+id/photo"
             android:src="@drawable/photo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"/>
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </TableRow>
@@ -58,65 +95,56 @@
     <!-- school -->
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
 
-        <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="1"
-            android:src="@drawable/profile_change2"
-            android:id="@+id/changeProfile"
-            android:layout_column="0" />
+        <TextView />
         <TextView
             android:layout_width="400px"
             android:layout_height="60px"
             android:textSize="40px"
             android:id="@+id/profile_school"
             android:text="Nju"
-            android:textColor="@color/profile"
+            android:textColor="@color/white"
             android:gravity="center"
             android:layout_column="1" />
-        <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/photo_change2"
-            android:id="@+id/changePhoto"
-            android:layout_column="0" />
+        <TextView />
     </TableRow>
 
     <!-- number -->
 
-    <TableRow
-        android:layout_marginTop="70dp">
+    <TableRow>
         <TextView
+            android:background="@color/profile1"
             android:id="@+id/profile_product"
-            android:text="123"
-            android:textSize="25dp"
+            android:text="123\n发布"
+            android:lines="3"
+            android:textSize="20dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="0.0dip"
             />
         <TextView
+            android:background="@color/profile1"
             android:id="@+id/profile_join"
-            android:text="1"
-            android:textSize="25dp"
+            android:text="1\n参与"
+            android:lines="3"
+            android:textSize="20dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="0.0dip"
             />
         <TextView
+            android:background="@color/profile1"
             android:id="@+id/profile_star"
-            android:text="234"
-            android:textSize="25dp"
+            android:text="234\n关注"
+            android:lines="3"
+            android:textSize="20dp"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="0.0dip"
             android:layout_height="wrap_content" />
 
     </TableRow>
@@ -131,6 +159,7 @@
         <TextView />
 
     </TableRow>
+    </TableLayout>
     <!-- 拍照、选择本地图片的底部悬浮菜单 -->
     <FrameLayout
         android:id="@+id/edit_photo_fullscreen_layout"
@@ -167,7 +196,7 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="拍照"
-                    android:textColor="@color/white"
+                    android:textColor="@color/darkGrey"
                     android:textSize="20sp" />
 
                 <View style="@style/horizontal_divider" >
@@ -180,7 +209,7 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="选择本地图片"
-                    android:textColor="@color/white"
+                    android:textColor="@color/darkGrey"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -199,11 +228,11 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="@string/cancle"
-                    android:textColor="@color/white"
+                    android:textColor="@color/darkGrey"
                     android:textSize="20sp" />
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>
-</TableLayout>
+</RelativeLayout>
 
 

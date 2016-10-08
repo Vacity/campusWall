@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_marginBottom="15px">
     <TextView
         android:id="@+id/author"
         android:textSize="16dp"
@@ -49,13 +50,15 @@
         ...............................内容"
         android:background="@drawable/contentbg"
         android:layout_gravity="center"
-        android:layout_margin="10px"
+        android:layout_marginTop="15px"
+        android:layout_marginBottom="25px"
         android:textColor="#666872"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="29dp">
+        android:layout_marginRight="29dp"
+        android:layout_marginBottom="25px">
         <TextView
             android:layout_marginLeft="15px"
             android:id="@+id/remarkNum"

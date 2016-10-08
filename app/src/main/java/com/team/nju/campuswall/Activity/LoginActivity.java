@@ -67,8 +67,8 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
                     map.put("phone",phone);
                     map.put("password", password);
                     map.put("type", StatusCode.REQUEST_LOGIN);
-                    requestFragment.httpRequest(map, CommonUrl.loginAccount);
                     loginProgessDlg= ProgressDialog.show(LoginActivity.this, "campusWall", "处理中", true, false);
+                    requestFragment.httpRequest(map, CommonUrl.loginAccount);
                 }
             }
         });
