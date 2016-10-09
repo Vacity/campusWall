@@ -33,8 +33,6 @@ public class CommentListAdapter extends BaseAdapter{
     public final class Widget {
         public ImageView photo;
         public TextView name;
-        public Button starbtn;
-        public TextView starNum;
         public TextView info;
     }
 
@@ -72,18 +70,15 @@ public class CommentListAdapter extends BaseAdapter{
             convertView = layoutInflater.inflate(R.layout.comment_list, null);
             widget.photo = (ImageView) convertView.findViewById(R.id.personImage);
             widget.name = (TextView) convertView.findViewById(R.id.username);
-            widget.starbtn = (Button) convertView.findViewById(R.id.starButton);
-            widget.starNum = (TextView) convertView.findViewById(R.id.starNum);
             widget.info = (TextView) convertView.findViewById(R.id.commentInfo);
             convertView.setTag(widget);
         } else {
             widget = (Widget) convertView.getTag();
         }
         //绑定数据
-//        widget.photoshape.setBackgroundResource((Integer)data.get(position).get("photoshape"));
-        widget.name.setText((String)data.get(position).get("name"));
-//        widget.starNum.setText((String)data.get(position).get("starNum"));
-        widget.info.setText((String)data.get(position).get("info"));
+
+        widget.name.setText((String)data.get(position).get("comertel"));
+        widget.info.setText((String)data.get(position).get("comcontent"));
         return convertView;
     }
 }
