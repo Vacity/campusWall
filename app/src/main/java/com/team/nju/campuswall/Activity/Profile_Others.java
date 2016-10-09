@@ -31,9 +31,6 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
     private Button exit;
     private TextView username;
     ImageView photo;
-    TextView product;
-    TextView join;
-    TextView star;
     TextView signature;
     UserModel userModel;
     String nickname;
@@ -50,9 +47,6 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
         gender = (ImageView)findViewById(R.id.picture_gender);
         exit = (Button)findViewById(R.id.bt_exit);
         username = (TextView) findViewById(R.id.profile_username);
-        product = (TextView) findViewById(R.id.profile_product);
-        join = (TextView) findViewById(R.id.profile_join);
-        star = (TextView) findViewById(R.id.profile_star);
         signature = (TextView) findViewById(R.id.profile_signature);
         requestFragment=new netRequest(this,this);
 

@@ -92,7 +92,7 @@ public class messageListAdapter extends BaseAdapter {
                         .into(zujian.photo);
             }
         }
-        if (data.get(i).get("image") != null) {
+        if (((String)data.get(i).get("image")).length()>0 ){
             zujian.image.setVisibility(View.VISIBLE);
             Glide.with(App.getContextObject())
                     .load((String) data.get(i).get("image")).centerCrop()
