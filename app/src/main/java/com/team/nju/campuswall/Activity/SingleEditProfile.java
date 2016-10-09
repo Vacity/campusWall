@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.team.nju.campuswall.R;
+
 public class SingleEditProfile extends AppCompatActivity {
 
     private Button save;

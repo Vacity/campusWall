@@ -170,7 +170,9 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
             map.put("starNum",messageModel.get(i).getAclikeN());
             map.put("author",messageModel.get(i).getAcsponsorname());
             map.put("time",messageModel.get(i).getAcsponsT());
-       //     map.put("image",R.drawable.XXXX);  可以加头像
+            map.put("userimg",messageModel.get(i).getAcsponsorimg());
+            map.put("image",messageModel.get(i).getAcimgurl());
+            map.put("niming",messageModel.get(i).getNiming());
             list.add(map);
         }
         return list;
@@ -212,6 +214,9 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     itemModel.setAcsponsT((String)dongTai.get("AcsponsT"));
                     itemModel.setActitle((String)dongTai.get("Actitle"));
                     itemModel.setIsliked((int) dongTai.get("Acisliked"));
+                    itemModel.setAcsponsorimg((String)dongTai.get("Acsponsorimg"));
+                    itemModel.setAcimgurl((String)dongTai.get("Acimgurl"));
+                    itemModel.setNiming((int)dongTai.get("niming"));
                     messageModel.add(itemModel);
                 }
                 message.what = StatusCode.REQUEST_MESSAGE_SCHOOL_SUCCESS;
@@ -297,6 +302,9 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                 }else{
                     Toast.makeText(this.getActivity(), "登陆后进行更多操作", Toast.LENGTH_LONG).show();
                 }
+                break;
+            case R.id.authorpic:
+
                 break;
             default:
                 break;

@@ -63,7 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="matrix"
-            android:src="@drawable/line" />
+            android:src="@drawable/line"
+            android:layout_marginBottom="10dp"/>
     </TableRow>
 <TableRow>
         <android.support.v4.view.ViewPager

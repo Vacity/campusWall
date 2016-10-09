@@ -6,6 +6,22 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- 修改WiFi状态. 发起WiFi扫描, 需要WiFi信息用于网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <!-- 访问网络的变化, 需要某些信息用于网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:name=".App"
@@ -25,6 +41,10 @@
             android:name=".Activity.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
+            android:name=".Activity.Profile_Others" />
+        <activity
+            android:name=".Activity.SingleEditProfile" />
+        <activity
             android:name=".Activity.EditProfile"
             android:label="editProfile" />
         <!--
@@ -41,29 +61,12 @@
         <activity android:name=".Activity.profileActivity" />
         <activity android:name=".Activity.CommentActivity" />
         <activity android:name=".Activity.publishActivity" />
-        <activity android:name=".Activity.showSearchActivity"></activity>
+        <activity android:name=".Activity.showSearchActivity" />
         <activity
             android:name=".Activity.CommentDetailActivity"
             android:label="@string/title_activity_comment_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.concernedActivity"></activity>
     </application>
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.READ_PROFILE"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
-    <!-- 修改WiFi状态. 发起WiFi扫描, 需要WiFi信息用于网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-    <!-- 访问网络的变化, 需要某些信息用于网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 </manifest>

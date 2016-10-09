@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.team.nju.campuswall.R;
+
 public class Profile_Others extends AppCompatActivity {
 
     private ImageView gender;
@@ -23,9 +25,11 @@ public class Profile_Others extends AppCompatActivity {
     private void setGenderPicture(int genderNum){
         switch (genderNum){
             case 1:
-                gender.setImageDrawable(R.drawable.man);break;
+                gender.setImageResource(R.drawable.man);
+                break;
             case 0:
-                gender.setImageDrawable(R.drawable.woman);break;
+                gender.setImageResource(R.drawable.woman);
+                break;
         }
     }
 }

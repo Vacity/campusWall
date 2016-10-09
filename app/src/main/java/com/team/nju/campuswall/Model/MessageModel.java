@@ -15,6 +15,33 @@ public class MessageModel {
     String Acsponsorname;
     int AccommentN;
     int AclikeN;
+    int niming;
+    String Acsponsorimg;
+    String Acimgurl;
+
+    public String getAcimgurl() {
+        return Acimgurl;
+    }
+
+    public void setAcimgurl(String acimgurl) {
+        Acimgurl = acimgurl;
+    }
+
+    public String getAcsponsorimg() {
+        return Acsponsorimg;
+    }
+
+    public void setAcsponsorimg(String acsponsorimg) {
+        Acsponsorimg = acsponsorimg;
+    }
+
+    public int getNiming() {
+        return niming;
+    }
+
+    public void setNiming(int niming) {
+        this.niming = niming;
+    }
 
     public int isliked() {
         return Acisliked;

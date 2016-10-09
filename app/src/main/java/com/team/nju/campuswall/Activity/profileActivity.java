@@ -161,7 +161,6 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                 data.putString("sex", sex);
                 data.putString("password", password);
                 data.putString("signature", sign);
-
                 intent.putExtras(data);
                 startActivity(intent);
                 finish();
@@ -257,6 +256,7 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
          }
         else if (code == StatusCode.REQUEST_CHANGE_PHOTO_SUCCESS) {
             progressDlg.dismiss();
+            this.onResume();
 //            Toast.makeText(profileActivity.this, "修改成功", Toast.LENGTH_LONG).show();
             return;
         }
@@ -284,7 +284,6 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                     userurl=userModel.getUserurl();
 
                     if(userurl!=null) {
-                        Log.d("url",userurl);
                         Glide.with(getApplicationContext())
                                 .load(userurl).centerCrop()
                                 .into(photo);
