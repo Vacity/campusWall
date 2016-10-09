@@ -10,6 +10,14 @@
         android:layout_width="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
+        <TextView
+            android:ellipsize="marquee"
+            android:id="@+id/text_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#ffffffff"
+            android:textSize="20dp"/>
         <Button
             android:background="@android:color/transparent"
             android:id="@+id/bt_exit"
@@ -41,9 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <EditText
             android:id="@+id/tv_normal"
-            android:layout_width="350dp"
+            android:layout_width="400dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/textview_border"

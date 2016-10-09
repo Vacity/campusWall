@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class SingleEditProfile extends AppCompatActivity {
 
     private Button save;
-    private TextView tv;
+    private EditText et;
+    private TextView title;
     private String info;
     private String src;
     private String phone;
@@ -32,7 +34,8 @@ public class SingleEditProfile extends AppCompatActivity {
         oldsignature=data.getString("signature");
         oldsex=data.getString("sex");
         save = (Button)findViewById(R.id.bt_save);
-        tv = (TextView)findViewById(R.id.tv_normal);
+        et = (EditText) findViewById(R.id.tv_normal);
+        title = (TextView) findViewById(R.id.text_title) ;
         info = tv.getText().toString();
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,11 +44,17 @@ public class SingleEditProfile extends AppCompatActivity {
                 Bundle data = new Bundle();
                 switch (src){
                     case "oldnickname":
-                        oldnickname = info;break;
+                        oldnickname = info;
+                        title.setText("修改昵称");
+                        break;
                     case "oldpassword":
-                        oldpassword = info;break;
+                        oldpassword = info;
+                        title.setText("修改密码");
+                        break;
                     case "oldsignature":
-                        oldsignature = info;break;
+                        oldsignature = info;
+                        title.setText("修改个性签名");
+                        break;
                 }
                 data.putString("oldnickname",oldnickname);
                 data.putString("oldpassword",oldpassword);
