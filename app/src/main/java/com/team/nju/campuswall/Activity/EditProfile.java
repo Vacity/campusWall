@@ -78,7 +78,7 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
         password =(TextView)findViewById(R.id.tv_password);
         signature=(TextView)findViewById(R.id.tv_signature);
         nickname.setText(oldnickname);
-        password.setText("");
+        password.setText(oldpassword);
         signature.setText(oldsignature);
 
         nickname.setOnClickListener(new View.OnClickListener() {
@@ -177,12 +177,13 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
         Intent intent = new Intent(EditProfile.this, SingleEditProfile.class);
         Bundle data = new Bundle();
         data.putString("src", SendSrc);
-        data.putString("oldnickname",oldnickname);
-        data.putString("oldpassword",oldpassword);
-        data.putString("oldsex",oldsex);
-        data.putString("oldsignature",oldsignature);
+        data.putString("nickname",oldnickname);
+        data.putString("password",oldpassword);
+        data.putString("sex",oldsex);
+        data.putString("signature",oldsignature);
         data.putString("phone",phone);
         intent.putExtras(data);
         startActivity(intent);
+        finish();
     }
 }

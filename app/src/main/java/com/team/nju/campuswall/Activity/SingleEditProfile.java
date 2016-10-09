@@ -36,7 +36,6 @@ public class SingleEditProfile extends AppCompatActivity {
         oldsignature=data.getString("signature");
         oldsex=data.getString("sex");
         save = (Button)findViewById(R.id.bt_save);
-        et = (EditText) findViewById(R.id.tv_normal);
         title = (TextView) findViewById(R.id.text_title) ;
         switch (src){
             case "oldnickname":
@@ -69,13 +68,14 @@ public class SingleEditProfile extends AppCompatActivity {
                         oldsignature = info;
                         break;
                 }
-                data.putString("oldnickname",oldnickname);
-                data.putString("oldpassword",oldpassword);
-                data.putString("oldsex",oldsex);
-                data.putString("oldsignature",oldsignature);
+                data.putString("nickname",oldnickname);
+                data.putString("password",oldpassword);
+                data.putString("sex",oldsex);
+                data.putString("signature",oldsignature);
                 data.putString("phone",phone);
                 intent.putExtras(data);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -163,7 +163,6 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                 data.putString("signature", sign);
                 intent.putExtras(data);
                 startActivity(intent);
-                finish();
             }
         });
        back.setOnClickListener(new View.OnClickListener() {
