@@ -135,17 +135,6 @@
             />
         <TextView
             android:background="@color/profile1"
-            android:id="@+id/profile_join"
-            android:text="1\n参与"
-            android:lines="3"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="0.0dip"
-            />
-        <TextView
-            android:background="@color/profile1"
             android:id="@+id/profile_star"
             android:text="234\n关注"
             android:lines="3"

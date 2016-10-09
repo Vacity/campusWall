@@ -98,12 +98,41 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
                     itemModel.setAcsponsT((String)dongTai.get("AcsponsT"));
                     itemModel.setActitle((String)dongTai.get("Actitle"));
                     itemModel.setIsliked((int) dongTai.get("Acisliked"));
+                    itemModel.setAcsponsorimg((String)dongTai.get("Acsponsorimg"));
+                    itemModel.setAcimgurl((String)dongTai.get("Acimgurl"));
+                    itemModel.setNiming((int)dongTai.get("niming"));
+                    itemModel.setAcsponsorid((int)dongTai.get("Acsponsorid"));
                     messageModel.add(itemModel);
                 }
                 message.what = StatusCode.REQUEST_SEARCH_SUCCESS;
                 handler.sendMessage(message);
                 return;
             } else {
+                message.what = StatusCode.STATUS_ERROR;
+                handler.sendMessage(message);
+                return;
+            }
+        }
+        //点赞请求的回复
+        if(requestUrl.equals(CommonUrl.star)){
+            JSONObject object = new JSONObject(result);
+            int code = Integer.valueOf(object.getString("code"));
+            if (code == StatusCode.REQUEST_ISSTAR) {                   //查询：赞过
+                message.what = StatusCode.REQUEST_ISSTAR;
+                handler.sendMessage(message);
+                return;
+            }else if(code == StatusCode.REQUEST_NOTSTAR){             //查询：没赞过
+                message.what = StatusCode.REQUEST_NOTSTAR;
+                handler.sendMessage(message);
+                return;
+            }else if(code == StatusCode.REQUEST_STAR_SUCCESS){       //进行点赞
+                this.onResume();
+                return;
+            }else if(code == StatusCode.REQUEST_UNSTAR_SUCCESS){    //取消点赞
+                this.onResume();
+                return;
+            }
+            else{
                 message.what = StatusCode.STATUS_ERROR;
                 handler.sendMessage(message);
                 return;
@@ -141,6 +170,14 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
                 }else{
                     Toast.makeText(this, "登陆后进行更多操作", Toast.LENGTH_LONG).show();
                 }
+                break;
+            case R.id.authorpic:
+                Intent intent = new Intent(showSearchActivity.this,Profile_Others.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                data.putInt("authorid",author);
+                intent.putExtras(data);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -194,6 +231,10 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
             map.put("starNum",messageModel.get(i).getAclikeN());
             map.put("author",messageModel.get(i).getAcsponsorname());
             map.put("time",messageModel.get(i).getAcsponsT());
+            map.put("userimg",messageModel.get(i).getAcsponsorimg());
+            map.put("image",messageModel.get(i).getAcimgurl());
+            map.put("niming",messageModel.get(i).getNiming());
+            map.put("authorid",messageModel.get(i).getAcsponsorid());
             //     map.put("image",R.drawable.XXXX);  可以加头像
             list.add(map);
         }

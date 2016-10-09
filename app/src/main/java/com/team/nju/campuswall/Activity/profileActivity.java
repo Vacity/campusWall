@@ -70,10 +70,10 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
 
     private netRequest requestFragment;
     ImageView photo;
+    ImageView gender;
     TextView username;
     TextView school;
     TextView product;
-    TextView join;
     TextView star;
     TextView signature;
 
@@ -106,12 +106,11 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
         phone = data.getString("phone");
 
         requestFragment = new netRequest(this, this);
-
+        gender=(ImageView)findViewById(R.id.picture_gender) ;
         changeprofile = (Button) findViewById(R.id.bt_edit);
         username = (TextView) findViewById(R.id.profile_username);
         school = (TextView) findViewById(R.id.profile_school);
         product = (TextView) findViewById(R.id.profile_product);
-        join = (TextView) findViewById(R.id.profile_join);
         star = (TextView) findViewById(R.id.profile_star);
         signature = (TextView) findViewById(R.id.profile_signature);
         back=(Button)findViewById(R.id.bt_exit);
@@ -158,17 +157,6 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                 Bundle data = new Bundle();
                 data.putString("phone", phone);
                 data.putString("info","product");
-                intent.putExtras(data);
-                startActivity(intent);
-            }
-        });
-       join.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(profileActivity.this,concernedActivity.class);
-                Bundle data = new Bundle();
-                data.putString("phone", phone);
-                data.putString("info","join");
                 intent.putExtras(data);
                 startActivity(intent);
             }
@@ -314,7 +302,10 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                     sign = userModel.getUsign();
                     sex = userModel.getUsex();
                     userurl=userModel.getUserurl();
-
+                    if(sex.equals("0"))
+                        gender.setImageResource(R.drawable.woman);
+                    else
+                        gender.setImageResource(R.drawable.man);
                     if(userurl!=null) {
                         Glide.with(getApplicationContext())
                                 .load(userurl).centerCrop()

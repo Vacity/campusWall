@@ -51,7 +51,7 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
         List<Map<String, Object>> list = getData();
         Bundle data = getIntent().getExtras();
         id = data.getInt("id");
-  
+
             comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

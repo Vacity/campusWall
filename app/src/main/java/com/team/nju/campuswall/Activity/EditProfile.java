@@ -65,6 +65,10 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
         oldsex=data.getString("sex");
 
         requestFragment=new  netRequest(this,this);
+        if(oldsex.equals("1"))
+            genderText.setText("男");
+        else
+            genderText.setText("女");
         genderText = (TextView) findViewById(R.id.tv_gender);
         genderText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,10 +111,11 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
                 newsignature=signature.getText().toString();
 
                 Map map = new HashMap();
-                map.put("phone",phone);
-                if(newpassword.length()==0)
-                map.put("password" ,oldpassword);
+                if(genderText.getText().toString().equals("男"))
+                map.put("sex","1");
                 else
+                map.put("sex","0");
+                map.put("phone",phone);
                 map.put("password",newpassword);
                 map.put("nickname",newnickname);
                 map.put("school","nju");

@@ -36,9 +36,7 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
     TextView star;
     TextView signature;
     UserModel userModel;
-    String phone;
     String nickname;
-    String password;
     String sex;
     String sign;
     String userurl;
@@ -73,19 +71,8 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
     private void initInfo() {
         Map map = new HashMap();
         map.put("type", StatusCode.REQUEST_AUTHOR_PHONE);
-        map.put("authorid", authorid);
-       // requestFragment.httpRequest(map, CommonUrl.);
-    }
-
-    private void setGenderPicture(int genderNum){
-        switch (genderNum){
-            case 1:
-                gender.setImageResource(R.drawable.man);
-                break;
-            case 0:
-                gender.setImageResource(R.drawable.woman);
-                break;
-        }
+        map.put("uid", authorid);
+        requestFragment.httpRequest(map, CommonUrl.getProfile);
     }
 
     @Override
@@ -96,8 +83,7 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
             int code = Integer.valueOf(object.getString("code"));
 
             if (code == StatusCode.REQUEST_AUTHOR_PHONE_SUCCESS) {
-                JSONObject content=new JSONObject(object.getString("contents"));
-                authorphone=content.getString("phone");
+                authorphone=object.getString("contents");
                 message.what=StatusCode.REQUEST_AUTHOR_PHONE_SUCCESS;
                 handler.sendMessage(message);
             }
@@ -118,7 +104,7 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
                 case StatusCode.REQUEST_AUTHOR_PHONE_SUCCESS:
                     //获得到了作者的手机，请求信息
                     Map map = new HashMap();
-                    map.put("phone", phone);
+                    map.put("phone",authorphone);
                     map.put("type", StatusCode.REQUEST_PROFILE);
                     requestFragment.httpRequest(map, CommonUrl.getProfile);
                     break;
@@ -128,6 +114,11 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
                     sign = userModel.getUsign();
                     sex = userModel.getUsex();
                     userurl=userModel.getUserurl();
+                    if(sex.equals("0"))
+                        gender.setImageResource(R.drawable.woman);
+                    else
+                        gender.setImageResource(R.drawable.man);
+
                     if(userurl!=null) {
                         Glide.with(getApplicationContext())
                                 .load(userurl).centerCrop()
