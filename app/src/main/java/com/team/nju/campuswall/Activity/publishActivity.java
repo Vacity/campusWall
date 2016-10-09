@@ -262,7 +262,14 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
                 Log.d("token",upToken);
                 handler.sendEmptyMessage(UPLOAD_TAKE_PICTURE);
                 return;
-            }else{
+            }else if(code==StatusCode.REQUEST_CREATE_NOPIC_SUCCESS){
+                //成功发布  返回主页面
+                Intent intent = new Intent(getApplicationContext(), mainActivity.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                intent.putExtras(data);
+                startActivity(intent);
+                finish();
                 return;
             }
         }
@@ -379,7 +386,7 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
                     map.put("title", titleText);
                     map.put("category", type);   //1，2，3分别对应
                     map.put("content", contentText);
-                    map.put("type", StatusCode.REQUEST_CREATE_MESSAGE);  //请求码
+                    map.put("type", StatusCode.REQUEST_CREATE_NOPIC);  //请求码
                     requestFragment.httpRequest(map, CommonUrl.publish);
                 }
                 default: //用户身份认证失败

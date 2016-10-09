@@ -33,7 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="热搜词：选课   微积分   旧书..."
+        android:text="热搜词：选课   微积分   校园卡..."
         android:textSize="20dp"/>
     <ListView
         android:id="@+id/searchresult"

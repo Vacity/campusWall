@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -61,8 +60,8 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
             }
         });
         hot = loadData();
-        lv.setAdapter(new ArrayAdapter<Object>(getApplicationContext(),
-                android.R.layout.simple_expandable_list_item_1, hot));
+//        lv.setAdapter(new ArrayAdapter<Object>(getApplicationContext(),
+//                android.R.layout.simple_expandable_list_item_1, hot));
         sv.setOnQueryTextListener(this);
         requestFragment=new  netRequest(this,this);
         int id = sv.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
@@ -118,7 +117,7 @@ public class showSearchActivity extends AppCompatActivity implements ListItemCli
     }
 
     @Override
-    public void onClick(View item, View widget, int position, int which, int id) {
+    public void onClick(View item, View widget, int position, int which, int id, int author) {
         tempAcid=id;
         switch (which) {
             case R.id.star:                 //点赞或者取消
