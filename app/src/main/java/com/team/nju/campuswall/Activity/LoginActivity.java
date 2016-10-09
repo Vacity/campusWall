@@ -4,15 +4,21 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Handler;
@@ -73,8 +79,12 @@ public class LoginActivity extends Activity implements NetworkCallbackInterface.
             }
         });
     }
-
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+        @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
         if (requestUrl.equals(CommonUrl.loginAccount)) {//返回登录请求
             JSONObject object = new JSONObject(result);

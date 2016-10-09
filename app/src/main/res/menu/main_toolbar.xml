@@ -9,15 +9,15 @@
 
     <item
         android:id="@+id/menu_publish"
-        android:icon="@drawable/write"
+        android:icon="@drawable/write2"
         android:title="publish"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_profile"
         android:icon="@drawable/profile"
-        android:title="profile"
-        app:showAsAction="ifRoom" />
+        android:title="profile4"
+        app:showAsAction="ifRoom"/>
 
 
 </menu>

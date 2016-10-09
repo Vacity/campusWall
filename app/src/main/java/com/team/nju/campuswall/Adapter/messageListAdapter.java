@@ -1,21 +1,14 @@
 package com.team.nju.campuswall.Adapter;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.team.nju.campuswall.Activity.signUpActivity;
 import com.team.nju.campuswall.App;
 import com.team.nju.campuswall.R;
 
@@ -88,7 +81,7 @@ public class messageListAdapter extends BaseAdapter {
         }
         if ((int) data.get(i).get("niming") == 1) {
             zujian.author.setText("匿名用户");
-            zujian.photo.setImageResource(R.drawable.photo);
+            zujian.photo.setImageResource(R.drawable.question);
         } else {
             zujian.author.setText((String) data.get(i).get("author"));
             if (data.get(i).get("userimg") == null)
@@ -100,6 +93,7 @@ public class messageListAdapter extends BaseAdapter {
             }
         }
         if (data.get(i).get("image") != null) {
+            zujian.image.setVisibility(View.VISIBLE);
             Glide.with(App.getContextObject())
                     .load((String) data.get(i).get("image")).centerCrop()
                     .into(zujian.image);
@@ -110,30 +104,31 @@ public class messageListAdapter extends BaseAdapter {
         zujian.remarkNum.setText(Integer.toString((int) data.get(i).get("remarkNum")));
         zujian.starNum.setText(Integer.toString((int) data.get(i).get("starNum")));
         if (((int) data.get(i).get("isLike")) == 1)
-            zujian.star.setImageResource(R.drawable.heart2);
+            zujian.star.setImageResource(R.drawable.heart22);
         final int id = (int) data.get(i).get("id");
         final int p = i;
         final int one = zujian.star.getId();
         final int two = zujian.remark.getId();
         final int three = zujian.photo.getId();
+        final int author=(int) data.get(i).get("authorid");
         final View convertView = view;
         zujian.star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onClick(convertView, viewGroup, p, one, id);
+                callback.onClick(convertView, viewGroup, p, one, id, author);
             }
         });
         zujian.remark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onClick(convertView, viewGroup, p, two, id);
+                callback.onClick(convertView, viewGroup, p, two, id, author);
             }
         });
         if ((int) data.get(i).get("niming") == 0) {
             zujian.photo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    callback.onClick(convertView, viewGroup, p, three, id);
+                    callback.onClick(convertView, viewGroup, p, three, id,author);
                 }
             });
         }

@@ -151,6 +151,39 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
         requestFragment.httpRequest(map, CommonUrl.getProfile);
 
         //监听
+        product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(profileActivity.this,concernedActivity.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                data.putString("info","product");
+                intent.putExtras(data);
+                startActivity(intent);
+            }
+        });
+       join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(profileActivity.this,concernedActivity.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                data.putString("info","join");
+                intent.putExtras(data);
+                startActivity(intent);
+            }
+        });
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(profileActivity.this,concernedActivity.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                data.putString("info","star");
+                intent.putExtras(data);
+                startActivity(intent);
+            }
+        });
         changeprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -292,7 +325,7 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                     if (!signature.equals(""))
                         signature.setText(sign);
                     else
-                        signature.setText("未填写");
+                        signature.setText("快添加签名和联系方式，认识更多朋友吧!");
                     break;
                 }
                 case TAKE_PICTURE:

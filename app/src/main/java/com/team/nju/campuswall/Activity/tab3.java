@@ -1,6 +1,5 @@
 package com.team.nju.campuswall.Activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.team.nju.campuswall.Adapter.ListItemClickHelp;
 import com.team.nju.campuswall.Adapter.messageListAdapter;
 import com.team.nju.campuswall.Model.MessageModel;
@@ -131,6 +128,7 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
             map.put("userimg",messageModel.get(i).getAcsponsorimg());
             map.put("image",messageModel.get(i).getAcimgurl());
             map.put("niming",messageModel.get(i).getNiming());
+            map.put("authorid",messageModel.get(i).getAcsponsorid());
             list.add(map);
         }
         return list;
@@ -174,6 +172,7 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     itemModel.setAcsponsorimg((String)dongTai.get("Acsponsorimg"));
                     itemModel.setAcimgurl((String)dongTai.get("Acimgurl"));
                     itemModel.setNiming((int)dongTai.get("niming"));
+                    itemModel.setAcsponsorid((int)dongTai.get("Acsponsorid"));
                     messageModel.add(itemModel);
                 }
                 message.what = StatusCode.REQUEST_MESSAGE_THING_SUCCESS;
@@ -232,7 +231,7 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
     }
 
     @Override
-    public void onClick(View item, View widget, int position, int which,int id) {
+    public void onClick(View item, View widget, int position, int which, int id, int author) {
         switch (which) {
             case R.id.star:
                 if(!(phone==null)) {
@@ -253,6 +252,14 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     startActivity(intent);
                 }else
                     Toast.makeText(this.getActivity(), "登陆后进行更多操作", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.authorpic:
+                Intent intent = new Intent(getActivity(), Profile_Others.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                data.putInt("authorid",author);
+                intent.putExtras(data);
+                startActivity(intent);
                 break;
             default:
                 break;

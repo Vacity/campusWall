@@ -1,13 +1,11 @@
 package com.team.nju.campuswall.Activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +14,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.team.nju.campuswall.Adapter.ListItemClickHelp;
 import com.team.nju.campuswall.Adapter.messageListAdapter;
 import com.team.nju.campuswall.Model.MessageModel;
-import com.team.nju.campuswall.Model.UserModel;
 import com.team.nju.campuswall.Network.NetworkCallbackInterface;
 import com.team.nju.campuswall.Network.StatusCode;
 import com.team.nju.campuswall.Network.netRequest;
@@ -37,7 +32,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -173,6 +167,7 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
             map.put("userimg",messageModel.get(i).getAcsponsorimg());
             map.put("image",messageModel.get(i).getAcimgurl());
             map.put("niming",messageModel.get(i).getNiming());
+            map.put("authorid",messageModel.get(i).getAcsponsorid());
             list.add(map);
         }
         return list;
@@ -217,6 +212,7 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                     itemModel.setAcsponsorimg((String)dongTai.get("Acsponsorimg"));
                     itemModel.setAcimgurl((String)dongTai.get("Acimgurl"));
                     itemModel.setNiming((int)dongTai.get("niming"));
+                    itemModel.setAcsponsorid((int)dongTai.get("Acsponsorid"));
                     messageModel.add(itemModel);
                 }
                 message.what = StatusCode.REQUEST_MESSAGE_SCHOOL_SUCCESS;
@@ -278,7 +274,7 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
 
     //listview中点赞和评论按钮点击的相应
     @Override
-    public void onClick(View item, View widget, int position, int which,int id) {
+    public void onClick(View item, View widget, int position, int which, int id, int authorid) {
         tempAcid=id;
         switch (which) {
             case R.id.star:                 //点赞或者取消
@@ -304,7 +300,11 @@ public class tab1 extends Fragment implements ListItemClickHelp,NetworkCallbackI
                 }
                 break;
             case R.id.authorpic:
-
+                Intent intent = new Intent(getActivity(),Profile_Others.class);
+                Bundle data = new Bundle();
+                data.putInt("authorid",authorid);
+                intent.putExtras(data);
+                startActivity(intent);
                 break;
             default:
                 break;
