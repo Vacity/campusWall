@@ -36,24 +36,35 @@ public class SingleEditProfile extends AppCompatActivity {
         save = (Button)findViewById(R.id.bt_save);
         et = (EditText) findViewById(R.id.tv_normal);
         title = (TextView) findViewById(R.id.text_title) ;
-        info = tv.getText().toString();
+        switch (src){
+            case "oldnickname":
+                et.setText(oldnickname);
+                title.setText("修改昵称");
+                break;
+            case "oldpassword":
+                et.setText(oldpassword);
+                title.setText("修改密码");
+                break;
+            case "oldsignature":
+                et.setText(oldsignature);
+                title.setText("修改个性签名");
+                break;
+        }
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                info = et.getText().toString();
                 Intent intent = new Intent(SingleEditProfile.this, EditProfile.class);
                 Bundle data = new Bundle();
                 switch (src){
                     case "oldnickname":
                         oldnickname = info;
-                        title.setText("修改昵称");
                         break;
                     case "oldpassword":
                         oldpassword = info;
-                        title.setText("修改密码");
                         break;
                     case "oldsignature":
                         oldsignature = info;
-                        title.setText("修改个性签名");
                         break;
                 }
                 data.putString("oldnickname",oldnickname);
