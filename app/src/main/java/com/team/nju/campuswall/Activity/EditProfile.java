@@ -38,6 +38,7 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
     private Button save;
     private Button exit;
 
+    private String src;
     private String phone;
     private String oldnickname;
     private String oldpassword;
@@ -80,6 +81,24 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
         password.setText("");
         signature.setText(oldsignature);
 
+        nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendSrc("oldnickname");
+            }
+        });
+        password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendSrc("oldpassword");
+            }
+        });
+        signature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendSrc("oldsignature");
+            }
+        });
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,5 +171,18 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
     @Override
     public void exception(IOException e, String requestUrl){
 
+    }
+
+    private void sendSrc(String SendSrc){
+        Intent intent = new Intent(EditProfile.this, SingleEditProfile.class);
+        Bundle data = new Bundle();
+        data.putString("src", SendSrc);
+        data.putString("oldnickname",oldnickname);
+        data.putString("oldpassword",oldpassword);
+        data.putString("oldsex",oldsex);
+        data.putString("oldsignature",oldsignature);
+        data.putString("phone",phone);
+        intent.putExtras(data);
+        startActivity(intent);
     }
 }
