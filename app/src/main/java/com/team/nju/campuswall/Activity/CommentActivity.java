@@ -51,19 +51,13 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
         List<Map<String, Object>> list = getData();
         Bundle data = getIntent().getExtras();
         id = data.getInt("id");
-        if (list == null) {
-            comment();
-        } else {
-            listView.setAdapter(new CommentListAdapter(this, list));
-            commentList = new ArrayList<CommentModel>();
-
+  
             comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     comment();
                 }
             });
-        }
 
         ret.setOnClickListener(new View.OnClickListener() {
             @Override
