@@ -7,6 +7,24 @@ public class CommentModel {
     int Commentid;
     String Comertel;
     String Comcontent;
+    String Comerimgurl;
+    String ComerUalais;
+
+    public String getComerimgurl() {
+        return Comerimgurl;
+    }
+
+    public void setComerimgurl(String comerimgurl) {
+        Comerimgurl = comerimgurl;
+    }
+
+    public String getComerUalais() {
+        return ComerUalais;
+    }
+
+    public void setComerUalais(String comerUalais) {
+        ComerUalais = comerUalais;
+    }
 
     public String getComertel() {
         return Comertel;

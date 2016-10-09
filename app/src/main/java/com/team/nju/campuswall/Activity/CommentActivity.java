@@ -47,10 +47,13 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
         final Button comment = (Button) findViewById(R.id.tv_comment);
         final Button ret = (Button) findViewById(R.id.bt_exit);
         listView = (ListView) findViewById(R.id.commentList);
+        commentList = new ArrayList<CommentModel>();
         requestFragment=new netRequest(this, this);
         List<Map<String, Object>> list = getData();
         Bundle data = getIntent().getExtras();
         id = data.getInt("id");
+
+        initInfo();
 
             comment.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,7 +65,13 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
         ret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), mainActivity.class);
+                Bundle data = new Bundle();
+                data.putString("phone", phone);
+                intent.putExtras(data);
+                startActivity(intent);
                 finish();
+                return;
             }
         });
 
@@ -93,14 +102,16 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
 
     public List<Map<String, Object>> getData() {
         List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
-        if (commentList == null) {
-            return null;
-        }
+//        if (commentList == null) {
+//            return null;
+//        }
         for (int i = 0; i < commentList.size(); i++) {
             Map<String, Object> map=new HashMap<String, Object>();
             map.put("commentid", commentList.get(i).getCommentid());
             map.put("comertel", commentList.get(i).getComertel());
             map.put("comcontent", commentList.get(i).getComcontent());
+            map.put("comerimgurl", commentList.get(i).getComerimgurl());
+            map.put("comerUalais", commentList.get(i).getComerUalais());
             list.add(map);
         }
         return list;
@@ -108,6 +119,7 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
 
     @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
+        commentList = new ArrayList<CommentModel>();
         Message message = new Message();
         if (requestUrl.equals(CommonUrl.comment)) {
             JSONObject object = new JSONObject(result);
@@ -120,6 +132,9 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
                     itemModel.setCommentid((int) comment.get("Commentid"));
                     itemModel.setComertel((String) comment.get("Comertel"));
                     itemModel.setComcontent((String) comment.get("Comcontent"));
+                    itemModel.setComerimgurl((String) comment.get("Comerimgurl"));
+                    itemModel.setComerUalais((String) comment.get("ComerUalais"));
+                    commentList.add(itemModel);
                 }
                 message.what = StatusCode.REQUEST_ASK_COMMENT_SUCCESS;
                 handler.sendMessage(message);
@@ -142,7 +157,7 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
    private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == StatusCode.REQUEST_ASK_COMMENT_ERROR) {
+            if (msg.what == StatusCode.REQUEST_ASK_COMMENT_SUCCESS) {
                 List<Map<String, Object>> list = getData();
                 listView.setAdapter(new CommentListAdapter(CommentActivity.this, list));
             } else if (msg.what == StatusCode.REQUEST_ASK_COMMENT_ERROR){

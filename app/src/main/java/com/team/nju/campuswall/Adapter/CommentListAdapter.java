@@ -1,6 +1,9 @@
 package com.team.nju.campuswall.Adapter;
 
 import android.content.Context;
+
+import com.bumptech.glide.Glide;
+import com.team.nju.campuswall.App;
 import com.team.nju.campuswall.R;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,8 +80,18 @@ public class CommentListAdapter extends BaseAdapter{
         }
         //绑定数据
 
-        widget.name.setText((String)data.get(position).get("comertel"));
+        widget.name.setText((String)data.get(position).get("comerUalais"));
         widget.info.setText((String)data.get(position).get("comcontent"));
+//        Glide.with(App.getContextObject())
+//                .load((String) data.get(position).get("comerimgurl")).centerCrop()
+//                .into(widget.photo);
+        if (data.get(position).get("comerimgurl") == null)
+            widget.photo.setImageResource(R.drawable.photo);
+        else {
+            Glide.with(App.getContextObject())
+                    .load((String) data.get(position).get("comerimgurl")).centerCrop()
+                    .into(widget.photo);
+        }
         return convertView;
     }
 }
