@@ -2,24 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:background="#1fc4c6"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:weightSum="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="取消"
+
+        <Button
+            android:background="@android:color/transparent"
             android:id="@+id/tv_cancel"
-            android:layout_gravity="left"
-            android:gravity="center"
-            android:paddingLeft="8dp"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="取消"
+            android:textColor="#ffffff"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,21 +33,17 @@
             android:layout_centerHorizontal="true"
             android:textSize="22sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="发送"
+
+        <Button
+            android:background="@android:color/transparent"
             android:id="@+id/tv_send"
-            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            android:padding="4dp"
-            android:textColor="@color/darkGrey"
-            android:background="@drawable/button"
-            android:textSize="16sp" />
+            android:layout_centerVertical="true"
+            android:text="发表"
+            android:textColor="#ffffff"
+            android:textSize="20dp"/>
 
     </RelativeLayout>
 

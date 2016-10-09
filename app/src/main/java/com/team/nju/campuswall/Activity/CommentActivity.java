@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,31 +41,46 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TextView comment = (TextView) findViewById(R.id.tv_comment);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+
+        final Button comment = (Button) findViewById(R.id.tv_comment);
+        final Button ret = (Button) findViewById(R.id.bt_exit);
         listView = (ListView) findViewById(R.id.commentList);
-        List<Map<String, Object>> list = getData();
-        listView.setAdapter(new CommentListAdapter(this, list));
-
-        Bundle data = getIntent().getExtras();
-        id = data.getInt("id");
-        commentList = new ArrayList<CommentModel>();
         requestFragment=new netRequest(this, this);
+        List<Map<String, Object>> list = getData();
+        if (list == null) {
+            comment();
+        } else {
+            listView.setAdapter(new CommentListAdapter(this, list));
+            Bundle data = getIntent().getExtras();
+            id = data.getInt("id");
+            commentList = new ArrayList<CommentModel>();
 
-        comment.setOnClickListener(new View.OnClickListener() {
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    comment();
+                }
+            });
+        }
+
+        ret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CommentActivity.this, CommentDetailActivity.class);
-                Bundle data = new Bundle();
-                data.putString("phone", phone);
-                data.putInt("id",id);
-                intent.putExtras(data);
-                startActivity(intent);
+                finish();
             }
         });
 
+    }
+
+    private void comment() {
+        Intent intent = new Intent(CommentActivity.this, CommentDetailActivity.class);
+        Bundle data = new Bundle();
+        data.putString("phone", phone);
+        data.putInt("id",id);
+        intent.putExtras(data);
+        startActivity(intent);
     }
 
     private void initInfo() {
@@ -83,6 +99,9 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
 
     public List<Map<String, Object>> getData() {
         List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
+        if (commentList == null) {
+            return null;
+        }
         for (int i = 0; i < commentList.size(); i++) {
             Map<String, Object> map=new HashMap<String, Object>();
             map.put("commentid", commentList.get(i).getCommentid());

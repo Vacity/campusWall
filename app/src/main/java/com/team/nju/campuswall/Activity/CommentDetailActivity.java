@@ -34,12 +34,12 @@ public class CommentDetailActivity extends AppCompatActivity implements NetworkC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final TextView cancel = (TextView) findViewById(R.id.tv_cancel);
-        final TextView send = (TextView) findViewById(R.id.tv_send);
-        final EditText commentContent = (EditText) findViewById(R.id.et_comment_content);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_detail);
+
+        final Button cancel = (Button) findViewById(R.id.tv_cancel);
+        final Button send = (Button) findViewById(R.id.tv_send);
+        final EditText commentContent = (EditText) findViewById(R.id.et_comment_content);
 
         Bundle data = getIntent().getExtras();
         id = data.getInt("id");
@@ -53,12 +53,13 @@ public class CommentDetailActivity extends AppCompatActivity implements NetworkC
             @Override
             public void onClick(View v) {
                 cancel.setTextColor(getResources().getColor(R.color.colorPrimary));
-                Intent intent = new Intent(CommentDetailActivity.this, CommentActivity.class);
-                Bundle data = new Bundle();
-                data.putString("phone", phone);
-                data.putInt("id",id);
-                intent.putExtras(data);
-                startActivity(intent);
+//                Intent intent = new Intent(CommentDetailActivity.this, CommentActivity.class);
+//                Bundle data = new Bundle();
+//                data.putString("phone", phone);
+//                data.putInt("id",id);
+//                intent.putExtras(data);
+//                startActivity(intent);
+                finish();
             }
         });
 
@@ -94,7 +95,14 @@ public class CommentDetailActivity extends AppCompatActivity implements NetworkC
                 map.put("phone", phone);
                 map.put("acid", id);
                 map.put("comment", commentContent.getText().toString());
-                requestFragment.httpRequest(map, CommonUrl.star);
+                requestFragment.httpRequest(map, CommonUrl.comment);
+//                Intent intent = new Intent(CommentDetailActivity.this, CommentActivity.class);
+//                Bundle data = new Bundle();
+//                data.putString("phone", phone);
+//                data.putInt("id",id);
+//                intent.putExtras(data);
+//                startActivity(intent);
+
             }
         });
 
@@ -112,6 +120,7 @@ public class CommentDetailActivity extends AppCompatActivity implements NetworkC
                 data.putInt("id",id);
                 intent.putExtras(data);
                 startActivity(intent);
+                finish();
             }
             else {
                 Toast.makeText(CommentDetailActivity.this, "网络错误", Toast.LENGTH_LONG).show();

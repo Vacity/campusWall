@@ -3,19 +3,52 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:background="#1fc4c6"
+        android:id="@+id/layout_titlebar"
+        android:layout_height="52dp"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="评论"
-        android:id="@+id/tv_comment"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/button"
-        android:layout_marginEnd="1dp"
-        android:padding="4dp"
-        android:layout_gravity="right"
-        android:gravity="center"/>
+
+        <TextView
+            android:ellipsize="marquee"
+            android:id="@+id/text_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="评论列表"
+            android:textColor="#ffffffff"
+            android:textSize="20dp"/>
+
+        <Button
+            android:background="@android:color/transparent"
+            android:id="@+id/bt_exit"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/bt_exit"
+            android:drawablePadding="-10dp"
+            android:text="返回"
+            android:textColor="#ffffff"
+            android:textSize="20dp"/>
+
+
+        <Button
+            android:background="@android:color/transparent"
+            android:id="@+id/tv_comment"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="评论"
+            android:textColor="#ffffff"
+            android:textSize="20dp"/>
+
+    </RelativeLayout>
 
     <ListView
     android:id="@+id/commentList"
