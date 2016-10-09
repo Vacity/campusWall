@@ -49,12 +49,12 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
         listView = (ListView) findViewById(R.id.commentList);
         requestFragment=new netRequest(this, this);
         List<Map<String, Object>> list = getData();
+        Bundle data = getIntent().getExtras();
+        id = data.getInt("id");
         if (list == null) {
             comment();
         } else {
             listView.setAdapter(new CommentListAdapter(this, list));
-            Bundle data = getIntent().getExtras();
-            id = data.getInt("id");
             commentList = new ArrayList<CommentModel>();
 
             comment.setOnClickListener(new View.OnClickListener() {
@@ -123,9 +123,9 @@ public class CommentActivity extends Activity implements NetworkCallbackInterfac
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject comment = jsonArray.getJSONObject(i);
                     CommentModel itemModel = new CommentModel();
-                    itemModel.setCommentid((int) comment.get("commentid"));
-                    itemModel.setComertel((String) comment.get("comertel"));
-                    itemModel.setComcontent((String) comment.get("comcontent"));
+                    itemModel.setCommentid((int) comment.get("Commentid"));
+                    itemModel.setComertel((String) comment.get("Comertel"));
+                    itemModel.setComcontent((String) comment.get("Comcontent"));
                 }
                 message.what = StatusCode.REQUEST_ASK_COMMENT_SUCCESS;
                 handler.sendMessage(message);

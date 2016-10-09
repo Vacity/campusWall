@@ -21,8 +21,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class signUpActivity extends Activity implements NetworkCallbackInterface.NetRequestIterface{
     private netRequest requestFragment;
@@ -55,6 +57,12 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
                 phone = ((EditText) findViewById(R.id.input_phone)).getText().toString();
                 String username = ((EditText) findViewById(R.id.input_account)).getText().toString();
                 String password = ((EditText) findViewById(R.id.input_password)).getText().toString();
+                boolean isDigit = isInteger(username);
+                if (!isDigit) {
+                    //手机号码有误
+                    Toast.makeText(signUpActivity.this, "手机号码格式不正确", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                     if (!phone.equals("") && !username.equals("") && !password.equals("")) {
                         // 正确注册
@@ -80,6 +88,8 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
         });
 
     }
+
+
 
     @Override
     public void requestFinish(String result, String requestUrl) throws JSONException {
@@ -112,6 +122,11 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
     @Override
     public void exception(IOException e, String requestUrl) {
 
+    }
+
+    private boolean isInteger(String str) {
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(str).matches();
     }
 }
 

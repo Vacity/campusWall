@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,6 +91,7 @@ public class CommentDetailActivity extends AppCompatActivity implements NetworkC
             @Override
             public void onClick(View v) {
                 //TODO 发送评论
+                Log.d("id",Integer.toString(id));
                 Map map = new HashMap();
                 map.put("type", StatusCode.REQUEST_COMMENT);
                 map.put("phone", phone);
