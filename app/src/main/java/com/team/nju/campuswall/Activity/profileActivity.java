@@ -306,7 +306,7 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                         gender.setImageResource(R.drawable.woman);
                     else
                         gender.setImageResource(R.drawable.man);
-                    if(userurl!=null) {
+                    if(userurl.length()>0) {
                         Glide.with(getApplicationContext())
                                 .load(userurl).centerCrop()
                                 .into(photo);

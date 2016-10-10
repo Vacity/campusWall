@@ -85,7 +85,7 @@ public class CommentListAdapter extends BaseAdapter{
 //        Glide.with(App.getContextObject())
 //                .load((String) data.get(position).get("comerimgurl")).centerCrop()
 //                .into(widget.photo);
-        if (data.get(position).get("comerimgurl") == null)
+        if (!(((String)data.get(position).get("userimg")).length()>0))
             widget.photo.setImageResource(R.drawable.photo);
         else {
             Glide.with(App.getContextObject())

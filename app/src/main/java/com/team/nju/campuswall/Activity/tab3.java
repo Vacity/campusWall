@@ -232,6 +232,7 @@ public class tab3 extends Fragment implements ListItemClickHelp,NetworkCallbackI
 
     @Override
     public void onClick(View item, View widget, int position, int which, int id, int author) {
+        tempAcid=id;
         switch (which) {
             case R.id.star:
                 if(!(phone==null)) {

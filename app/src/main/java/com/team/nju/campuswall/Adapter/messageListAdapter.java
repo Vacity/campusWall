@@ -1,6 +1,7 @@
 package com.team.nju.campuswall.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,8 +85,9 @@ public class messageListAdapter extends BaseAdapter {
             zujian.photo.setImageResource(R.drawable.question);
         } else {
             zujian.author.setText((String) data.get(i).get("author"));
-            if (data.get(i).get("userimg") == null)
+            if (!(((String)data.get(i).get("userimg")).length()>0)) {
                 zujian.photo.setImageResource(R.drawable.photo);
+            }
             else {
                 Glide.with(App.getContextObject())
                         .load((String) data.get(i).get("userimg")).centerCrop()

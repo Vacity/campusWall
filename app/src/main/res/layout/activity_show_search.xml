@@ -13,7 +13,7 @@
         <SearchView
             android:id="@+id/search"
             android:gravity="left"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:queryHint="输入关键词搜索"
             android:iconifiedByDefault="false"
@@ -33,7 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="热搜词：选课   微积分   校园卡..."
+        android:text="热搜词：选课   微积分   校园卡   表白\n                 男神   保研   兼职..."
         android:textSize="20dp"/>
     <ListView
         android:id="@+id/searchresult"
