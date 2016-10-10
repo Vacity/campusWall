@@ -83,7 +83,7 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
     String phone;
     String nickname;
     String password;
-    String sex;
+    boolean sex;
     String sign;
     String userurl;
     TextView take_picture;
@@ -179,7 +179,7 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                 Bundle data = new Bundle();
                 data.putString("phone", phone);
                 data.putString("nickname", nickname);
-                data.putString("sex", sex);
+                data.putBoolean("sex", sex);
                 data.putString("password", password);
                 data.putString("signature", sign);
                 intent.putExtras(data);
@@ -302,7 +302,7 @@ public class profileActivity extends Activity implements NetworkCallbackInterfac
                     sign = userModel.getUsign();
                     sex = userModel.getUsex();
                     userurl=userModel.getUserurl();
-                    if(sex.equals("0"))
+                    if(!sex)
                         gender.setImageResource(R.drawable.woman);
                     else
                         gender.setImageResource(R.drawable.man);

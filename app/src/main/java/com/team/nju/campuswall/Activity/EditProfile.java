@@ -43,7 +43,7 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
     private String oldnickname;
     private String oldpassword;
     private String oldsignature;
-    private String oldsex;
+    private boolean oldsex;
     private String newsex;
     private String newnickname;
     private String newpassword;
@@ -62,13 +62,10 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
         oldnickname=data.getString("nickname");
         oldpassword=data.getString("password");
         oldsignature=data.getString("signature");
-        oldsex=data.getString("sex");
+        oldsex=data.getBoolean("sex");
 
         requestFragment=new  netRequest(this,this);
-        if(oldsex.equals("1"))
-            genderText.setText("男");
-        else
-            genderText.setText("女");
+
         genderText = (TextView) findViewById(R.id.tv_gender);
         genderText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +78,11 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
         nickname =(TextView)findViewById(R.id.tv_nickname);
         password =(TextView)findViewById(R.id.tv_password);
         signature=(TextView)findViewById(R.id.tv_signature);
+
+        if(oldsex)
+            genderText.setText("男");
+        else
+            genderText.setText("女");
         nickname.setText(oldnickname);
         password.setText(oldpassword);
         signature.setText(oldsignature);
@@ -112,9 +114,9 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
 
                 Map map = new HashMap();
                 if(genderText.getText().toString().equals("男"))
-                map.put("sex","1");
+                map.put("sex",true);
                 else
-                map.put("sex","0");
+                map.put("sex",false);
                 map.put("phone",phone);
                 map.put("password",newpassword);
                 map.put("nickname",newnickname);
@@ -184,7 +186,7 @@ public class EditProfile extends AppCompatActivity implements NetworkCallbackInt
         data.putString("src", SendSrc);
         data.putString("nickname",oldnickname);
         data.putString("password",oldpassword);
-        data.putString("sex",oldsex);
+        data.putBoolean("sex",oldsex);
         data.putString("signature",oldsignature);
         data.putString("phone",phone);
         intent.putExtras(data);

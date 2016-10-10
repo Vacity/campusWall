@@ -82,7 +82,7 @@ public class publishActivity extends AppCompatActivity implements NetworkCallbac
     prepublishModel pm;
     RadioButton niming;
     int isniming;
-    Boolean ispic;
+    Boolean ispic=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

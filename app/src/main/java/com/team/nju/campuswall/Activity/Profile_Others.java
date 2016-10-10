@@ -34,7 +34,7 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
     TextView signature;
     UserModel userModel;
     String nickname;
-    String sex;
+    boolean sex;
     String sign;
     String userurl;
     private String authorphone;
@@ -48,6 +48,7 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
         exit = (Button)findViewById(R.id.bt_exit);
         username = (TextView) findViewById(R.id.profile_username);
         signature = (TextView) findViewById(R.id.profile_signature);
+        photo = (ImageView) findViewById(R.id.photo);
         requestFragment=new netRequest(this,this);
 
         exit.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +109,7 @@ public class Profile_Others extends AppCompatActivity implements NetworkCallback
                     sign = userModel.getUsign();
                     sex = userModel.getUsex();
                     userurl=userModel.getUserurl();
-                    if(sex.equals("0"))
+                    if(!sex)
                         gender.setImageResource(R.drawable.woman);
                     else
                         gender.setImageResource(R.drawable.man);

@@ -13,7 +13,7 @@ public class UserModel {
     String Ualais;
     String Uscore;
     String Ubirthday;
-    String Usex;
+    boolean Usex;
     String Uschool;
     String Uid;
     String Userurl;
@@ -106,11 +106,11 @@ public class UserModel {
         Usign = usign;
     }
 
-    public String getUsex() {
+    public boolean getUsex() {
         return Usex;
     }
 
-    public void setUsex(String usex) {
+    public void setUsex(boolean usex) {
         Usex = usex;
     }
 

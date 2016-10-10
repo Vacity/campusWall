@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/profile_username"
-                android:text="某某某某某"
+                android:text="昵称"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:layout_centerInParent="true"
@@ -125,7 +125,7 @@
         <TextView
             android:background="@color/profile1"
             android:id="@+id/profile_product"
-            android:text="123\n发布"
+            android:text="我的\n发布"
             android:lines="3"
             android:textSize="20dp"
             android:gravity="center"
@@ -136,7 +136,7 @@
         <TextView
             android:background="@color/profile1"
             android:id="@+id/profile_star"
-            android:text="234\n关注"
+            android:text="我的\n关注"
             android:lines="3"
             android:textSize="20dp"
             android:gravity="center"
@@ -152,7 +152,7 @@
             android:layout_marginTop="40dp"
             android:textSize="20dp"
             android:id="@+id/profile_signature"
-            android:text="QQ:879950363  wechat:......."/>
+            android:text="快添加签名和联系方式，认识更多朋友吧!"/>
         <TextView />
 
     </TableRow>

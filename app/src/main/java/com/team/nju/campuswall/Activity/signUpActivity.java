@@ -57,7 +57,7 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
                 phone = ((EditText) findViewById(R.id.input_phone)).getText().toString();
                 String username = ((EditText) findViewById(R.id.input_account)).getText().toString();
                 String password = ((EditText) findViewById(R.id.input_password)).getText().toString();
-                boolean isDigit = isInteger(username);
+                boolean isDigit = isInteger(phone);
                 if (!isDigit) {
                     //手机号码有误
                     Toast.makeText(signUpActivity.this, "手机号码格式不正确", Toast.LENGTH_LONG).show();
@@ -125,8 +125,12 @@ public class signUpActivity extends Activity implements NetworkCallbackInterface
     }
 
     private boolean isInteger(String str) {
-        Pattern pattern = Pattern.compile("[0-9]*");
-        return pattern.matcher(str).matches();
+        Boolean result=true;
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)<'0'||str.charAt(i)>'9')
+                result=false;
+        }
+        return  result;
     }
 }
 

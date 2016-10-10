@@ -22,7 +22,7 @@ public class SingleEditProfile extends AppCompatActivity {
     private String oldnickname;
     private String oldpassword;
     private String oldsignature;
-    private String oldsex;
+    private boolean oldsex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class SingleEditProfile extends AppCompatActivity {
         oldnickname=data.getString("nickname");
         oldpassword=data.getString("password");
         oldsignature=data.getString("signature");
-        oldsex=data.getString("sex");
+        oldsex=data.getBoolean("sex");
         save = (Button)findViewById(R.id.bt_save);
         title = (TextView) findViewById(R.id.text_title) ;
         switch (src){
@@ -70,7 +70,7 @@ public class SingleEditProfile extends AppCompatActivity {
                 }
                 data.putString("nickname",oldnickname);
                 data.putString("password",oldpassword);
-                data.putString("sex",oldsex);
+                data.putBoolean("sex",oldsex);
                 data.putString("signature",oldsignature);
                 data.putString("phone",phone);
                 intent.putExtras(data);
